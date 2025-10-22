@@ -168,188 +168,214 @@ export function ProfileDisplay({ onEdit }: ProfileDisplayProps) {
                 </div>
               </div>
 
-              <div className="space-y-4 mb-8">
+              <div className="grid gap-4 mb-8">
                 {profile.baptism_date && (
-                  <div className="flex items-start gap-3 p-4 bg-gray-50 rounded-xl">
-                    <Calendar
-                      className="w-6 h-6 mt-0.5 flex-shrink-0"
-                      style={{ color: profile.primary_color }}
-                    />
-                    <div>
-                      <p className="text-sm font-semibold text-gray-600">Data de Batismo</p>
-                      <p className="text-gray-800 font-medium">
-                        {new Date(profile.baptism_date).toLocaleDateString('pt-BR')}
-                      </p>
+                  <div className="group relative overflow-hidden rounded-2xl p-6 bg-gradient-to-br from-card via-card to-muted/20 border border-border shadow-sm hover:shadow-md transition-all duration-300">
+                    <div className="flex items-start gap-4">
+                      <div className="p-3 rounded-xl bg-gradient-to-br from-primary/10 to-primary/5 group-hover:from-primary/20 group-hover:to-primary/10 transition-colors">
+                        <Calendar
+                          className="w-6 h-6"
+                          style={{ color: profile.primary_color }}
+                        />
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-sm font-semibold text-muted-foreground mb-1">Data de Batismo</p>
+                        <p className="text-lg font-bold text-foreground">
+                          {new Date(profile.baptism_date).toLocaleDateString('pt-BR', {
+                            day: 'numeric',
+                            month: 'long',
+                            year: 'numeric'
+                          })}
+                        </p>
+                      </div>
                     </div>
+                    <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-primary/5 to-transparent rounded-bl-full"></div>
                   </div>
                 )}
 
                 {profile.parish && (
-                  <div className="flex items-start gap-3 p-4 bg-gray-50 rounded-xl">
-                    <Church
-                      className="w-6 h-6 mt-0.5 flex-shrink-0"
-                      style={{ color: profile.primary_color }}
-                    />
-                    <div>
-                      <p className="text-sm font-semibold text-gray-600">Paróquia</p>
-                      <p className="text-gray-800 font-medium">{profile.parish}</p>
+                  <div className="group relative overflow-hidden rounded-2xl p-6 bg-gradient-to-br from-card via-card to-muted/20 border border-border shadow-sm hover:shadow-md transition-all duration-300">
+                    <div className="flex items-start gap-4">
+                      <div className="p-3 rounded-xl bg-gradient-to-br from-primary/10 to-primary/5 group-hover:from-primary/20 group-hover:to-primary/10 transition-colors">
+                        <Church
+                          className="w-6 h-6"
+                          style={{ color: profile.primary_color }}
+                        />
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-sm font-semibold text-muted-foreground mb-1">Paróquia</p>
+                        <p className="text-lg font-bold text-foreground">{profile.parish}</p>
+                      </div>
                     </div>
+                    <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-primary/5 to-transparent rounded-bl-full"></div>
                   </div>
                 )}
 
                 {profile.pastorals && profile.pastorals.length > 0 && (
-                  <div className="flex items-start gap-3 p-4 bg-gray-50 rounded-xl">
-                    <Sparkles
-                      className="w-6 h-6 mt-0.5 flex-shrink-0"
-                      style={{ color: profile.secondary_color }}
-                    />
-                    <div className="flex-1">
-                      <p className="text-sm font-semibold text-gray-600 mb-2">
-                        {profile.pastorals.length === 1 ? 'Pastoral' : 'Pastorais'}
-                      </p>
-                      <div className="flex flex-wrap gap-2">
-                        {profile.pastorals.map((pastoral, index) => (
-                          <span
-                            key={index}
-                            className="inline-block px-3 py-1 rounded-lg text-sm font-medium text-gray-800"
-                            style={{
-                              backgroundColor: `${profile.secondary_color}20`,
-                              borderLeft: `3px solid ${profile.secondary_color}`
-                            }}
-                          >
-                            {pastoral}
-                          </span>
-                        ))}
+                  <div className="group relative overflow-hidden rounded-2xl p-6 bg-gradient-to-br from-card via-card to-muted/20 border border-border shadow-sm hover:shadow-md transition-all duration-300">
+                    <div className="flex items-start gap-4">
+                      <div className="p-3 rounded-xl bg-gradient-to-br from-secondary/10 to-secondary/5 group-hover:from-secondary/20 group-hover:to-secondary/10 transition-colors">
+                        <Sparkles
+                          className="w-6 h-6"
+                          style={{ color: profile.secondary_color }}
+                        />
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-sm font-semibold text-muted-foreground mb-3">
+                          {profile.pastorals.length === 1 ? 'Pastoral' : 'Pastorais'}
+                        </p>
+                        <div className="flex flex-wrap gap-2">
+                          {profile.pastorals.map((pastoral, index) => (
+                            <span
+                              key={index}
+                              className="inline-flex items-center px-4 py-2 rounded-xl text-sm font-semibold bg-gradient-to-r from-secondary/10 to-secondary/5 border-l-4 hover:from-secondary/15 hover:to-secondary/10 transition-colors"
+                              style={{ borderColor: profile.secondary_color }}
+                            >
+                              {pastoral}
+                            </span>
+                          ))}
+                        </div>
                       </div>
                     </div>
+                    <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-secondary/5 to-transparent rounded-bl-full"></div>
                   </div>
                 )}
 
                 {profile.priest_name && (
-                  <div className="flex items-start gap-3 p-4 bg-gray-50 rounded-xl">
-                    <Cross
-                      className="w-6 h-6 mt-0.5 flex-shrink-0"
-                      style={{ color: profile.secondary_color }}
-                    />
-                    <div>
-                      <p className="text-sm font-semibold text-gray-600">Pároco</p>
-                      <p className="text-gray-800 font-medium">{profile.priest_name}</p>
+                  <div className="group relative overflow-hidden rounded-2xl p-6 bg-gradient-to-br from-card via-card to-muted/20 border border-border shadow-sm hover:shadow-md transition-all duration-300">
+                    <div className="flex items-start gap-4">
+                      <div className="p-3 rounded-xl bg-gradient-to-br from-secondary/10 to-secondary/5 group-hover:from-secondary/20 group-hover:to-secondary/10 transition-colors">
+                        <Cross
+                          className="w-6 h-6"
+                          style={{ color: profile.secondary_color }}
+                        />
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-sm font-semibold text-muted-foreground mb-1">Pároco</p>
+                        <p className="text-lg font-bold text-foreground">{profile.priest_name}</p>
+                      </div>
                     </div>
+                    <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-secondary/5 to-transparent rounded-bl-full"></div>
                   </div>
                 )}
 
                 {profile.sacraments && profile.sacraments.length > 0 && (
-                  <div className="flex items-start gap-3 p-4 bg-gray-50 rounded-xl">
-                    <Award
-                      className="w-6 h-6 mt-0.5 flex-shrink-0"
-                      style={{ color: profile.secondary_color }}
-                    />
-                    <div className="flex-1">
-                      <p className="text-sm font-semibold text-gray-600 mb-2">
-                        Sacramentos Recebidos ({profile.sacraments.length})
-                      </p>
-                      <div className="flex flex-wrap gap-2">
-                        {profile.sacraments.map((sacrament, index) => (
-                          <span
-                            key={index}
-                            className="inline-block px-3 py-1 rounded-lg text-sm font-medium text-gray-800"
-                            style={{
-                              backgroundColor: `${profile.secondary_color}20`,
-                              borderLeft: `3px solid ${profile.secondary_color}`
-                            }}
-                          >
-                            {getSacramentLabel(sacrament)}
-                          </span>
-                        ))}
+                  <div className="group relative overflow-hidden rounded-2xl p-6 bg-gradient-to-br from-card via-card to-muted/20 border border-border shadow-sm hover:shadow-md transition-all duration-300">
+                    <div className="flex items-start gap-4">
+                      <div className="p-3 rounded-xl bg-gradient-to-br from-secondary/10 to-secondary/5 group-hover:from-secondary/20 group-hover:to-secondary/10 transition-colors">
+                        <Award
+                          className="w-6 h-6"
+                          style={{ color: profile.secondary_color }}
+                        />
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-sm font-semibold text-muted-foreground mb-3">
+                          Sacramentos Recebidos ({profile.sacraments.length})
+                        </p>
+                        <div className="flex flex-wrap gap-2">
+                          {profile.sacraments.map((sacrament, index) => (
+                            <span
+                              key={index}
+                              className="inline-flex items-center px-4 py-2 rounded-xl text-sm font-semibold bg-gradient-to-r from-secondary/10 to-secondary/5 border-l-4 hover:from-secondary/15 hover:to-secondary/10 transition-colors"
+                              style={{ borderColor: profile.secondary_color }}
+                            >
+                              {getSacramentLabel(sacrament)}
+                            </span>
+                          ))}
+                        </div>
                       </div>
                     </div>
+                    <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-secondary/5 to-transparent rounded-bl-full"></div>
                   </div>
                 )}
               </div>
 
               {(profile.patron_saint || profile.saint_image_url) && (
-                <div
-                  className="rounded-2xl p-6 mb-8"
-                  style={{
-                    background: `linear-gradient(135deg, ${profile.primary_color}15, ${profile.secondary_color}15)`,
-                    borderLeft: `4px solid ${profile.primary_color}`
-                  }}
-                >
-                  <h3 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
-                    <Sparkles className="w-5 h-5" style={{ color: profile.primary_color }} />
-                    Santo de Devoção
-                  </h3>
-                  <div className="flex flex-col md:flex-row items-center gap-4">
-                    {profile.saint_image_url && (
-                      <div className="w-24 h-24 rounded-2xl overflow-hidden shadow-lg flex-shrink-0 border-2" style={{ borderColor: profile.secondary_color }}>
-                        <img
-                          src={profile.saint_image_url}
-                          alt={profile.patron_saint}
-                          className="w-full h-full object-cover"
-                        />
+                <div className="group relative overflow-hidden rounded-3xl p-8 mb-8 bg-gradient-to-br from-card via-primary/5 to-secondary/5 border-2 border-border shadow-lg hover:shadow-xl transition-all duration-300">
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                  <div className="relative">
+                    <div className="flex items-center gap-3 mb-6">
+                      <div className="p-2 rounded-xl bg-gradient-to-br from-primary/20 to-primary/10">
+                        <Sparkles className="w-6 h-6" style={{ color: profile.primary_color }} />
                       </div>
-                    )}
-                    {profile.patron_saint && (
-                      <p className="text-xl font-bold text-center md:text-left" style={{ color: profile.primary_color }}>
-                        {profile.patron_saint}
-                      </p>
-                    )}
+                      <h3 className="text-xl font-bold text-foreground">Santo de Devoção</h3>
+                    </div>
+                    <div className="flex flex-col md:flex-row items-center gap-6">
+                      {profile.saint_image_url && (
+                        <div 
+                          className="w-32 h-32 rounded-3xl overflow-hidden shadow-xl flex-shrink-0 ring-4 ring-offset-4 ring-offset-card group-hover:scale-105 transition-transform"
+                          style={{ 
+                            '--tw-ring-color': profile.secondary_color,
+                            boxShadow: `0 0 0 4px var(--card), 0 0 0 8px ${profile.secondary_color}`
+                          } as React.CSSProperties}
+                        >
+                          <img
+                            src={profile.saint_image_url}
+                            alt={profile.patron_saint}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                      )}
+                      {profile.patron_saint && (
+                        <p className="text-2xl font-bold text-center md:text-left bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                          {profile.patron_saint}
+                        </p>
+                      )}
+                    </div>
                   </div>
                 </div>
               )}
 
               {profile.inspiration_quote && (
-                <div
-                  className="rounded-2xl p-6 mb-6"
-                  style={{
-                    background: `linear-gradient(135deg, ${profile.secondary_color}15, ${profile.primary_color}15)`,
-                    borderLeft: `4px solid ${profile.secondary_color}`
-                  }}
+                <div className="group relative overflow-hidden rounded-3xl p-8 mb-6 bg-gradient-to-br from-card via-secondary/5 to-primary/5 border-l-4 shadow-lg hover:shadow-xl transition-all duration-300"
+                  style={{ borderColor: profile.secondary_color }}
                 >
-                  <p className="text-lg italic text-gray-700 leading-relaxed mb-2">
-                    "{profile.inspiration_quote}"
-                  </p>
-                  {profile.quote_author && (
-                    <p className="text-xs italic text-gray-500 text-right">
-                      — {profile.quote_author}
+                  <div className="absolute top-0 left-0 text-[120px] font-serif text-secondary/5 leading-none">"</div>
+                  <div className="relative">
+                    <p className="text-lg md:text-xl italic text-foreground leading-relaxed mb-4 pl-8">
+                      {profile.inspiration_quote}
                     </p>
-                  )}
+                    {profile.quote_author && (
+                      <p className="text-sm font-semibold text-muted-foreground text-right pr-4">
+                        — {profile.quote_author}
+                      </p>
+                    )}
+                  </div>
+                  <div className="absolute bottom-0 right-0 text-[120px] font-serif text-primary/5 leading-none rotate-180">"</div>
                 </div>
               )}
 
               {profile.bible_passage && (
-                <div
-                  className="rounded-2xl p-6 mb-6"
-                  style={{
-                    background: `linear-gradient(135deg, ${profile.primary_color}15, ${profile.secondary_color}15)`,
-                    borderLeft: `4px solid ${profile.primary_color}`
-                  }}
+                <div className="group relative overflow-hidden rounded-3xl p-8 mb-6 bg-gradient-to-br from-card via-primary/5 to-secondary/5 border-l-4 shadow-lg hover:shadow-xl transition-all duration-300"
+                  style={{ borderColor: profile.primary_color }}
                 >
-                  <div className="flex items-center gap-2 mb-3">
-                    <BookOpen className="w-5 h-5" style={{ color: profile.primary_color }} />
-                    <h3 className="font-bold text-gray-800">Passagem Bíblica</h3>
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="p-2 rounded-xl bg-gradient-to-br from-primary/20 to-primary/10">
+                      <BookOpen className="w-6 h-6" style={{ color: profile.primary_color }} />
+                    </div>
+                    <h3 className="text-xl font-bold text-foreground">Passagem Bíblica</h3>
                   </div>
-                  <p className="text-gray-700 leading-relaxed whitespace-pre-line">
+                  <p className="text-base md:text-lg text-foreground leading-relaxed whitespace-pre-line pl-4 border-l-2 border-primary/20">
                     {profile.bible_passage}
                   </p>
                 </div>
               )}
 
               {profile.music_embeds && profile.music_embeds.length > 0 && (
-                <div
-                  className="rounded-2xl p-6"
-                  style={{
-                    background: `linear-gradient(135deg, ${profile.secondary_color}15, ${profile.primary_color}15)`,
-                    borderLeft: `4px solid ${profile.secondary_color}`
-                  }}
+                <div className="group relative overflow-hidden rounded-3xl p-8 bg-gradient-to-br from-card via-secondary/5 to-primary/5 border-l-4 shadow-lg hover:shadow-xl transition-all duration-300"
+                  style={{ borderColor: profile.secondary_color }}
                 >
-                  <div className="flex items-center gap-2 mb-4">
-                    <Music className="w-5 h-5" style={{ color: profile.secondary_color }} />
-                    <h3 className="font-bold text-gray-800">Músicas</h3>
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="p-2 rounded-xl bg-gradient-to-br from-secondary/20 to-secondary/10">
+                      <Music className="w-6 h-6" style={{ color: profile.secondary_color }} />
+                    </div>
+                    <h3 className="text-xl font-bold text-foreground">Músicas</h3>
                   </div>
-                  <div className="space-y-4">
+                  <div className="space-y-6">
                     {profile.music_embeds.map((embed, index) => (
-                      <MusicEmbed key={index} embed={embed} />
+                      <div key={index} className="rounded-2xl overflow-hidden border border-border shadow-md hover:shadow-lg transition-shadow">
+                        <MusicEmbed embed={embed} />
+                      </div>
                     ))}
                   </div>
                 </div>
