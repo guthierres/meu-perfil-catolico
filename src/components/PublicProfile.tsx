@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { supabase } from '@/integrations/supabase/client';
+import { supabase } from '../lib/supabase';
 import { Cross, Church, Calendar, Sparkles, BookOpen, Home, Music, Award } from 'lucide-react';
 import { Profile } from '../types/profile';
 import { MusicEmbed } from './MusicEmbed';

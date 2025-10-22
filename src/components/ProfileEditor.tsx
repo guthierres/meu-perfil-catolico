@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { supabase } from '@/integrations/supabase/client';
+import { supabase } from '../lib/supabase';
 import { useAuth } from '../contexts/AuthContext';
 import { Save, Palette, Link as LinkIcon, Image as ImageIcon, Plus, X, Music } from 'lucide-react';
 import { ImageUpload } from './ImageUpload';
