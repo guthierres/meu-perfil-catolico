@@ -3,7 +3,7 @@ import { QRCodeSVG } from 'qrcode.react';
 import { Cross, Calendar, Church, Sparkles, Download, Share2, Wallet } from 'lucide-react';
 import { Profile } from '../types/profile';
 import { getDisplayName, getCivilStatusLabel } from '../lib/profileUtils';
-import { downloadWalletAsImage, shareWallet } from '../utils/walletDownload';
+import { downloadWalletAsImage, shareWallet, saveToWallet } from '../utils/walletDownload';
 
 interface WalletCardProps {
   profile: Profile;
@@ -21,6 +21,16 @@ export function WalletCard({ profile }: WalletCardProps) {
     } catch (error) {
       console.error('Error downloading wallet:', error);
       alert('Erro ao baixar a carteira. Tente novamente.');
+    }
+  };
+
+  const handleSaveToWallet = async () => {
+    if (!cardRef.current) return;
+    try {
+      await saveToWallet(cardRef.current, profile, profileUrl);
+    } catch (error) {
+      console.error('Error saving to wallet:', error);
+      alert('Erro ao salvar na carteira. Tente novamente.');
     }
   };
 
@@ -70,7 +80,7 @@ export function WalletCard({ profile }: WalletCardProps) {
             Compartilhar
           </button>
           <button
-            onClick={handleDownload}
+            onClick={handleSaveToWallet}
             className="flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-amber-600 to-orange-600 rounded-xl shadow-sm hover:shadow-md transition text-sm font-semibold text-white"
           >
             <Wallet className="w-4 h-4" />
@@ -79,112 +89,118 @@ export function WalletCard({ profile }: WalletCardProps) {
         </div>
       </div>
 
-      <div
-        ref={cardRef}
-        className="relative w-full max-w-md mx-auto rounded-3xl overflow-hidden shadow-2xl"
-        style={{
-          background: `linear-gradient(135deg, rgba(${primaryRgb}, 1) 0%, rgba(${secondaryRgb}, 1) 100%)`,
-          aspectRatio: '1.586',
-          padding: '0',
-        }}
-      >
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-4 right-4 text-white">
-            <Cross className="w-32 h-32" strokeWidth={0.5} />
-          </div>
-          <div className="absolute bottom-4 left-4 text-white">
-            <Cross className="w-24 h-24" strokeWidth={0.5} />
-          </div>
-        </div>
-
-        <div className="relative h-full p-8 flex flex-col text-white">
-          <div className="flex items-start justify-between mb-6">
-            <div className="flex-1">
-              <h2 className="text-sm font-bold uppercase tracking-wider opacity-90 mb-2">
-                Carteirinha Católica
-              </h2>
-              <div className="flex items-center gap-2 text-xs opacity-80">
-                <Cross className="w-4 h-4" />
-                <span>Católico Apostólico Romano</span>
-              </div>
+      <div className="flex justify-center">
+        <div
+          ref={cardRef}
+          className="relative rounded-2xl overflow-hidden shadow-2xl"
+          style={{
+            background: `linear-gradient(135deg, rgba(${primaryRgb}, 1) 0%, rgba(${secondaryRgb}, 1) 100%)`,
+            width: '420px',
+            height: '264px',
+          }}
+        >
+          <div className="absolute inset-0 opacity-10">
+            <div className="absolute top-6 right-6 text-white">
+              <Cross className="w-28 h-28" strokeWidth={0.5} />
             </div>
-            {profile.profile_image_url && (
-              <div className="w-20 h-20 rounded-2xl overflow-hidden border-2 border-white/40 shadow-xl flex-shrink-0 ml-4">
-                <img
-                  src={profile.profile_image_url}
-                  alt="Foto"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            )}
+            <div className="absolute bottom-6 left-6 text-white">
+              <Cross className="w-20 h-20" strokeWidth={0.5} />
+            </div>
           </div>
 
-          <div className="flex-1 space-y-4">
-            <div>
-              <p className="text-xs opacity-70 uppercase tracking-wider mb-1.5 font-semibold">Nome Completo</p>
-              <p className="text-xl font-bold leading-tight">
-                {getDisplayName(profile.full_name, profile.civil_status)}
-              </p>
-              {profile.civil_status && (
-                <p className="text-xs opacity-80 mt-1">
-                  {getCivilStatusLabel(profile.civil_status)}
-                </p>
-              )}
-            </div>
-
-            <div className="grid grid-cols-2 gap-4 text-xs">
-              {profile.parish && (
-                <div className="pr-2">
-                  <div className="flex items-center gap-1 opacity-70 mb-1.5">
-                    <Church className="w-3.5 h-3.5" />
-                    <span className="uppercase tracking-wider font-semibold">Paróquia</span>
-                  </div>
-                  <p className="font-semibold leading-snug text-sm">{profile.parish}</p>
+          <div className="relative h-full px-6 py-5 flex flex-col text-white">
+            <div className="flex items-start justify-between mb-3">
+              <div className="flex-1">
+                <h2 className="text-xs font-bold uppercase tracking-wider opacity-90 mb-1">
+                  Carteirinha Católica
+                </h2>
+                <div className="flex items-center gap-1.5 text-[10px] opacity-80">
+                  <Cross className="w-3 h-3" />
+                  <span>Católico Apostólico Romano</span>
+                </div>
+              </div>
+              {profile.profile_image_url && (
+                <div className="w-16 h-16 rounded-xl overflow-hidden border-2 border-white/40 shadow-xl flex-shrink-0 ml-3">
+                  <img
+                    src={profile.profile_image_url}
+                    alt="Foto"
+                    className="w-full h-full object-cover"
+                  />
                 </div>
               )}
+            </div>
 
-              {profile.baptism_date && (
-                <div>
-                  <div className="flex items-center gap-1 opacity-70 mb-1.5">
-                    <Calendar className="w-3.5 h-3.5" />
-                    <span className="uppercase tracking-wider font-semibold">Batismo</span>
-                  </div>
-                  <p className="font-semibold text-sm">
-                    {new Date(profile.baptism_date).toLocaleDateString('pt-BR')}
+            <div className="flex-1">
+              <div className="mb-3">
+                <p className="text-[9px] opacity-70 uppercase tracking-wider mb-0.5 font-semibold">Nome Completo</p>
+                <p className="text-base font-bold leading-tight">
+                  {profile.full_name}
+                </p>
+              </div>
+
+              {profile.civil_status && (
+                <div className="mb-3">
+                  <p className="text-[9px] opacity-70 uppercase tracking-wider mb-0.5 font-semibold">Estado Civil</p>
+                  <p className="text-xs font-semibold">
+                    {getCivilStatusLabel(profile.civil_status)}
                   </p>
                 </div>
               )}
 
-              {profile.patron_saint && (
-                <div className="col-span-2">
-                  <div className="flex items-center gap-1 opacity-70 mb-1.5">
-                    <Sparkles className="w-3.5 h-3.5" />
-                    <span className="uppercase tracking-wider font-semibold">Santo de Devoção</span>
+              <div className="grid grid-cols-2 gap-x-4 gap-y-2.5">
+                {profile.parish && (
+                  <div>
+                    <div className="flex items-center gap-1 opacity-70 mb-0.5">
+                      <Church className="w-2.5 h-2.5" />
+                      <span className="text-[9px] uppercase tracking-wider font-semibold">Paróquia</span>
+                    </div>
+                    <p className="font-semibold text-[11px] leading-tight">{profile.parish}</p>
                   </div>
-                  <p className="font-semibold text-sm">{profile.patron_saint}</p>
-                </div>
-              )}
-            </div>
-          </div>
+                )}
 
-          <div className="mt-auto pt-5 border-t border-white/30">
-            <div className="flex items-center justify-between gap-4">
-              <div className="flex-1 min-w-0">
-                <p className="text-xs opacity-80 uppercase tracking-wider mb-1.5 font-semibold">Acesse o Perfil Completo</p>
-                <p className="text-xs font-mono opacity-90 truncate">
-                  {profile.slug ? `${window.location.host}/p/${profile.slug}` : 'Sem link público'}
-                </p>
+                {profile.baptism_date && (
+                  <div>
+                    <div className="flex items-center gap-1 opacity-70 mb-0.5">
+                      <Calendar className="w-2.5 h-2.5" />
+                      <span className="text-[9px] uppercase tracking-wider font-semibold">Batismo</span>
+                    </div>
+                    <p className="font-semibold text-[11px]">
+                      {new Date(profile.baptism_date).toLocaleDateString('pt-BR')}
+                    </p>
+                  </div>
+                )}
+
+                {profile.patron_saint && (
+                  <div className="col-span-2">
+                    <div className="flex items-center gap-1 opacity-70 mb-0.5">
+                      <Sparkles className="w-2.5 h-2.5" />
+                      <span className="text-[9px] uppercase tracking-wider font-semibold">Santo de Devoção</span>
+                    </div>
+                    <p className="font-semibold text-[11px]">{profile.patron_saint}</p>
+                  </div>
+                )}
               </div>
-              {profile.slug && (
-                <div className="bg-white p-2.5 rounded-xl shadow-lg flex-shrink-0">
-                  <QRCodeSVG
-                    value={profileUrl}
-                    size={72}
-                    level="H"
-                    includeMargin={false}
-                  />
+            </div>
+
+            <div className="mt-auto pt-3 border-t border-white/30">
+              <div className="flex items-end justify-between gap-3">
+                <div className="flex-1 min-w-0">
+                  <p className="text-[9px] opacity-70 uppercase tracking-wider mb-0.5 font-semibold">Perfil Online</p>
+                  <p className="text-[10px] font-mono opacity-90 truncate">
+                    {profile.slug ? `${window.location.host}/p/${profile.slug}` : 'Sem link'}
+                  </p>
                 </div>
-              )}
+                {profile.slug && (
+                  <div className="bg-white p-1.5 rounded-lg shadow-lg flex-shrink-0">
+                    <QRCodeSVG
+                      value={profileUrl}
+                      size={52}
+                      level="H"
+                      includeMargin={false}
+                    />
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
