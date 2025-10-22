@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
-import { supabase } from '../lib/supabase';
+import { supabase } from '@/integrations/supabase/client';
 import { Cross, Church, Calendar, Sparkles, BookOpen, Home, Music, Award } from 'lucide-react';
 import { Profile } from '../types/profile';
 import { MusicEmbed } from './MusicEmbed';
-import { WalletCard } from './WalletCard';
 import { ProfileTabs } from './ProfileTabs';
 import { getDisplayName, getCivilStatusLabel, getSacramentLabel } from '../lib/profileUtils';
 
@@ -111,7 +110,20 @@ export function PublicProfile({ slug }: PublicProfileProps) {
           />
 
           {activeTab === 'wallet' ? (
-            <WalletCard profile={profile} />
+            <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-8 text-center">
+              <Cross className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+              <h3 className="text-xl font-bold text-gray-800 mb-2">Acesso Restrito</h3>
+              <p className="text-gray-600 mb-6">
+                A carteirinha digital só está disponível para o dono do perfil quando logado.
+              </p>
+              <a
+                href="/"
+                className="inline-flex items-center gap-2 bg-gradient-to-r from-amber-600 to-orange-600 text-white px-6 py-3 rounded-xl font-semibold hover:from-amber-700 hover:to-orange-700 transition shadow-lg"
+              >
+                <Home className="w-5 h-5" />
+                Criar Minha Carteirinha
+              </a>
+            </div>
           ) : (
             <div className="bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl overflow-hidden">
             {profile.cover_image_url && (

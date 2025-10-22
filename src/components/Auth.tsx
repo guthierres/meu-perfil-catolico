@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import { Cross, Mail, Lock } from 'lucide-react';
+import { Cross, Mail, Lock, Loader2 } from 'lucide-react';
 
 export function Auth() {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -90,9 +90,10 @@ export function Auth() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-gradient-to-r from-amber-600 to-orange-600 text-white py-3 rounded-xl font-semibold hover:from-amber-700 hover:to-orange-700 transition shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-gradient-to-r from-amber-600 to-orange-600 text-white py-3 rounded-xl font-semibold hover:from-amber-700 hover:to-orange-700 transition shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
-              {loading ? 'Carregando...' : isSignUp ? 'Criar Conta' : 'Entrar'}
+              {loading && <Loader2 className="w-5 h-5 animate-spin" />}
+              {loading ? 'Processando...' : isSignUp ? 'Criar Conta' : 'Entrar'}
             </button>
           </form>
 

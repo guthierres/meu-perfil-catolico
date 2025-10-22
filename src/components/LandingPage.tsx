@@ -1,4 +1,4 @@
-import { Cross, Users, Share2, Sparkles, CheckCircle, ArrowRight, Music, Palette } from 'lucide-react';
+import { Cross, Users, Share2, CheckCircle, ArrowRight, Music, Palette } from 'lucide-react';
 
 interface LandingPageProps {
   onGetStarted: () => void;

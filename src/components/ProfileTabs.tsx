@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { User, Wallet } from 'lucide-react';
 
 interface ProfileTabsProps {

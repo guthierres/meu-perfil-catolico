@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { QRCodeSVG } from 'qrcode.react';
-import { Cross, Calendar, Church, Sparkles, Download, Share2 } from 'lucide-react';
+import { Cross, Calendar, Church, Sparkles, Download, Share2, Wallet } from 'lucide-react';
 import { Profile } from '../types/profile';
 import { getDisplayName, getCivilStatusLabel } from '../lib/profileUtils';
 import { downloadWalletAsImage, shareWallet } from '../utils/walletDownload';
@@ -45,27 +45,43 @@ export function WalletCard({ profile }: WalletCardProps) {
   const secondaryRgb = hexToRgb(profile.secondary_color);
 
   return (
-    <div className="space-y-4">
-      <div className="flex gap-3 justify-end">
-        <button
-          onClick={handleDownload}
-          className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg shadow hover:shadow-md transition text-sm font-medium text-gray-700"
-        >
-          <Download className="w-4 h-4" />
-          Baixar Carteira
-        </button>
-        <button
-          onClick={handleShare}
-          className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg shadow hover:shadow-md transition text-sm font-medium text-gray-700"
-        >
-          <Share2 className="w-4 h-4" />
-          Compartilhar
-        </button>
+    <div className="space-y-6">
+      <div className="bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-6 border border-amber-200">
+        <h3 className="text-lg font-bold text-gray-800 mb-3 flex items-center gap-2">
+          <Wallet className="w-5 h-5 text-amber-600" />
+          Adicionar à Carteira Digital
+        </h3>
+        <p className="text-sm text-gray-600 mb-4">
+          Salve sua carteirinha católica e tenha acesso rápido mesmo offline
+        </p>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <button
+            onClick={handleDownload}
+            className="flex items-center justify-center gap-2 px-4 py-3 bg-white rounded-xl shadow-sm hover:shadow-md transition text-sm font-semibold text-gray-700 border border-gray-200"
+          >
+            <Download className="w-4 h-4" />
+            Baixar Imagem
+          </button>
+          <button
+            onClick={handleShare}
+            className="flex items-center justify-center gap-2 px-4 py-3 bg-white rounded-xl shadow-sm hover:shadow-md transition text-sm font-semibold text-gray-700 border border-gray-200"
+          >
+            <Share2 className="w-4 h-4" />
+            Compartilhar
+          </button>
+          <button
+            onClick={handleDownload}
+            className="flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-amber-600 to-orange-600 rounded-xl shadow-sm hover:shadow-md transition text-sm font-semibold text-white"
+          >
+            <Wallet className="w-4 h-4" />
+            Salvar na Carteira
+          </button>
+        </div>
       </div>
 
       <div
         ref={cardRef}
-        className="relative w-full max-w-md mx-auto rounded-2xl overflow-hidden shadow-2xl"
+        className="relative w-full max-w-md mx-auto rounded-3xl overflow-hidden shadow-2xl ring-4 ring-white/50"
         style={{
           background: `linear-gradient(135deg, rgba(${primaryRgb}, 1) 0%, rgba(${secondaryRgb}, 1) 100%)`,
           aspectRatio: '1.586',
@@ -171,11 +187,12 @@ export function WalletCard({ profile }: WalletCardProps) {
         </div>
       </div>
 
-      <div className="text-center text-sm text-gray-600 space-y-2">
-        <p className="font-medium">Dica: Salve esta carteira em seu celular</p>
-        <div className="text-xs space-y-1 text-gray-500">
-          <p>📱 iOS: Tire um print e adicione às suas fotos favoritas</p>
-          <p>🤖 Android: Salve a imagem e defina como papel de parede da tela de bloqueio</p>
+      <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-200">
+        <h4 className="font-semibold text-gray-800 mb-3">💡 Como usar sua carteirinha:</h4>
+        <div className="text-sm space-y-2 text-gray-600">
+          <p><strong>📱 iOS (iPhone):</strong> Baixe a imagem e adicione às fotos favoritas ou como papel de parede da tela de bloqueio</p>
+          <p><strong>🤖 Android:</strong> Salve a imagem e adicione como papel de parede da tela de bloqueio para acesso rápido</p>
+          <p><strong>💻 Computador:</strong> Salve a imagem e mantenha em uma pasta de fácil acesso</p>
         </div>
       </div>
     </div>
