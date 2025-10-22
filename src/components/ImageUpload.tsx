@@ -7,6 +7,8 @@ interface ImageUploadProps {
   currentImage?: string;
   onImageChange: (url: string) => void;
   folder?: string;
+  aspectRatio?: 'square' | 'cover' | 'auto';
+  cropMode?: 'fill' | 'fit' | 'cover';
 }
 
 export function ImageUpload({
@@ -14,6 +16,8 @@ export function ImageUpload({
   currentImage,
   onImageChange,
   folder = 'profiles',
+  aspectRatio = 'square',
+  cropMode = 'cover',
 }: ImageUploadProps) {
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -59,15 +63,31 @@ export function ImageUpload({
 
       {currentImage && (
         <div className="relative inline-block">
-          <img
-            src={currentImage}
-            alt="Preview"
-            className="h-32 w-32 object-cover rounded-lg border-2 border-gray-300"
-          />
+          <div
+            className={`overflow-hidden rounded-lg border-2 border-gray-300 bg-gray-100 ${
+              aspectRatio === 'square'
+                ? 'h-32 w-32'
+                : aspectRatio === 'cover'
+                ? 'h-24 w-48'
+                : 'h-32 w-auto max-w-xs'
+            }`}
+          >
+            <img
+              src={currentImage}
+              alt="Preview"
+              className={`h-full w-full ${
+                cropMode === 'cover'
+                  ? 'object-cover'
+                  : cropMode === 'fit'
+                  ? 'object-contain'
+                  : 'object-fill'
+              }`}
+            />
+          </div>
           <button
             type="button"
             onClick={handleRemove}
-            className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600 transition-colors"
+            className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1.5 hover:bg-red-600 transition-colors shadow-lg"
           >
             <X className="w-4 h-4" />
           </button>

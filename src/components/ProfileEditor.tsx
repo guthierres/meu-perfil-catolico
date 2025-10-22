@@ -364,6 +364,8 @@ export function ProfileEditor({ onSave }: ProfileEditorProps) {
                 currentImage={profile.profile_image_url}
                 onImageChange={(url) => setProfile({ ...profile, profile_image_url: url })}
                 folder="profiles/avatars"
+                aspectRatio="square"
+                cropMode="cover"
               />
 
               <ImageUpload
@@ -371,6 +373,8 @@ export function ProfileEditor({ onSave }: ProfileEditorProps) {
                 currentImage={profile.cover_image_url}
                 onImageChange={(url) => setProfile({ ...profile, cover_image_url: url })}
                 folder="profiles/covers"
+                aspectRatio="cover"
+                cropMode="cover"
               />
 
               <ImageUpload
@@ -378,6 +382,8 @@ export function ProfileEditor({ onSave }: ProfileEditorProps) {
                 currentImage={profile.saint_image_url}
                 onImageChange={(url) => setProfile({ ...profile, saint_image_url: url })}
                 folder="profiles/saints"
+                aspectRatio="square"
+                cropMode="cover"
               />
             </div>
 

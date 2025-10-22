@@ -1,4 +1,4 @@
-import { Cross, Users, Share2, CheckCircle, ArrowRight, Music, Palette } from 'lucide-react';
+import { Cross, Users, Share2, CheckCircle, ArrowRight, Music, Palette, Sparkles } from 'lucide-react';
 
 interface LandingPageProps {
   onGetStarted: () => void;
@@ -6,13 +6,19 @@ interface LandingPageProps {
 
 export function LandingPage({ onGetStarted }: LandingPageProps) {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-red-50">
-      <div className="max-w-6xl mx-auto px-4 py-8 md:py-16">
+    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-red-50 overflow-hidden relative">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-10 left-10 w-64 h-64 bg-amber-200/20 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-20 right-20 w-96 h-96 bg-orange-200/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute top-1/2 left-1/3 w-72 h-72 bg-red-200/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+      </div>
+
+      <div className="max-w-6xl mx-auto px-4 py-8 md:py-16 relative z-10">
         <div className="text-center mb-16">
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-amber-600 to-orange-600 rounded-full mb-6 shadow-2xl">
-            <Cross className="w-10 h-10 text-white" />
+          <div className="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-amber-600 to-orange-600 rounded-full mb-6 shadow-2xl transform hover:scale-110 transition-transform duration-300">
+            <Cross className="w-12 h-12 text-white" />
           </div>
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-amber-700 to-orange-700 bg-clip-text text-transparent">
+          <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-amber-700 via-orange-600 to-amber-700 bg-clip-text text-transparent">
             Carteirinha Católica Digital
           </h1>
           <p className="text-xl md:text-2xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
@@ -21,7 +27,7 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-          <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+          <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 hover:scale-105">
             <div className="inline-flex items-center justify-center w-14 h-14 bg-blue-100 rounded-xl mb-3">
               <Users className="w-7 h-7 text-blue-600" />
             </div>
@@ -31,7 +37,7 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
             </p>
           </div>
 
-          <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+          <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 hover:scale-105">
             <div className="inline-flex items-center justify-center w-14 h-14 bg-green-100 rounded-xl mb-3">
               <Share2 className="w-7 h-7 text-green-600" />
             </div>
@@ -41,7 +47,7 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
             </p>
           </div>
 
-          <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+          <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 hover:scale-105">
             <div className="inline-flex items-center justify-center w-14 h-14 bg-amber-100 rounded-xl mb-3">
               <Palette className="w-7 h-7 text-amber-600" />
             </div>
@@ -51,7 +57,7 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
             </p>
           </div>
 
-          <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+          <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 hover:scale-105">
             <div className="inline-flex items-center justify-center w-14 h-14 bg-purple-100 rounded-xl mb-3">
               <Music className="w-7 h-7 text-purple-600" />
             </div>
@@ -145,12 +151,16 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
         <div className="text-center">
           <button
             onClick={onGetStarted}
-            className="inline-flex items-center gap-3 bg-gradient-to-r from-amber-600 to-orange-600 text-white px-12 py-5 rounded-xl font-bold text-lg hover:from-amber-700 hover:to-orange-700 transition shadow-2xl hover:shadow-3xl transform hover:scale-105"
+            className="group inline-flex items-center gap-3 bg-gradient-to-r from-amber-600 to-orange-600 text-white px-12 py-5 rounded-xl font-bold text-lg hover:from-amber-700 hover:to-orange-700 transition-all duration-300 shadow-2xl hover:shadow-3xl transform hover:scale-105 relative overflow-hidden"
           >
-            Criar Minha Carteirinha
-            <ArrowRight className="w-6 h-6" />
+            <span className="absolute inset-0 bg-white/20 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></span>
+            <span className="relative flex items-center gap-3">
+              <Sparkles className="w-6 h-6 animate-pulse" />
+              Criar Minha Carteirinha
+              <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
+            </span>
           </button>
-          <p className="text-gray-600 mt-4">É grátis e leva menos de 5 minutos</p>
+          <p className="text-gray-600 mt-4 font-medium">É grátis e leva menos de 5 minutos</p>
         </div>
       </div>
     </div>

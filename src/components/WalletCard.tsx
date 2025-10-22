@@ -81,10 +81,11 @@ export function WalletCard({ profile }: WalletCardProps) {
 
       <div
         ref={cardRef}
-        className="relative w-full max-w-md mx-auto rounded-3xl overflow-hidden shadow-2xl ring-4 ring-white/50"
+        className="relative w-full max-w-md mx-auto rounded-3xl overflow-hidden shadow-2xl"
         style={{
           background: `linear-gradient(135deg, rgba(${primaryRgb}, 1) 0%, rgba(${secondaryRgb}, 1) 100%)`,
           aspectRatio: '1.586',
+          padding: '0',
         }}
       >
         <div className="absolute inset-0 opacity-10">
@@ -96,19 +97,19 @@ export function WalletCard({ profile }: WalletCardProps) {
           </div>
         </div>
 
-        <div className="relative h-full p-6 flex flex-col text-white">
-          <div className="flex items-start justify-between mb-4">
-            <div>
-              <h2 className="text-xs font-bold uppercase tracking-wider opacity-90 mb-1">
+        <div className="relative h-full p-8 flex flex-col text-white">
+          <div className="flex items-start justify-between mb-6">
+            <div className="flex-1">
+              <h2 className="text-sm font-bold uppercase tracking-wider opacity-90 mb-2">
                 Carteirinha Católica
               </h2>
-              <div className="flex items-center gap-1 text-xs opacity-80">
-                <Cross className="w-3 h-3" />
+              <div className="flex items-center gap-2 text-xs opacity-80">
+                <Cross className="w-4 h-4" />
                 <span>Católico Apostólico Romano</span>
               </div>
             </div>
             {profile.profile_image_url && (
-              <div className="w-16 h-16 rounded-xl overflow-hidden border-2 border-white/30 shadow-lg flex-shrink-0">
+              <div className="w-20 h-20 rounded-2xl overflow-hidden border-2 border-white/40 shadow-xl flex-shrink-0 ml-4">
                 <img
                   src={profile.profile_image_url}
                   alt="Foto"
@@ -118,37 +119,37 @@ export function WalletCard({ profile }: WalletCardProps) {
             )}
           </div>
 
-          <div className="flex-1 space-y-3">
+          <div className="flex-1 space-y-4">
             <div>
-              <p className="text-xs opacity-70 uppercase tracking-wide mb-1">Nome</p>
-              <p className="text-lg font-bold leading-tight">
+              <p className="text-xs opacity-70 uppercase tracking-wider mb-1.5 font-semibold">Nome Completo</p>
+              <p className="text-xl font-bold leading-tight">
                 {getDisplayName(profile.full_name, profile.civil_status)}
               </p>
               {profile.civil_status && (
-                <p className="text-xs opacity-80 mt-0.5">
+                <p className="text-xs opacity-80 mt-1">
                   {getCivilStatusLabel(profile.civil_status)}
                 </p>
               )}
             </div>
 
-            <div className="grid grid-cols-2 gap-3 text-xs">
+            <div className="grid grid-cols-2 gap-4 text-xs">
               {profile.parish && (
-                <div>
-                  <div className="flex items-center gap-1 opacity-70 mb-1">
-                    <Church className="w-3 h-3" />
-                    <span className="uppercase tracking-wide">Paróquia</span>
+                <div className="pr-2">
+                  <div className="flex items-center gap-1 opacity-70 mb-1.5">
+                    <Church className="w-3.5 h-3.5" />
+                    <span className="uppercase tracking-wider font-semibold">Paróquia</span>
                   </div>
-                  <p className="font-semibold leading-tight">{profile.parish}</p>
+                  <p className="font-semibold leading-snug text-sm">{profile.parish}</p>
                 </div>
               )}
 
               {profile.baptism_date && (
                 <div>
-                  <div className="flex items-center gap-1 opacity-70 mb-1">
-                    <Calendar className="w-3 h-3" />
-                    <span className="uppercase tracking-wide">Batismo</span>
+                  <div className="flex items-center gap-1 opacity-70 mb-1.5">
+                    <Calendar className="w-3.5 h-3.5" />
+                    <span className="uppercase tracking-wider font-semibold">Batismo</span>
                   </div>
-                  <p className="font-semibold">
+                  <p className="font-semibold text-sm">
                     {new Date(profile.baptism_date).toLocaleDateString('pt-BR')}
                   </p>
                 </div>
@@ -156,33 +157,35 @@ export function WalletCard({ profile }: WalletCardProps) {
 
               {profile.patron_saint && (
                 <div className="col-span-2">
-                  <div className="flex items-center gap-1 opacity-70 mb-1">
-                    <Sparkles className="w-3 h-3" />
-                    <span className="uppercase tracking-wide">Santo de Devoção</span>
+                  <div className="flex items-center gap-1 opacity-70 mb-1.5">
+                    <Sparkles className="w-3.5 h-3.5" />
+                    <span className="uppercase tracking-wider font-semibold">Santo de Devoção</span>
                   </div>
-                  <p className="font-semibold">{profile.patron_saint}</p>
+                  <p className="font-semibold text-sm">{profile.patron_saint}</p>
                 </div>
               )}
             </div>
           </div>
 
-          <div className="flex items-end justify-between mt-4 pt-4 border-t border-white/20">
-            <div className="flex-1">
-              <p className="text-xs opacity-70 uppercase tracking-wide mb-1">Acesse o perfil</p>
-              <p className="text-xs font-mono opacity-90 break-all">
-                {profile.slug ? `/p/${profile.slug}` : 'Sem link público'}
-              </p>
-            </div>
-            {profile.slug && (
-              <div className="ml-4 bg-white p-2 rounded-lg">
-                <QRCodeSVG
-                  value={profileUrl}
-                  size={64}
-                  level="M"
-                  includeMargin={false}
-                />
+          <div className="mt-auto pt-5 border-t border-white/30">
+            <div className="flex items-center justify-between gap-4">
+              <div className="flex-1 min-w-0">
+                <p className="text-xs opacity-80 uppercase tracking-wider mb-1.5 font-semibold">Acesse o Perfil Completo</p>
+                <p className="text-xs font-mono opacity-90 truncate">
+                  {profile.slug ? `${window.location.host}/p/${profile.slug}` : 'Sem link público'}
+                </p>
               </div>
-            )}
+              {profile.slug && (
+                <div className="bg-white p-2.5 rounded-xl shadow-lg flex-shrink-0">
+                  <QRCodeSVG
+                    value={profileUrl}
+                    size={72}
+                    level="H"
+                    includeMargin={false}
+                  />
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
