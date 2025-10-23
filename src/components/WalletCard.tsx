@@ -136,114 +136,113 @@ export function WalletCard({ profile }: WalletCardProps) {
             <div className="absolute inset-3 border-2 border-white/10 rounded-2xl" />
           </div>
 
-          <div className="relative h-full px-5 py-5 flex flex-col text-white">
+          <div className="relative h-full px-5 py-4 flex flex-col text-white">
             {/* Header */}
-            <div className="flex items-start justify-between mb-4">
-              <div className="flex-1 pr-2">
-                <h2 className="text-lg font-bold mb-1 tracking-wide leading-tight" style={{ fontFamily: 'Georgia, serif', textShadow: '0 2px 10px rgba(0,0,0,0.3)' }}>
+            <div className="flex items-center justify-between mb-3">
+              <div className="flex-1">
+                <h2 className="text-base font-bold tracking-wide leading-tight" style={{ fontFamily: 'Georgia, serif', textShadow: '0 2px 10px rgba(0,0,0,0.3)' }}>
                   Carteirinha Católica
                 </h2>
-                <div className="flex items-center gap-1.5 text-[10px] opacity-90">
+                <div className="flex items-center gap-1.5 text-[9px] opacity-90">
                   <Church className="w-3 h-3 flex-shrink-0" />
                   <span style={{ fontFamily: 'system-ui, sans-serif' }}>Católico Apostólico Romano</span>
                 </div>
               </div>
               <div className="bg-white/10 p-1.5 rounded-lg backdrop-blur-sm flex-shrink-0">
-                <Church className="w-6 h-6" />
+                <Church className="w-5 h-5" />
               </div>
             </div>
 
-            {/* Photo */}
-            {profile.profile_image_url && (
-              <div className="flex justify-center mb-4">
-                <div className="relative">
-                  <div className="w-24 h-24 rounded-xl overflow-hidden border-3 border-white/40 shadow-2xl">
+            {/* Photo + Name Section */}
+            <div className="flex gap-3 mb-3">
+              {profile.profile_image_url && (
+                <div className="relative flex-shrink-0">
+                  <div className="w-20 h-20 rounded-xl overflow-hidden border-2 border-white/40 shadow-xl">
                     <img
                       src={profile.profile_image_url}
                       alt="Foto"
                       className="w-full h-full object-cover"
                     />
                   </div>
-                  {/* Decorative corners */}
-                  <div className="absolute -top-0.5 -left-0.5 w-3 h-3 border-t-2 border-l-2 border-white/60" />
-                  <div className="absolute -top-0.5 -right-0.5 w-3 h-3 border-t-2 border-r-2 border-white/60" />
-                  <div className="absolute -bottom-0.5 -left-0.5 w-3 h-3 border-b-2 border-l-2 border-white/60" />
-                  <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 border-b-2 border-r-2 border-white/60" />
-                </div>
-              </div>
-            )}
-
-            {/* Information */}
-            <div className="flex-1 space-y-2.5 overflow-y-auto">
-              <div className="bg-white/5 backdrop-blur-sm rounded-lg p-2 border border-white/10">
-                <p className="text-[9px] opacity-70 uppercase tracking-wider mb-1 font-medium">NOME COMPLETO</p>
-                <p className="text-sm font-bold leading-tight">
-                  {profile.full_name}
-                </p>
-              </div>
-
-              {profile.civil_status && (
-                <div className="bg-white/5 backdrop-blur-sm rounded-lg p-2 border border-white/10">
-                  <p className="text-[9px] opacity-70 uppercase tracking-wider mb-1 font-medium">ESTADO DE VIDA</p>
-                  <p className="text-xs font-semibold">
-                    {getCivilStatusLabel(profile.civil_status)}
-                  </p>
+                  <div className="absolute -top-0.5 -left-0.5 w-2.5 h-2.5 border-t-2 border-l-2 border-white/60" />
+                  <div className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 border-t-2 border-r-2 border-white/60" />
+                  <div className="absolute -bottom-0.5 -left-0.5 w-2.5 h-2.5 border-b-2 border-l-2 border-white/60" />
+                  <div className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 border-b-2 border-r-2 border-white/60" />
                 </div>
               )}
-
-              {profile.parish && (
-                <div className="bg-white/5 backdrop-blur-sm rounded-lg p-2 border border-white/10">
-                  <div className="flex items-center gap-1.5 opacity-70 mb-1">
-                    <Church className="w-3 h-3 flex-shrink-0" />
-                    <span className="text-[9px] uppercase tracking-wider font-medium">PARÓQUIA</span>
+              <div className="flex-1 flex flex-col justify-center min-w-0">
+                <div className="bg-white/5 backdrop-blur-sm rounded-lg p-2 border border-white/10 mb-1.5">
+                  <p className="text-[8px] opacity-70 uppercase tracking-wider mb-0.5 font-medium">NOME COMPLETO</p>
+                  <p className="text-xs font-bold leading-tight">
+                    {profile.full_name}
+                  </p>
+                </div>
+                {profile.civil_status && (
+                  <div className="bg-white/5 backdrop-blur-sm rounded-lg p-2 border border-white/10">
+                    <p className="text-[8px] opacity-70 uppercase tracking-wider mb-0.5 font-medium">ESTADO DE VIDA</p>
+                    <p className="text-xs font-semibold">
+                      {getCivilStatusLabel(profile.civil_status)}
+                    </p>
                   </div>
-                  <p className="font-semibold text-xs leading-tight">{profile.parish}</p>
+                )}
+              </div>
+            </div>
+
+            {/* Other Information */}
+            <div className="flex-1 grid grid-cols-2 gap-2 mb-3">
+              {profile.parish && (
+                <div className="bg-white/5 backdrop-blur-sm rounded-lg p-2 border border-white/10 col-span-2">
+                  <div className="flex items-center gap-1.5 opacity-70 mb-0.5">
+                    <Church className="w-2.5 h-2.5 flex-shrink-0" />
+                    <span className="text-[8px] uppercase tracking-wider font-medium">PARÓQUIA</span>
+                  </div>
+                  <p className="font-semibold text-[10px] leading-tight">{profile.parish}</p>
                 </div>
               )}
 
               {profile.priest_name && (
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-2 border border-white/10">
-                  <div className="flex items-center gap-1.5 opacity-70 mb-1">
-                    <User className="w-3 h-3 flex-shrink-0" />
-                    <span className="text-[9px] uppercase tracking-wider font-medium">PÁROCO</span>
+                  <div className="flex items-center gap-1 opacity-70 mb-0.5">
+                    <User className="w-2.5 h-2.5 flex-shrink-0" />
+                    <span className="text-[8px] uppercase tracking-wider font-medium">PÁROCO</span>
                   </div>
-                  <p className="font-semibold text-xs">{profile.priest_name}</p>
+                  <p className="font-semibold text-[10px]">{profile.priest_name}</p>
                 </div>
               )}
 
               {profile.baptism_date && (
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-2 border border-white/10">
-                  <div className="flex items-center gap-1.5 opacity-70 mb-1">
-                    <Calendar className="w-3 h-3 flex-shrink-0" />
-                    <span className="text-[9px] uppercase tracking-wider font-medium">BATISMO</span>
+                  <div className="flex items-center gap-1 opacity-70 mb-0.5">
+                    <Calendar className="w-2.5 h-2.5 flex-shrink-0" />
+                    <span className="text-[8px] uppercase tracking-wider font-medium">BATISMO</span>
                   </div>
-                  <p className="font-semibold text-xs">
+                  <p className="font-semibold text-[10px]">
                     {new Date(profile.baptism_date).toLocaleDateString('pt-BR')}
                   </p>
                 </div>
               )}
 
               {profile.patron_saint && (
-                <div className="bg-white/5 backdrop-blur-sm rounded-lg p-2 border border-white/10">
-                  <div className="flex items-center gap-1.5 opacity-70 mb-1">
-                    <Star className="w-3 h-3 flex-shrink-0" />
-                    <span className="text-[9px] uppercase tracking-wider font-medium">SANTO</span>
+                <div className="bg-white/5 backdrop-blur-sm rounded-lg p-2 border border-white/10 col-span-2">
+                  <div className="flex items-center gap-1 opacity-70 mb-0.5">
+                    <Star className="w-2.5 h-2.5 flex-shrink-0" />
+                    <span className="text-[8px] uppercase tracking-wider font-medium">SANTO DE DEVOÇÃO</span>
                   </div>
-                  <p className="font-semibold text-xs">{profile.patron_saint}</p>
+                  <p className="font-semibold text-[10px]">{profile.patron_saint}</p>
                 </div>
               )}
             </div>
 
             {/* QR Code at bottom */}
-            <div className="mt-3 pt-3 flex items-center justify-between border-t border-white/20 gap-2">
+            <div className="mt-auto pt-2 flex items-center justify-between border-t border-white/20 gap-2">
               <div className="flex-1 min-w-0">
-                <p className="text-[9px] opacity-70 mb-0.5">Perfil Digital</p>
-                <p className="text-[10px] font-mono opacity-90 truncate">{profile.slug || 'perfil'}</p>
+                <p className="text-[8px] opacity-70 mb-0.5">Perfil Digital</p>
+                <p className="text-[9px] font-mono opacity-90 truncate">{profile.slug || 'perfil'}</p>
               </div>
-              <div className="bg-white p-2 rounded-lg shadow-xl flex-shrink-0">
+              <div className="bg-white p-1.5 rounded-lg shadow-xl flex-shrink-0">
                 <QRCodeSVG 
                   value={profileUrl}
-                  size={55}
+                  size={50}
                   level="H"
                   includeMargin={false}
                 />
