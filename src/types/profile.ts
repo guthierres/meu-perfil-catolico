@@ -6,7 +6,7 @@ export interface MusicEmbed {
 
 export type CivilStatus = 'solteiro' | 'casado' | 'namorando' | 'religioso' | 'seminarista' | 'diacono' | 'padre';
 
-export type Sacrament = 'batismo' | 'confissao' | 'eucaristia' | 'crisma' | 'matrimonio' | 'ordem' | 'uncao';
+export type Sacrament = 'batismo' | 'eucaristia' | 'crisma' | 'matrimonio' | 'ordem';
 
 export interface Profile {
   id: string;
@@ -44,9 +44,9 @@ export interface GradientPreset {
 
 export const GRADIENT_PRESETS: GradientPreset[] = [
   {
-    name: 'Roxo Celestial',
-    value: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-    colors: ['#667eea', '#764ba2'],
+    name: 'Azul Divino',
+    value: 'linear-gradient(135deg, #7289a9 0%, #8393b2 100%)',
+    colors: ['#7289a9', '#8393b2'],
   },
   {
     name: 'Pôr do Sol',

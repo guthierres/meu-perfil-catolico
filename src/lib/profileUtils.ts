@@ -21,12 +21,10 @@ export const getCivilStatusLabel = (status: string | null): string => {
 export const getSacramentLabel = (sacrament: string): string => {
   const labels: Record<string, string> = {
     batismo: 'Batismo',
-    confissao: 'Confissão',
     eucaristia: 'Eucaristia',
     crisma: 'Crisma',
     matrimonio: 'Matrimônio',
     ordem: 'Ordem',
-    uncao: 'Unção dos Enfermos',
   };
   return labels[sacrament] || sacrament;
 };

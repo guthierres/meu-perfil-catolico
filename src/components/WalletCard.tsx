@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { QRCodeSVG } from 'qrcode.react';
-import { Cross, Calendar, Church, Sparkles, Download, Share2, Wallet } from 'lucide-react';
+import { Church, Calendar, User, Star, Download, Share2, Wallet } from 'lucide-react';
 import { Profile } from '../types/profile';
 import { getDisplayName, getCivilStatusLabel } from '../lib/profileUtils';
 import { downloadWalletAsImage, shareWallet, saveToWallet } from '../utils/walletDownload';
@@ -92,115 +92,109 @@ export function WalletCard({ profile }: WalletCardProps) {
       <div className="flex justify-center">
         <div
           ref={cardRef}
-          className="relative rounded-2xl overflow-hidden shadow-2xl"
+          className="relative rounded-3xl overflow-hidden shadow-2xl"
           style={{
-            background: `linear-gradient(135deg, rgba(${primaryRgb}, 1) 0%, rgba(${secondaryRgb}, 1) 100%)`,
-            width: '420px',
-            height: '264px',
+            background: `linear-gradient(135deg, rgb(114, 137, 169) 0%, rgb(125, 147, 178) 100%)`,
+            width: '390px',
+            height: '650px',
           }}
         >
-          <div className="absolute inset-0 opacity-10">
-            <div className="absolute top-6 right-6 text-white">
-              <Cross className="w-28 h-28" strokeWidth={0.5} />
+          <div className="absolute inset-0 opacity-5 pointer-events-none">
+            <div className="absolute top-8 right-8">
+              <Church className="w-32 h-32 text-white" strokeWidth={1} />
             </div>
-            <div className="absolute bottom-6 left-6 text-white">
-              <Cross className="w-20 h-20" strokeWidth={0.5} />
+            <div className="absolute bottom-16 left-8 rotate-12">
+              <Church className="w-24 h-24 text-white" strokeWidth={1} />
+            </div>
+            <div className="absolute top-1/3 left-1/4 -rotate-45">
+              <Church className="w-20 h-20 text-white" strokeWidth={0.8} />
             </div>
           </div>
 
-          <div className="relative h-full px-6 py-5 flex flex-col text-white">
-            <div className="flex items-start justify-between mb-3">
+          <div className="relative h-full px-8 py-8 flex flex-col text-white">
+            <div className="flex items-start justify-between mb-8">
               <div className="flex-1">
-                <h2 className="text-xs font-bold uppercase tracking-wider opacity-90 mb-1">
+                <h2 className="text-2xl font-bold mb-2" style={{ fontFamily: 'Georgia, serif' }}>
                   Carteirinha Católica
                 </h2>
-                <div className="flex items-center gap-1.5 text-[10px] opacity-80">
-                  <Cross className="w-3 h-3" />
-                  <span>Católico Apostólico Romano</span>
+                <div className="flex items-center gap-2 text-sm opacity-90">
+                  <Church className="w-5 h-5" />
+                  <span style={{ fontFamily: 'system-ui, sans-serif' }}>Católico Apostólico Romano</span>
                 </div>
               </div>
-              {profile.profile_image_url && (
-                <div className="w-16 h-16 rounded-xl overflow-hidden border-2 border-white/40 shadow-xl flex-shrink-0 ml-3">
+              <Church className="w-10 h-10 opacity-90" />
+            </div>
+
+            {profile.profile_image_url && (
+              <div className="flex justify-center mb-6">
+                <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-white/30 shadow-xl">
                   <img
                     src={profile.profile_image_url}
                     alt="Foto"
                     className="w-full h-full object-cover"
                   />
                 </div>
-              )}
-            </div>
+              </div>
+            )}
 
-            <div className="flex-1">
-              <div className="mb-3">
-                <p className="text-[9px] opacity-70 uppercase tracking-wider mb-0.5 font-semibold">Nome Completo</p>
-                <p className="text-base font-bold leading-tight">
+            <div className="flex-1 space-y-6">
+              <div>
+                <p className="text-xs opacity-70 uppercase tracking-wider mb-1 font-medium">NOME COMPLETO</p>
+                <p className="text-xl font-bold">
                   {profile.full_name}
                 </p>
               </div>
 
               {profile.civil_status && (
-                <div className="mb-3">
-                  <p className="text-[9px] opacity-70 uppercase tracking-wider mb-0.5 font-semibold">Estado Civil</p>
-                  <p className="text-xs font-semibold">
+                <div>
+                  <p className="text-xs opacity-70 uppercase tracking-wider mb-1 font-medium">ESTADO DE VIDA</p>
+                  <p className="text-base font-semibold">
                     {getCivilStatusLabel(profile.civil_status)}
                   </p>
                 </div>
               )}
 
-              <div className="grid grid-cols-2 gap-x-4 gap-y-2.5">
-                {profile.parish && (
-                  <div>
-                    <div className="flex items-center gap-1 opacity-70 mb-0.5">
-                      <Church className="w-2.5 h-2.5" />
-                      <span className="text-[9px] uppercase tracking-wider font-semibold">Paróquia</span>
-                    </div>
-                    <p className="font-semibold text-[11px] leading-tight">{profile.parish}</p>
+              {profile.parish && (
+                <div>
+                  <div className="flex items-center gap-2 opacity-70 mb-1">
+                    <Church className="w-4 h-4" />
+                    <span className="text-xs uppercase tracking-wider font-medium">PARÓQUIA</span>
                   </div>
-                )}
+                  <p className="font-semibold text-base leading-tight">{profile.parish}</p>
+                </div>
+              )}
 
-                {profile.baptism_date && (
-                  <div>
-                    <div className="flex items-center gap-1 opacity-70 mb-0.5">
-                      <Calendar className="w-2.5 h-2.5" />
-                      <span className="text-[9px] uppercase tracking-wider font-semibold">Batismo</span>
-                    </div>
-                    <p className="font-semibold text-[11px]">
-                      {new Date(profile.baptism_date).toLocaleDateString('pt-BR')}
-                    </p>
+              {profile.priest_name && (
+                <div>
+                  <div className="flex items-center gap-2 opacity-70 mb-1">
+                    <User className="w-4 h-4" />
+                    <span className="text-xs uppercase tracking-wider font-medium">PÁROCO</span>
                   </div>
-                )}
+                  <p className="font-semibold text-base">{profile.priest_name}</p>
+                </div>
+              )}
 
-                {profile.patron_saint && (
-                  <div className="col-span-2">
-                    <div className="flex items-center gap-1 opacity-70 mb-0.5">
-                      <Sparkles className="w-2.5 h-2.5" />
-                      <span className="text-[9px] uppercase tracking-wider font-semibold">Santo de Devoção</span>
-                    </div>
-                    <p className="font-semibold text-[11px]">{profile.patron_saint}</p>
+              {profile.baptism_date && (
+                <div>
+                  <div className="flex items-center gap-2 opacity-70 mb-1">
+                    <Calendar className="w-4 h-4" />
+                    <span className="text-xs uppercase tracking-wider font-medium">DATA DE BATISMO</span>
                   </div>
-                )}
-              </div>
-            </div>
-
-            <div className="mt-auto pt-3 border-t border-white/30">
-              <div className="flex items-end justify-between gap-3">
-                <div className="flex-1 min-w-0">
-                  <p className="text-[9px] opacity-70 uppercase tracking-wider mb-0.5 font-semibold">Perfil Online</p>
-                  <p className="text-[10px] font-mono opacity-90 truncate">
-                    {profile.slug ? `${window.location.host}/p/${profile.slug}` : 'Sem link'}
+                  <p className="font-semibold text-base">
+                    {new Date(profile.baptism_date).toLocaleDateString('pt-BR')}
                   </p>
                 </div>
-                {profile.slug && (
-                  <div className="bg-white p-1.5 rounded-lg shadow-lg flex-shrink-0">
-                    <QRCodeSVG
-                      value={profileUrl}
-                      size={52}
-                      level="H"
-                      includeMargin={false}
-                    />
+              )}
+
+              {profile.patron_saint && (
+                <div>
+                  <div className="flex items-center gap-2 opacity-70 mb-1">
+                    <Star className="w-4 h-4" />
+                    <span className="text-xs uppercase tracking-wider font-medium">SANTO DE DEVOÇÃO</span>
                   </div>
-                )}
-              </div>
+                  <p className="font-semibold text-base">{profile.patron_saint}</p>
+                </div>
+              )}
             </div>
           </div>
         </div>

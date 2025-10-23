@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 import { useAuth } from '../contexts/AuthContext';
-import { Save, Palette, Link as LinkIcon, Image as ImageIcon, Plus, X, Music } from 'lucide-react';
+import { Save, Palette, Link as LinkIcon, Image as ImageIcon, Plus, X, Music, ArrowLeft } from 'lucide-react';
 import { ImageUpload } from './ImageUpload';
 import { GradientCustomizer } from './GradientCustomizer';
 import { Profile, MusicEmbed, CivilStatus, Sacrament } from '../types/profile';
@@ -9,9 +9,10 @@ import { MusicEmbed as MusicEmbedComponent } from './MusicEmbed';
 
 interface ProfileEditorProps {
   onSave: () => void;
+  onCancel?: () => void;
 }
 
-export function ProfileEditor({ onSave }: ProfileEditorProps) {
+export function ProfileEditor({ onSave, onCancel }: ProfileEditorProps) {
   const { user } = useAuth();
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
@@ -157,9 +158,21 @@ export function ProfileEditor({ onSave }: ProfileEditorProps) {
     <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-red-50 p-4 py-8">
       <div className="max-w-4xl mx-auto">
         <div className="bg-white/90 backdrop-blur-sm rounded-3xl shadow-2xl p-6 md:p-8">
-          <h2 className="text-3xl font-bold mb-8 bg-gradient-to-r from-amber-700 to-orange-700 bg-clip-text text-transparent">
-            Editar Perfil Católico
-          </h2>
+          <div className="flex items-center gap-4 mb-8">
+            {onCancel && (
+              <button
+                type="button"
+                onClick={onCancel}
+                className="p-2 hover:bg-gray-100 rounded-xl transition-colors"
+                aria-label="Voltar"
+              >
+                <ArrowLeft className="w-6 h-6 text-gray-700" />
+              </button>
+            )}
+            <h2 className="text-3xl font-bold bg-gradient-to-r from-amber-700 to-orange-700 bg-clip-text text-transparent">
+              Editar Perfil Católico
+            </h2>
+          </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="bg-blue-50 border-2 border-blue-200 rounded-xl p-4">
@@ -222,7 +235,7 @@ export function ProfileEditor({ onSave }: ProfileEditorProps) {
 
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Estado Civil
+                  Estado de Vida
                 </label>
                 <select
                   value={profile.civil_status || ''}
@@ -420,12 +433,10 @@ export function ProfileEditor({ onSave }: ProfileEditorProps) {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                 {[
                   { value: 'batismo', label: 'Batismo' },
-                  { value: 'confissao', label: 'Confissão' },
                   { value: 'eucaristia', label: 'Eucaristia' },
                   { value: 'crisma', label: 'Crisma' },
                   { value: 'matrimonio', label: 'Matrimônio' },
                   { value: 'ordem', label: 'Ordem' },
-                  { value: 'uncao', label: 'Unção' },
                 ].map((sacrament) => (
                   <label
                     key={sacrament.value}

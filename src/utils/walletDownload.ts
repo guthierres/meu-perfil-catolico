@@ -10,8 +10,8 @@ export async function downloadWalletAsImage(element: HTMLElement, fileName: stri
       logging: false,
       useCORS: true,
       allowTaint: true,
-      width: 420,
-      height: 264,
+      width: 390,
+      height: 650,
     });
 
     canvas.toBlob((blob) => {
@@ -40,8 +40,8 @@ export async function shareWallet(element: HTMLElement, title: string = 'Minha C
       logging: false,
       useCORS: true,
       allowTaint: true,
-      width: 420,
-      height: 264,
+      width: 390,
+      height: 650,
     });
 
     canvas.toBlob(async (blob) => {
@@ -150,8 +150,8 @@ export async function saveToWallet(element: HTMLElement, profile: Profile, profi
       logging: false,
       useCORS: true,
       allowTaint: true,
-      width: 420,
-      height: 264,
+      width: 390,
+      height: 650,
     });
 
     const platform = detectPlatform();
