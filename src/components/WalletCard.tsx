@@ -107,9 +107,9 @@ export function WalletCard({ profile }: WalletCardProps) {
           ref={cardRef}
           className="relative rounded-3xl overflow-hidden mx-auto"
           style={{
-            background: 'linear-gradient(135deg, #5a7a9f 0%, #7891b3 50%, #5a7a9f 100%)',
+            background: 'linear-gradient(135deg, #4a6a8f 0%, #6881a3 50%, #4a6a8f 100%)',
             width: '340px',
-            height: '580px',
+            height: '620px',
             maxWidth: '95vw',
             boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3), 0 0 80px rgba(90, 122, 159, 0.2)',
           }}
@@ -119,28 +119,40 @@ export function WalletCard({ profile }: WalletCardProps) {
             {/* Subtle gradient overlay */}
             <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-black/10" />
             
+            {/* Central decorative cross */}
+            <div className="absolute inset-0 flex items-center justify-center opacity-[0.03]">
+              <div className="relative">
+                <div className="absolute w-1 h-48 bg-white left-1/2 -translate-x-1/2" />
+                <div className="absolute w-48 h-1 bg-white top-1/2 -translate-y-1/2" />
+              </div>
+            </div>
+            
             {/* Decorative churches */}
             <div className="absolute inset-0 opacity-5">
-              <div className="absolute top-8 right-8">
-                <Church className="w-32 h-32 text-white" strokeWidth={1} />
-              </div>
-              <div className="absolute bottom-16 left-8 rotate-12">
+              <div className="absolute top-12 right-8">
                 <Church className="w-24 h-24 text-white" strokeWidth={1} />
               </div>
-              <div className="absolute top-1/3 left-1/4 -rotate-45">
-                <Church className="w-20 h-20 text-white" strokeWidth={0.8} />
+              <div className="absolute bottom-20 left-8 rotate-12">
+                <Church className="w-20 h-20 text-white" strokeWidth={1} />
+              </div>
+            </div>
+            
+            {/* Authenticity seal */}
+            <div className="absolute top-4 right-4 w-16 h-16 rounded-full border-2 border-white/20 flex items-center justify-center">
+              <div className="text-[8px] font-bold text-white/40 text-center leading-tight">
+                AUTÊNTICA<br/>2024
               </div>
             </div>
             
             {/* Decorative border */}
-            <div className="absolute inset-3 border-2 border-white/10 rounded-2xl" />
+            <div className="absolute inset-3 border-2 border-white/15 rounded-2xl" />
           </div>
 
-          <div className="relative h-full px-5 py-4 flex flex-col text-white">
+          <div className="relative h-full px-5 py-6 flex flex-col text-white">
             {/* Header */}
-            <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center justify-between mb-5">
               <div className="flex-1">
-                <h2 className="text-base font-bold tracking-wide leading-tight" style={{ fontFamily: 'Georgia, serif', textShadow: '0 2px 10px rgba(0,0,0,0.3)' }}>
+                <h2 className="text-lg font-bold tracking-wide leading-tight mb-1" style={{ fontFamily: 'Georgia, serif', textShadow: '0 2px 10px rgba(0,0,0,0.3)' }}>
                   Carteirinha Católica
                 </h2>
                 <div className="flex items-center gap-1.5 text-[9px] opacity-90">
@@ -154,20 +166,20 @@ export function WalletCard({ profile }: WalletCardProps) {
             </div>
 
             {/* Photo + Name Section */}
-            <div className="flex gap-3 mb-3">
+            <div className="flex gap-3 mb-4">
               {profile.profile_image_url && (
                 <div className="relative flex-shrink-0">
-                  <div className="w-20 h-20 rounded-xl overflow-hidden border-2 border-white/40 shadow-xl">
+                  <div className="w-20 h-28 rounded-xl overflow-hidden border-2 border-white/40 shadow-xl">
                     <img
                       src={profile.profile_image_url}
                       alt="Foto"
                       className="w-full h-full object-cover"
                     />
                   </div>
-                  <div className="absolute -top-0.5 -left-0.5 w-2.5 h-2.5 border-t-2 border-l-2 border-white/60" />
-                  <div className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 border-t-2 border-r-2 border-white/60" />
-                  <div className="absolute -bottom-0.5 -left-0.5 w-2.5 h-2.5 border-b-2 border-l-2 border-white/60" />
-                  <div className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 border-b-2 border-r-2 border-white/60" />
+                  <div className="absolute -top-1 -left-1 w-3 h-3 border-t-2 border-l-2 border-white/70" />
+                  <div className="absolute -top-1 -right-1 w-3 h-3 border-t-2 border-r-2 border-white/70" />
+                  <div className="absolute -bottom-1 -left-1 w-3 h-3 border-b-2 border-l-2 border-white/70" />
+                  <div className="absolute -bottom-1 -right-1 w-3 h-3 border-b-2 border-r-2 border-white/70" />
                 </div>
               )}
               <div className="flex-1 flex flex-col justify-center min-w-0">
@@ -189,7 +201,7 @@ export function WalletCard({ profile }: WalletCardProps) {
             </div>
 
             {/* Other Information */}
-            <div className="flex-1 grid grid-cols-2 gap-2 mb-3">
+            <div className="flex-1 grid grid-cols-2 gap-2 mb-4">
               {profile.parish && (
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-2 border border-white/10 col-span-2">
                   <div className="flex items-center gap-1.5 opacity-70 mb-0.5">
@@ -234,7 +246,7 @@ export function WalletCard({ profile }: WalletCardProps) {
             </div>
 
             {/* QR Code at bottom */}
-            <div className="mt-auto pt-2 flex items-center justify-between border-t border-white/20 gap-2">
+            <div className="mt-auto pt-3 pb-1 flex items-center justify-between border-t border-white/20 gap-2">
               <div className="flex-1 min-w-0">
                 <p className="text-[8px] opacity-70 mb-0.5">Perfil Digital</p>
                 <p className="text-[9px] font-mono opacity-90 truncate">{profile.slug || 'perfil'}</p>
@@ -242,7 +254,7 @@ export function WalletCard({ profile }: WalletCardProps) {
               <div className="bg-white p-1.5 rounded-lg shadow-xl flex-shrink-0">
                 <QRCodeSVG 
                   value={profileUrl}
-                  size={50}
+                  size={55}
                   level="H"
                   includeMargin={false}
                 />
