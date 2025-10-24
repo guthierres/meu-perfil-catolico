@@ -107,92 +107,107 @@ export function WalletCard({ profile }: WalletCardProps) {
           ref={cardRef}
           className="relative rounded-3xl overflow-hidden mx-auto"
           style={{
-            background: 'linear-gradient(135deg, #4a6a8f 0%, #6881a3 50%, #4a6a8f 100%)',
+            background: 'linear-gradient(135deg, #1e3a5f 0%, #2d5a8c 25%, #3a6fa8 50%, #2d5a8c 75%, #1e3a5f 100%)',
             width: '340px',
             height: '620px',
             maxWidth: '95vw',
-            boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3), 0 0 80px rgba(90, 122, 159, 0.2)',
+            boxShadow: '0 25px 70px rgba(0, 0, 0, 0.35), 0 0 100px rgba(58, 111, 168, 0.25), inset 0 1px 2px rgba(255, 255, 255, 0.1)',
           }}
         >
           {/* Decorative overlay */}
           <div className="absolute inset-0 pointer-events-none">
-            {/* Subtle gradient overlay */}
-            <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-black/10" />
-            
+            {/* Enhanced gradient overlay with shine effect */}
+            <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-black/20" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent" />
+
             {/* Central decorative cross */}
-            <div className="absolute inset-0 flex items-center justify-center opacity-[0.03]">
+            <div className="absolute inset-0 flex items-center justify-center opacity-[0.04]">
               <div className="relative">
-                <div className="absolute w-1 h-48 bg-white left-1/2 -translate-x-1/2" />
-                <div className="absolute w-48 h-1 bg-white top-1/2 -translate-y-1/2" />
+                <div className="absolute w-1.5 h-56 bg-gradient-to-b from-white/50 via-white to-white/50 left-1/2 -translate-x-1/2 rounded-full" />
+                <div className="absolute w-56 h-1.5 bg-gradient-to-r from-white/50 via-white to-white/50 top-1/2 -translate-y-1/2 rounded-full" />
               </div>
             </div>
-            
-            {/* Decorative churches */}
-            <div className="absolute inset-0 opacity-5">
+
+            {/* Decorative churches with glow */}
+            <div className="absolute inset-0 opacity-[0.06]">
               <div className="absolute top-12 right-8">
-                <Church className="w-24 h-24 text-white" strokeWidth={1} />
+                <div className="absolute inset-0 blur-xl bg-white/20" />
+                <Church className="w-24 h-24 text-white relative" strokeWidth={1.5} />
               </div>
               <div className="absolute bottom-20 left-8 rotate-12">
-                <Church className="w-20 h-20 text-white" strokeWidth={1} />
+                <div className="absolute inset-0 blur-xl bg-white/20" />
+                <Church className="w-20 h-20 text-white relative" strokeWidth={1.5} />
               </div>
             </div>
-            
-            {/* Authenticity seal */}
-            <div className="absolute top-4 right-4 w-16 h-16 rounded-full border-2 border-white/20 flex items-center justify-center">
-              <div className="text-[8px] font-bold text-white/40 text-center leading-tight">
-                AUTÊNTICA<br/>2024
-              </div>
-            </div>
-            
-            {/* Decorative border */}
-            <div className="absolute inset-3 border-2 border-white/15 rounded-2xl" />
-          </div>
 
-          <div className="relative h-full px-5 py-6 flex flex-col text-white">
-            {/* Header */}
-            <div className="flex items-center justify-between mb-5">
-              <div className="flex-1">
-                <h2 className="text-lg font-bold tracking-wide leading-tight mb-1" style={{ fontFamily: 'Georgia, serif', textShadow: '0 2px 10px rgba(0,0,0,0.3)' }}>
-                  Carteirinha Católica
-                </h2>
-                <div className="flex items-center gap-1.5 text-[9px] opacity-90">
-                  <Church className="w-3 h-3 flex-shrink-0" />
-                  <span style={{ fontFamily: 'system-ui, sans-serif' }}>Católico Apostólico Romano</span>
+            {/* Enhanced authenticity seal */}
+            <div className="absolute top-4 right-4 w-20 h-20">
+              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-amber-400/30 to-yellow-500/30 blur-md" />
+              <div className="relative w-full h-full rounded-full border-2 border-amber-300/40 flex items-center justify-center bg-gradient-to-br from-amber-400/10 to-yellow-500/10 backdrop-blur-sm shadow-xl">
+                <div className="text-center">
+                  <div className="text-[9px] font-extrabold text-amber-200/90 tracking-wider leading-tight mb-0.5">AUTÊNTICA</div>
+                  <div className="text-[7px] font-semibold text-amber-300/70">2024</div>
+                  <div className="absolute inset-0 rounded-full border border-amber-400/20" />
                 </div>
               </div>
-              <div className="bg-white/10 p-1.5 rounded-lg backdrop-blur-sm flex-shrink-0">
-                <Church className="w-5 h-5" />
+            </div>
+
+            {/* Enhanced decorative borders */}
+            <div className="absolute inset-3 border-2 border-white/20 rounded-2xl" />
+            <div className="absolute inset-4 border border-white/10 rounded-2xl" />
+
+            {/* Corner accents */}
+            <div className="absolute top-5 left-5 w-8 h-8 border-t-2 border-l-2 border-white/30 rounded-tl-xl" />
+            <div className="absolute top-5 right-5 w-8 h-8 border-t-2 border-r-2 border-white/30 rounded-tr-xl" />
+            <div className="absolute bottom-5 left-5 w-8 h-8 border-b-2 border-l-2 border-white/30 rounded-bl-xl" />
+            <div className="absolute bottom-5 right-5 w-8 h-8 border-b-2 border-r-2 border-white/30 rounded-br-xl" />
+          </div>
+
+          <div className="relative h-full px-6 py-7 flex flex-col text-white">
+            {/* Header */}
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex-1">
+                <h2 className="text-xl font-extrabold tracking-wide leading-tight mb-1.5" style={{ fontFamily: 'Georgia, serif', textShadow: '0 3px 15px rgba(0,0,0,0.4), 0 1px 3px rgba(255,255,255,0.1)' }}>
+                  CARTEIRINHA CATÓLICA
+                </h2>
+                <div className="flex items-center gap-2 text-[10px] opacity-95 font-medium">
+                  <Church className="w-3.5 h-3.5 flex-shrink-0" strokeWidth={2} />
+                  <span style={{ fontFamily: 'system-ui, sans-serif', letterSpacing: '0.02em' }}>Católico Apostólico Romano</span>
+                </div>
+              </div>
+              <div className="bg-gradient-to-br from-white/15 to-white/5 p-2 rounded-xl backdrop-blur-sm flex-shrink-0 border border-white/20 shadow-lg">
+                <Church className="w-6 h-6" strokeWidth={2} />
               </div>
             </div>
 
             {/* Photo + Name Section */}
-            <div className="flex gap-3 mb-4">
+            <div className="flex gap-4 mb-5">
               {profile.profile_image_url && (
                 <div className="relative flex-shrink-0">
-                  <div className="w-20 h-28 rounded-xl overflow-hidden border-2 border-white/40 shadow-xl">
+                  <div className="w-24 h-32 rounded-xl overflow-hidden border-3 border-white/50 shadow-2xl ring-1 ring-white/20">
                     <img
                       src={profile.profile_image_url}
                       alt="Foto"
                       className="w-full h-full object-cover"
                     />
                   </div>
-                  <div className="absolute -top-1 -left-1 w-3 h-3 border-t-2 border-l-2 border-white/70" />
-                  <div className="absolute -top-1 -right-1 w-3 h-3 border-t-2 border-r-2 border-white/70" />
-                  <div className="absolute -bottom-1 -left-1 w-3 h-3 border-b-2 border-l-2 border-white/70" />
-                  <div className="absolute -bottom-1 -right-1 w-3 h-3 border-b-2 border-r-2 border-white/70" />
+                  <div className="absolute -top-1.5 -left-1.5 w-4 h-4 border-t-3 border-l-3 border-amber-300/80 rounded-tl" />
+                  <div className="absolute -top-1.5 -right-1.5 w-4 h-4 border-t-3 border-r-3 border-amber-300/80 rounded-tr" />
+                  <div className="absolute -bottom-1.5 -left-1.5 w-4 h-4 border-b-3 border-l-3 border-amber-300/80 rounded-bl" />
+                  <div className="absolute -bottom-1.5 -right-1.5 w-4 h-4 border-b-3 border-r-3 border-amber-300/80 rounded-br" />
                 </div>
               )}
-              <div className="flex-1 flex flex-col justify-center min-w-0">
-                <div className="bg-white/5 backdrop-blur-sm rounded-lg p-2 border border-white/10 mb-1.5">
-                  <p className="text-[8px] opacity-70 uppercase tracking-wider mb-0.5 font-medium">NOME COMPLETO</p>
-                  <p className="text-xs font-bold leading-tight">
+              <div className="flex-1 flex flex-col justify-center min-w-0 gap-2">
+                <div className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm rounded-xl p-3 border border-white/20 shadow-lg">
+                  <p className="text-[9px] opacity-80 uppercase tracking-widest mb-1 font-bold" style={{ letterSpacing: '0.1em' }}>NOME COMPLETO</p>
+                  <p className="text-sm font-extrabold leading-tight" style={{ textShadow: '0 1px 3px rgba(0,0,0,0.3)' }}>
                     {profile.full_name}
                   </p>
                 </div>
                 {profile.civil_status && (
-                  <div className="bg-white/5 backdrop-blur-sm rounded-lg p-2 border border-white/10">
-                    <p className="text-[8px] opacity-70 uppercase tracking-wider mb-0.5 font-medium">ESTADO DE VIDA</p>
-                    <p className="text-xs font-semibold">
+                  <div className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm rounded-xl p-3 border border-white/20 shadow-lg">
+                    <p className="text-[9px] opacity-80 uppercase tracking-widest mb-1 font-bold" style={{ letterSpacing: '0.1em' }}>ESTADO DE VIDA</p>
+                    <p className="text-sm font-bold">
                       {getCivilStatusLabel(profile.civil_status)}
                     </p>
                   </div>
@@ -201,60 +216,60 @@ export function WalletCard({ profile }: WalletCardProps) {
             </div>
 
             {/* Other Information */}
-            <div className="flex-1 grid grid-cols-2 gap-2 mb-4">
+            <div className="flex-1 grid grid-cols-2 gap-2.5 mb-5">
               {profile.parish && (
-                <div className="bg-white/5 backdrop-blur-sm rounded-lg p-2 border border-white/10 col-span-2">
-                  <div className="flex items-center gap-1.5 opacity-70 mb-0.5">
-                    <Church className="w-2.5 h-2.5 flex-shrink-0" />
-                    <span className="text-[8px] uppercase tracking-wider font-medium">PARÓQUIA</span>
+                <div className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm rounded-xl p-3 border border-white/20 col-span-2 shadow-lg">
+                  <div className="flex items-center gap-2 opacity-85 mb-1">
+                    <Church className="w-3 h-3 flex-shrink-0" strokeWidth={2} />
+                    <span className="text-[9px] uppercase tracking-widest font-bold" style={{ letterSpacing: '0.1em' }}>PARÓQUIA</span>
                   </div>
-                  <p className="font-semibold text-[10px] leading-tight">{profile.parish}</p>
+                  <p className="font-bold text-[11px] leading-tight">{profile.parish}</p>
                 </div>
               )}
 
               {profile.priest_name && (
-                <div className="bg-white/5 backdrop-blur-sm rounded-lg p-2 border border-white/10">
-                  <div className="flex items-center gap-1 opacity-70 mb-0.5">
-                    <User className="w-2.5 h-2.5 flex-shrink-0" />
-                    <span className="text-[8px] uppercase tracking-wider font-medium">PÁROCO</span>
+                <div className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm rounded-xl p-3 border border-white/20 shadow-lg">
+                  <div className="flex items-center gap-1.5 opacity-85 mb-1">
+                    <User className="w-3 h-3 flex-shrink-0" strokeWidth={2} />
+                    <span className="text-[9px] uppercase tracking-widest font-bold" style={{ letterSpacing: '0.1em' }}>PÁROCO</span>
                   </div>
-                  <p className="font-semibold text-[10px]">{profile.priest_name}</p>
+                  <p className="font-bold text-[11px]">{profile.priest_name}</p>
                 </div>
               )}
 
               {profile.baptism_date && (
-                <div className="bg-white/5 backdrop-blur-sm rounded-lg p-2 border border-white/10">
-                  <div className="flex items-center gap-1 opacity-70 mb-0.5">
-                    <Calendar className="w-2.5 h-2.5 flex-shrink-0" />
-                    <span className="text-[8px] uppercase tracking-wider font-medium">BATISMO</span>
+                <div className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm rounded-xl p-3 border border-white/20 shadow-lg">
+                  <div className="flex items-center gap-1.5 opacity-85 mb-1">
+                    <Calendar className="w-3 h-3 flex-shrink-0" strokeWidth={2} />
+                    <span className="text-[9px] uppercase tracking-widest font-bold" style={{ letterSpacing: '0.1em' }}>BATISMO</span>
                   </div>
-                  <p className="font-semibold text-[10px]">
+                  <p className="font-bold text-[11px]">
                     {new Date(profile.baptism_date).toLocaleDateString('pt-BR')}
                   </p>
                 </div>
               )}
 
               {profile.patron_saint && (
-                <div className="bg-white/5 backdrop-blur-sm rounded-lg p-2 border border-white/10 col-span-2">
-                  <div className="flex items-center gap-1 opacity-70 mb-0.5">
-                    <Star className="w-2.5 h-2.5 flex-shrink-0" />
-                    <span className="text-[8px] uppercase tracking-wider font-medium">SANTO DE DEVOÇÃO</span>
+                <div className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm rounded-xl p-3 border border-white/20 col-span-2 shadow-lg">
+                  <div className="flex items-center gap-1.5 opacity-85 mb-1">
+                    <Star className="w-3 h-3 flex-shrink-0" strokeWidth={2} />
+                    <span className="text-[9px] uppercase tracking-widest font-bold" style={{ letterSpacing: '0.1em' }}>SANTO DE DEVOÇÃO</span>
                   </div>
-                  <p className="font-semibold text-[10px]">{profile.patron_saint}</p>
+                  <p className="font-bold text-[11px]">{profile.patron_saint}</p>
                 </div>
               )}
             </div>
 
             {/* QR Code at bottom */}
-            <div className="mt-auto pt-3 pb-1 flex items-center justify-between border-t border-white/20 gap-2">
+            <div className="mt-auto pt-4 pb-2 flex items-center justify-between border-t-2 border-white/25 gap-3">
               <div className="flex-1 min-w-0">
-                <p className="text-[8px] opacity-70 mb-0.5">Perfil Digital</p>
-                <p className="text-[9px] font-mono opacity-90 truncate">{profile.slug || 'perfil'}</p>
+                <p className="text-[9px] opacity-80 mb-1 font-semibold uppercase tracking-wider">Perfil Digital</p>
+                <p className="text-[10px] font-mono opacity-95 truncate font-bold">{profile.slug || 'perfil'}</p>
               </div>
-              <div className="bg-white p-1.5 rounded-lg shadow-xl flex-shrink-0">
-                <QRCodeSVG 
+              <div className="bg-white p-2 rounded-xl shadow-2xl flex-shrink-0 ring-2 ring-white/30">
+                <QRCodeSVG
                   value={profileUrl}
-                  size={55}
+                  size={60}
                   level="H"
                   includeMargin={false}
                 />
