@@ -92,21 +92,36 @@ export function ProfileDisplay({ onEdit }: ProfileDisplayProps) {
         style={{ backgroundColor: `rgba(0, 0, 0, ${overlayOpacity})` }}
       >
         <div className="max-w-2xl mx-auto px-4 py-8">
-          <div className="flex justify-end gap-3 mb-6">
-            <button
-              onClick={onEdit}
-              className="bg-white/90 backdrop-blur-sm px-6 py-3 rounded-xl font-semibold hover:bg-white transition shadow-lg flex items-center gap-2 text-gray-800"
-            >
-              <Edit className="w-5 h-5" />
-              Editar
-            </button>
-            <button
-              onClick={signOut}
-              className="bg-white/90 backdrop-blur-sm px-6 py-3 rounded-xl font-semibold hover:bg-white transition shadow-lg flex items-center gap-2 text-gray-800"
-            >
-              <LogOut className="w-5 h-5" />
-              Sair
-            </button>
+          <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg p-4 mb-6">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="bg-gradient-to-br from-amber-600 to-orange-700 p-2 rounded-xl">
+                  <Cross className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <h1 className="text-xl font-bold bg-gradient-to-r from-amber-700 to-orange-700 bg-clip-text text-transparent">
+                    ID Católico
+                  </h1>
+                  <p className="text-xs text-gray-600">Meu Perfil</p>
+                </div>
+              </div>
+              <div className="flex gap-2">
+                <button
+                  onClick={onEdit}
+                  className="bg-white px-4 py-2 rounded-xl font-semibold hover:bg-gray-50 transition shadow-sm flex items-center gap-2 text-gray-800"
+                >
+                  <Edit className="w-4 h-4" />
+                  <span className="hidden sm:inline">Editar</span>
+                </button>
+                <button
+                  onClick={signOut}
+                  className="bg-white px-4 py-2 rounded-xl font-semibold hover:bg-gray-50 transition shadow-sm flex items-center gap-2 text-gray-800"
+                >
+                  <LogOut className="w-4 h-4" />
+                  <span className="hidden sm:inline">Sair</span>
+                </button>
+              </div>
+            </div>
           </div>
 
           <ProfileTabs

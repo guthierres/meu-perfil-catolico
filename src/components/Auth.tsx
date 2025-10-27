@@ -2,7 +2,11 @@ import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { Cross, Mail, Lock, Loader2, ArrowLeft } from 'lucide-react';
 
-export function Auth() {
+interface AuthProps {
+  onBack?: () => void;
+}
+
+export function Auth({ onBack }: AuthProps = {}) {
   const [isSignUp, setIsSignUp] = useState(false);
   const [isForgotPassword, setIsForgotPassword] = useState(false);
   const [email, setEmail] = useState('');
@@ -38,6 +42,16 @@ export function Auth() {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-amber-50 via-orange-50 to-red-50 p-4">
       <div className="w-full max-w-md">
         <div className="bg-white/90 backdrop-blur-sm rounded-3xl shadow-2xl p-8">
+          {onBack && (
+            <button
+              onClick={onBack}
+              className="flex items-center gap-2 text-amber-700 hover:text-amber-800 mb-4 font-medium transition"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Voltar
+            </button>
+          )}
+
           <div className="flex justify-center mb-6">
             <div className="bg-gradient-to-br from-amber-600 to-orange-700 p-4 rounded-2xl">
               <Cross className="w-12 h-12 text-white" />
@@ -54,7 +68,7 @@ export function Auth() {
               className="flex items-center gap-2 text-amber-700 hover:text-amber-800 mb-4 font-medium transition"
             >
               <ArrowLeft className="w-4 h-4" />
-              Voltar
+              Voltar para Login
             </button>
           )}
 

@@ -110,7 +110,7 @@ function AppContent() {
     return (
       <>
         <SEO title="Entrar - ID Católico" description="Faça login no ID Católico e acesse sua carteirinha católica digital." />
-        <Auth />
+        <Auth onBack={() => setShowLanding(true)} />
         <Footer onPrivacyClick={() => setCurrentPage('privacy')} onTermsClick={() => setCurrentPage('terms')} />
       </>
     );
