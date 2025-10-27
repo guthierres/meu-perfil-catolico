@@ -109,7 +109,7 @@ export function WalletCard({ profile }: WalletCardProps) {
           style={{
             background: 'linear-gradient(135deg, #1e3a5f 0%, #2d5a8c 25%, #3a6fa8 50%, #2d5a8c 75%, #1e3a5f 100%)',
             width: '340px',
-            height: '620px',
+            height: '640px',
             maxWidth: '95vw',
             boxShadow: '0 25px 70px rgba(0, 0, 0, 0.35), 0 0 100px rgba(58, 111, 168, 0.25), inset 0 1px 2px rgba(255, 255, 255, 0.1)',
           }}
@@ -200,7 +200,7 @@ export function WalletCard({ profile }: WalletCardProps) {
               <div className="flex-1 flex flex-col justify-center min-w-0 gap-2">
                 <div className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm rounded-xl p-3 border border-white/20 shadow-lg">
                   <p className="text-[9px] opacity-80 uppercase tracking-widest mb-1 font-bold" style={{ letterSpacing: '0.1em' }}>NOME COMPLETO</p>
-                  <p className="text-sm font-extrabold leading-tight" style={{ textShadow: '0 1px 3px rgba(0,0,0,0.3)' }}>
+                  <p className="text-sm font-extrabold leading-tight break-words" style={{ textShadow: '0 1px 3px rgba(0,0,0,0.3)', wordBreak: 'break-word' }}>
                     {profile.full_name}
                   </p>
                 </div>
@@ -260,19 +260,25 @@ export function WalletCard({ profile }: WalletCardProps) {
               )}
             </div>
 
-            {/* QR Code at bottom */}
-            <div className="mt-auto pt-4 pb-2 flex items-center justify-between border-t-2 border-white/25 gap-3">
-              <div className="flex-1 min-w-0">
-                <p className="text-[9px] opacity-80 mb-1 font-semibold uppercase tracking-wider">Perfil Digital</p>
-                <p className="text-[10px] font-mono opacity-95 truncate font-bold">{profile.slug || 'perfil'}</p>
+            {/* QR Code and ID at bottom */}
+            <div className="mt-auto pt-4 pb-2 border-t-2 border-white/25">
+              <div className="flex items-center justify-between gap-3 mb-3">
+                <div className="flex-1 min-w-0">
+                  <p className="text-[9px] opacity-80 mb-1 font-semibold uppercase tracking-wider">ID da Carteirinha</p>
+                  <p className="text-xl font-mono font-extrabold tracking-widest" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.3)' }}>{profile.card_id}</p>
+                </div>
+                <div className="bg-white p-2 rounded-xl shadow-2xl flex-shrink-0 ring-2 ring-white/30">
+                  <QRCodeSVG
+                    value={profileUrl}
+                    size={60}
+                    level="H"
+                    includeMargin={false}
+                  />
+                </div>
               </div>
-              <div className="bg-white p-2 rounded-xl shadow-2xl flex-shrink-0 ring-2 ring-white/30">
-                <QRCodeSVG
-                  value={profileUrl}
-                  size={60}
-                  level="H"
-                  includeMargin={false}
-                />
+              <div className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm rounded-lg p-2.5 border border-white/20">
+                <p className="text-[8px] opacity-75 mb-0.5 font-semibold uppercase tracking-wider">Perfil Digital</p>
+                <p className="text-[11px] font-mono opacity-95 font-bold break-all">{profile.slug || 'perfil'}</p>
               </div>
             </div>
           </div>

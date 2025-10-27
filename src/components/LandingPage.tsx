@@ -1,4 +1,4 @@
-import { Cross, Users, Share2, CheckCircle, ArrowRight, Music, Palette, Sparkles } from 'lucide-react';
+import { Cross, Users, Share2, CheckCircle, ArrowRight, Music, Palette, Sparkles, Search } from 'lucide-react';
 
 interface LandingPageProps {
   onGetStarted: () => void;
@@ -174,7 +174,7 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
           </div>
         </div>
 
-        <div className="text-center">
+        <div className="text-center space-y-6">
           <button
             onClick={onGetStarted}
             className="group inline-flex items-center gap-4 bg-gradient-to-r from-blue-600 via-blue-700 to-sky-700 text-white px-14 py-6 rounded-2xl font-bold text-xl hover:from-blue-700 hover:via-blue-800 hover:to-sky-800 transition-all duration-300 shadow-2xl hover:shadow-3xl transform hover:scale-105 relative overflow-hidden"
@@ -186,7 +186,17 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
               <ArrowRight className="w-7 h-7 group-hover:translate-x-2 transition-transform" strokeWidth={2.5} />
             </span>
           </button>
-          <p className="text-gray-700 mt-6 font-semibold text-lg">✨ É grátis e leva menos de 5 minutos</p>
+          <p className="text-gray-700 font-semibold text-lg">✨ É grátis e leva menos de 5 minutos</p>
+
+          <div className="pt-8 border-t border-gray-200/50 max-w-md mx-auto">
+            <a
+              href="/search"
+              className="group inline-flex items-center gap-3 text-blue-700 hover:text-blue-800 font-semibold text-base hover:underline transition-all"
+            >
+              <Search className="w-5 h-5 group-hover:scale-110 transition-transform" strokeWidth={2.5} />
+              Buscar carteirinha por ID
+            </a>
+          </div>
         </div>
       </div>
     </div>

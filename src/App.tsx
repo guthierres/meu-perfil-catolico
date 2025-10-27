@@ -7,10 +7,11 @@ import { LandingPage } from './components/LandingPage';
 import { PublicProfile } from './components/PublicProfile';
 import { PrivacyPolicy } from './pages/PrivacyPolicy';
 import { TermsOfService } from './pages/TermsOfService';
+import SearchCard from './pages/SearchCard';
 import { Footer } from './components/Footer';
 import { SEO } from './components/SEO';
 
-type PageView = 'main' | 'privacy' | 'terms';
+type PageView = 'main' | 'privacy' | 'terms' | 'search';
 
 function AppContent() {
   const { user, loading } = useAuth();
@@ -20,6 +21,7 @@ function AppContent() {
 
   const path = window.location.pathname;
   const isPublicProfile = path.startsWith('/p/');
+  const isSearchPage = path === '/search' || path === '/buscar';
   const slug = isPublicProfile ? path.replace('/p/', '') : null;
 
   useEffect(() => {
@@ -29,6 +31,19 @@ function AppContent() {
       });
     }
   }, []);
+
+  if (isSearchPage) {
+    return (
+      <>
+        <SEO
+          title="Buscar Carteirinha - ID Católico"
+          description="Busque e valide carteirinhas católicas pelo ID único de 6 dígitos."
+          ogUrl="https://idcatolico.com/search"
+        />
+        <SearchCard />
+      </>
+    );
+  }
 
   if (isPublicProfile && slug) {
     return (
