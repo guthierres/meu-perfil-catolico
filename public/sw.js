@@ -12,6 +12,7 @@ const STATIC_ASSETS = [
 
 const API_CACHE_DURATION = 5 * 60 * 1000;
 
+// --- Evento 'install' ---
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME)
@@ -22,6 +23,7 @@ self.addEventListener('install', (event) => {
   );
 });
 
+// --- Evento 'activate' ---
 self.addEventListener('activate', (event) => {
   const cacheWhitelist = [CACHE_NAME, RUNTIME_CACHE];
   event.waitUntil(
@@ -39,14 +41,21 @@ self.addEventListener('activate', (event) => {
   );
 });
 
+// --- Evento 'fetch' com a Correção de Protocolo ---
 self.addEventListener('fetch', (event) => {
   const { request } = event;
   const url = new URL(request.url);
+
+  // 🛑 CORREÇÃO APLICADA: Ignora requisições que não são http/https (como 'chrome-extension:')
+  if (!url.protocol.startsWith('http')) {
+      return;
+  }
 
   if (request.method !== 'GET') {
     return;
   }
 
+  // 1. Estratégia: Cache-First para Assets Estáticos (Same Origin)
   if (url.origin === location.origin && STATIC_ASSETS.includes(url.pathname)) {
     event.respondWith(
       caches.match(request).then((cachedResponse) => {
@@ -64,6 +73,7 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
+  // 2. Estratégia: Network-First para Outras Requisições Same-Origin
   if (url.origin === location.origin) {
     event.respondWith(
       fetch(request)
@@ -83,6 +93,7 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
+  // 3. Estratégia: Network-Only com Fallback (sem cache inicial, para Supabase)
   if (url.hostname.includes('supabase.co')) {
     event.respondWith(
       fetch(request).catch(() => caches.match(request))
@@ -90,6 +101,7 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
+  // 4. Estratégia: Stale-While-Revalidate (com Timeout) para Outras APIs Cross-Origin
   event.respondWith(
     caches.match(request)
       .then((cachedResponse) => {
@@ -120,6 +132,7 @@ self.addEventListener('fetch', (event) => {
   );
 });
 
+// --- Evento 'message' ---
 self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
     self.skipWaiting();
