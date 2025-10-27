@@ -47,10 +47,9 @@ export function WalletCard({ profile }: WalletCardProps) {
 
   return (
     <div className="space-y-4 px-2 sm:px-0">
-      <div className="rounded-3xl p-4 sm:p-8 border-2 shadow-xl"
+      <div className="rounded-3xl p-4 sm:p-8 border-2 shadow-xl bg-white/95 backdrop-blur-sm"
         style={{
-          background: 'linear-gradient(135deg, hsl(var(--sacred-gold) / 0.08) 0%, hsl(var(--sacred-amber) / 0.12) 50%, hsl(var(--sacred-gold) / 0.08) 100%)',
-          borderColor: 'hsl(var(--sacred-gold) / 0.3)'
+          borderColor: 'hsl(var(--sacred-gold) / 0.4)'
         }}
       >
         <h3 className="text-base sm:text-xl font-bold mb-2 sm:mb-3 flex items-center gap-2 sm:gap-3"
@@ -61,18 +60,16 @@ export function WalletCard({ profile }: WalletCardProps) {
           </div>
           <span className="text-sm sm:text-xl">Adicionar à Carteira Digital</span>
         </h3>
-        <p className="text-xs sm:text-sm mb-4 sm:mb-6"
-          style={{ color: 'hsl(var(--foreground) / 0.7)' }}
-        >
+        <p className="text-xs sm:text-sm mb-4 sm:mb-6 text-gray-700">
           Salve sua carteirinha católica e tenha acesso rápido mesmo offline
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-4">
           <button
             onClick={handleDownload}
-            className="flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-2.5 sm:py-3.5 bg-white/80 backdrop-blur-sm rounded-xl shadow-lg hover:shadow-xl transition-all text-xs sm:text-sm font-semibold border-2 hover:scale-105 transform duration-200 active:scale-95"
-            style={{ 
+            className="flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-2.5 sm:py-3.5 bg-white rounded-xl shadow-lg hover:shadow-xl transition-all text-xs sm:text-sm font-semibold border-2 hover:scale-105 transform duration-200 active:scale-95"
+            style={{
               color: 'hsl(var(--sacred-brown))',
-              borderColor: 'hsl(var(--sacred-gold) / 0.3)'
+              borderColor: 'hsl(var(--sacred-gold) / 0.4)'
             }}
           >
             <Download className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -80,10 +77,10 @@ export function WalletCard({ profile }: WalletCardProps) {
           </button>
           <button
             onClick={handleShare}
-            className="flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-2.5 sm:py-3.5 bg-white/80 backdrop-blur-sm rounded-xl shadow-lg hover:shadow-xl transition-all text-xs sm:text-sm font-semibold border-2 hover:scale-105 transform duration-200 active:scale-95"
-            style={{ 
+            className="flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-2.5 sm:py-3.5 bg-white rounded-xl shadow-lg hover:shadow-xl transition-all text-xs sm:text-sm font-semibold border-2 hover:scale-105 transform duration-200 active:scale-95"
+            style={{
               color: 'hsl(var(--sacred-brown))',
-              borderColor: 'hsl(var(--sacred-gold) / 0.3)'
+              borderColor: 'hsl(var(--sacred-gold) / 0.4)'
             }}
           >
             <Share2 className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -281,10 +278,9 @@ export function WalletCard({ profile }: WalletCardProps) {
         </div>
       </div>
 
-      <div className="rounded-3xl p-4 sm:p-8 border-2 shadow-xl"
+      <div className="rounded-3xl p-4 sm:p-8 border-2 shadow-xl bg-white/95 backdrop-blur-sm"
         style={{
-          background: 'linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--muted)) 100%)',
-          borderColor: 'hsl(var(--sacred-gold) / 0.3)'
+          borderColor: 'hsl(var(--sacred-gold) / 0.4)'
         }}
       >
         <h4 className="font-bold text-sm sm:text-lg mb-3 sm:mb-4 flex items-center gap-2"
@@ -293,9 +289,7 @@ export function WalletCard({ profile }: WalletCardProps) {
           <span className="text-lg sm:text-2xl">💡</span>
           <span>Como usar sua carteirinha:</span>
         </h4>
-        <div className="text-xs sm:text-sm space-y-2 sm:space-y-3"
-          style={{ color: 'hsl(var(--foreground) / 0.8)' }}
-        >
+        <div className="text-xs sm:text-sm space-y-2 sm:space-y-3 text-gray-700">
           <p className="flex items-start gap-2 sm:gap-3">
             <span className="text-base sm:text-xl flex-shrink-0">📱</span>
             <span><strong>iOS (iPhone):</strong> Baixe a imagem e adicione às fotos favoritas ou como papel de parede da tela de bloqueio</span>

@@ -1,41 +1,123 @@
-import { Cross, Users, Share2, CheckCircle, ArrowRight, Music, Palette, Sparkles, Search } from 'lucide-react';
+import { useState } from 'react';
+import { Cross, Users, Share2, CheckCircle, ArrowRight, Music, Palette, Sparkles, Search, Loader2 } from 'lucide-react';
+import { supabase } from '../lib/supabase';
+import { Profile } from '../types/profile';
+import { Header } from './Header';
 
 interface LandingPageProps {
   onGetStarted: () => void;
 }
 
 export function LandingPage({ onGetStarted }: LandingPageProps) {
+  const [searchId, setSearchId] = useState('');
+  const [searching, setSearching] = useState(false);
+  const [searchError, setSearchError] = useState('');
+
+  const handleSearch = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!searchId.trim() || searchId.length !== 6) {
+      setSearchError('Digite um ID válido de 6 dígitos');
+      return;
+    }
+
+    setSearching(true);
+    setSearchError('');
+
+    try {
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('slug')
+        .eq('card_id', searchId.trim())
+        .maybeSingle();
+
+      if (error) throw error;
+
+      if (!data || !data.slug) {
+        setSearchError('Carteirinha não encontrada');
+        return;
+      }
+
+      window.location.href = `/p/${data.slug}`;
+    } catch (err) {
+      console.error('Erro ao buscar:', err);
+      setSearchError('Erro ao buscar. Tente novamente.');
+    } finally {
+      setSearching(false);
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-amber-50/50 overflow-hidden relative">
+    <>
+    <Header />
+    <div className="min-h-screen bg-gradient-to-br from-stone-50 via-amber-50/40 to-orange-50/30 overflow-hidden relative">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 left-10 w-96 h-96 bg-blue-200/20 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-40 right-20 w-[500px] h-[500px] bg-amber-200/15 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1.5s' }}></div>
-        <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-sky-200/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '3s' }}></div>
+        <div className="absolute top-20 left-10 w-96 h-96 bg-amber-200/15 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-40 right-20 w-[500px] h-[500px] bg-orange-200/15 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1.5s' }}></div>
+        <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-stone-200/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '3s' }}></div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 py-12 md:py-20 relative z-10">
         <div className="text-center mb-20">
-          <div className="inline-flex items-center justify-center w-28 h-28 bg-gradient-to-br from-blue-600 via-blue-700 to-sky-800 rounded-3xl mb-8 shadow-2xl transform hover:scale-110 hover:rotate-3 transition-all duration-500 relative">
+          <div className="inline-flex items-center justify-center w-28 h-28 bg-gradient-to-br from-amber-700 via-orange-700 to-amber-800 rounded-3xl mb-8 shadow-2xl transform hover:scale-110 hover:rotate-3 transition-all duration-500 relative">
             <div className="absolute inset-0 bg-gradient-to-tr from-white/20 to-transparent rounded-3xl"></div>
             <Cross className="w-14 h-14 text-white relative z-10" strokeWidth={2.5} />
           </div>
-          <h1 className="text-5xl md:text-7xl font-extrabold mb-6 bg-gradient-to-r from-blue-900 via-sky-700 to-blue-900 bg-clip-text text-transparent leading-tight">
+          <h1 className="text-5xl md:text-7xl font-extrabold mb-6 bg-gradient-to-r from-amber-900 via-orange-800 to-amber-900 bg-clip-text text-transparent leading-tight">
             CATOLID
           </h1>
-          <p className="text-2xl md:text-3xl text-blue-800 max-w-4xl mx-auto mb-6 font-bold">
+          <p className="text-2xl md:text-3xl text-amber-900 max-w-4xl mx-auto mb-6 font-bold">
             Sua Identidade Católica Digital
           </p>
-          <p className="text-lg md:text-xl text-gray-700 max-w-4xl mx-auto leading-relaxed">
-            Compartilhe sua fé de forma <span className="font-bold text-blue-700">moderna</span> e <span className="font-bold text-sky-700">personalizada</span>.<br className="hidden md:block" />
+          <p className="text-lg md:text-xl text-gray-700 max-w-4xl mx-auto leading-relaxed mb-8">
+            Compartilhe sua fé de forma <span className="font-bold text-amber-800">moderna</span> e <span className="font-bold text-orange-700">personalizada</span>.<br className="hidden md:block" />
             Crie sua carteirinha católica digital em minutos e conecte-se com toda a comunidade.
           </p>
+
+          <div className="max-w-md mx-auto mb-8">
+            <form onSubmit={handleSearch} className="relative">
+              <div className="bg-white/95 backdrop-blur-md rounded-2xl p-2 shadow-xl border-2 border-amber-200/50">
+                <div className="flex items-center gap-2">
+                  <input
+                    type="text"
+                    value={searchId}
+                    onChange={(e) => {
+                      const value = e.target.value.replace(/\D/g, '').slice(0, 6);
+                      setSearchId(value);
+                      setSearchError('');
+                    }}
+                    placeholder="Buscar por ID (6 dígitos)"
+                    maxLength={6}
+                    className="flex-1 px-4 py-3 text-lg font-mono font-bold text-center rounded-xl border-2 border-transparent focus:border-amber-500 focus:outline-none tracking-widest"
+                  />
+                  <button
+                    type="submit"
+                    disabled={searching || searchId.length !== 6}
+                    className="px-6 py-3 bg-gradient-to-r from-amber-600 to-orange-600 text-white rounded-xl font-semibold hover:from-amber-700 hover:to-orange-700 transition shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                  >
+                    {searching ? (
+                      <Loader2 className="w-5 h-5 animate-spin" />
+                    ) : (
+                      <Search className="w-5 h-5" />
+                    )}
+                  </button>
+                </div>
+                {searchError && (
+                  <p className="text-red-600 text-sm mt-2 text-center font-medium">{searchError}</p>
+                )}
+              </div>
+            </form>
+            <p className="text-sm text-gray-600 text-center mt-3">
+              Digite o ID de 6 dígitos para encontrar uma carteirinha
+            </p>
+          </div>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
-          <div className="group bg-white/95 backdrop-blur-md rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-3 border-2 border-blue-100/50 hover:border-blue-200 relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          <div className="group bg-white/95 backdrop-blur-md rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-3 border-2 border-amber-100/50 hover:border-amber-200 relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-amber-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             <div className="relative z-10">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-amber-600 to-orange-600 rounded-2xl mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300">
                 <Users className="w-8 h-8 text-white" strokeWidth={2} />
               </div>
               <h3 className="text-xl font-bold text-gray-800 mb-3">Identidade Católica</h3>
@@ -71,10 +153,10 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
             </div>
           </div>
 
-          <div className="group bg-white/95 backdrop-blur-md rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-3 border-2 border-sky-100/50 hover:border-sky-200 relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-sky-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          <div className="group bg-white/95 backdrop-blur-md rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-3 border-2 border-orange-100/50 hover:border-orange-200 relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-orange-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             <div className="relative z-10">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-sky-500 to-sky-600 rounded-2xl mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300">
                 <Music className="w-8 h-8 text-white" strokeWidth={2} />
               </div>
               <h3 className="text-xl font-bold text-gray-800 mb-3">Músicas Incorporadas</h3>
@@ -85,8 +167,8 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
           </div>
         </div>
 
-        <div className="bg-white/95 backdrop-blur-md rounded-3xl p-10 md:p-14 shadow-2xl mb-20 border-2 border-blue-100/50">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4 text-center bg-gradient-to-r from-blue-800 to-sky-700 bg-clip-text text-transparent">
+        <div className="bg-white/95 backdrop-blur-md rounded-3xl p-10 md:p-14 shadow-2xl mb-20 border-2 border-amber-100/50">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4 text-center bg-gradient-to-r from-amber-800 to-orange-700 bg-clip-text text-transparent">
             Por que usar o CATOLID?
           </h2>
           <p className="text-center text-gray-600 mb-10 max-w-2xl mx-auto">
@@ -94,7 +176,7 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
           </p>
 
           <div className="space-y-6">
-            <div className="flex items-start gap-5 p-5 rounded-2xl hover:bg-blue-50/50 transition-colors duration-300">
+            <div className="flex items-start gap-5 p-5 rounded-2xl hover:bg-amber-50/50 transition-colors duration-300">
               <div className="flex-shrink-0 mt-1">
                 <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center shadow-lg">
                   <CheckCircle className="w-6 h-6 text-white" strokeWidth={2.5} />
@@ -108,7 +190,7 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
               </div>
             </div>
 
-            <div className="flex items-start gap-5 p-5 rounded-2xl hover:bg-blue-50/50 transition-colors duration-300">
+            <div className="flex items-start gap-5 p-5 rounded-2xl hover:bg-amber-50/50 transition-colors duration-300">
               <div className="flex-shrink-0 mt-1">
                 <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center shadow-lg">
                   <CheckCircle className="w-6 h-6 text-white" strokeWidth={2.5} />
@@ -122,7 +204,7 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
               </div>
             </div>
 
-            <div className="flex items-start gap-5 p-5 rounded-2xl hover:bg-blue-50/50 transition-colors duration-300">
+            <div className="flex items-start gap-5 p-5 rounded-2xl hover:bg-amber-50/50 transition-colors duration-300">
               <div className="flex-shrink-0 mt-1">
                 <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center shadow-lg">
                   <CheckCircle className="w-6 h-6 text-white" strokeWidth={2.5} />
@@ -136,7 +218,7 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
               </div>
             </div>
 
-            <div className="flex items-start gap-5 p-5 rounded-2xl hover:bg-blue-50/50 transition-colors duration-300">
+            <div className="flex items-start gap-5 p-5 rounded-2xl hover:bg-amber-50/50 transition-colors duration-300">
               <div className="flex-shrink-0 mt-1">
                 <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center shadow-lg">
                   <CheckCircle className="w-6 h-6 text-white" strokeWidth={2.5} />
@@ -150,7 +232,7 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
               </div>
             </div>
 
-            <div className="flex items-start gap-5 p-5 rounded-2xl hover:bg-blue-50/50 transition-colors duration-300">
+            <div className="flex items-start gap-5 p-5 rounded-2xl hover:bg-amber-50/50 transition-colors duration-300">
               <div className="flex-shrink-0 mt-1">
                 <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center shadow-lg">
                   <CheckCircle className="w-6 h-6 text-white" strokeWidth={2.5} />
@@ -164,7 +246,7 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
               </div>
             </div>
 
-            <div className="flex items-start gap-5 p-5 rounded-2xl hover:bg-blue-50/50 transition-colors duration-300">
+            <div className="flex items-start gap-5 p-5 rounded-2xl hover:bg-amber-50/50 transition-colors duration-300">
               <div className="flex-shrink-0 mt-1">
                 <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center shadow-lg">
                   <CheckCircle className="w-6 h-6 text-white" strokeWidth={2.5} />
@@ -183,7 +265,7 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
         <div className="text-center space-y-6">
           <button
             onClick={onGetStarted}
-            className="group inline-flex items-center gap-4 bg-gradient-to-r from-blue-600 via-blue-700 to-sky-700 text-white px-14 py-6 rounded-2xl font-bold text-xl hover:from-blue-700 hover:via-blue-800 hover:to-sky-800 transition-all duration-300 shadow-2xl hover:shadow-3xl transform hover:scale-105 relative overflow-hidden"
+            className="group inline-flex items-center gap-4 bg-gradient-to-r from-amber-700 via-orange-700 to-amber-800 text-white px-14 py-6 rounded-2xl font-bold text-xl hover:from-amber-800 hover:via-orange-800 hover:to-amber-900 transition-all duration-300 shadow-2xl hover:shadow-3xl transform hover:scale-105 relative overflow-hidden"
           >
             <span className="absolute inset-0 bg-white/20 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></span>
             <span className="relative flex items-center gap-4">
@@ -193,18 +275,9 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
             </span>
           </button>
           <p className="text-gray-700 font-semibold text-lg">✨ É grátis e leva menos de 5 minutos • catolid.com</p>
-
-          <div className="pt-8 border-t border-gray-200/50 max-w-md mx-auto">
-            <a
-              href="/search"
-              className="group inline-flex items-center gap-3 text-blue-700 hover:text-blue-800 font-semibold text-base hover:underline transition-all"
-            >
-              <Search className="w-5 h-5 group-hover:scale-110 transition-transform" strokeWidth={2.5} />
-              Buscar carteirinha por ID
-            </a>
-          </div>
         </div>
       </div>
     </div>
+    </>
   );
 }

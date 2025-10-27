@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import { Cross, Mail, Lock, Loader2, ArrowLeft } from 'lucide-react';
+import { Cross, Mail, Lock, Loader2, ArrowLeft, CheckCircle } from 'lucide-react';
 
 interface AuthProps {
   onBack?: () => void;
@@ -14,6 +14,7 @@ export function Auth({ onBack }: AuthProps = {}) {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showEmailVerification, setShowEmailVerification] = useState(false);
   const { signIn, signUp, resetPassword } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -25,9 +26,10 @@ export function Auth({ onBack }: AuthProps = {}) {
     try {
       if (isForgotPassword) {
         await resetPassword(email);
-        setSuccess('Link de recuperação enviado! Verifique seu email.');
+        setSuccess('Link de recuperação enviado! Verifique seu email e sua caixa de spam.');
       } else if (isSignUp) {
         await signUp(email, password);
+        setShowEmailVerification(true);
       } else {
         await signIn(email, password);
       }
@@ -39,6 +41,39 @@ export function Auth({ onBack }: AuthProps = {}) {
   };
 
   return (
+    <>
+      {showEmailVerification && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-3xl shadow-2xl p-8 max-w-md w-full animate-in fade-in zoom-in duration-200">
+            <div className="flex flex-col items-center text-center">
+              <div className="bg-gradient-to-br from-green-500 to-emerald-600 p-4 rounded-full mb-4">
+                <CheckCircle className="w-12 h-12 text-white" />
+              </div>
+              <h2 className="text-2xl font-bold mb-2 text-gray-800">
+                Verifique seu Email
+              </h2>
+              <p className="text-gray-600 mb-6 leading-relaxed">
+                Enviamos um link de confirmação para <strong>{email}</strong>.
+                <br /><br />
+                Por favor, verifique sua <strong>caixa de entrada</strong> e também a <strong>pasta de spam</strong>.
+                <br /><br />
+                Clique no link do email para ativar sua conta e começar a usar o CATOLID.
+              </p>
+              <button
+                onClick={() => {
+                  setShowEmailVerification(false);
+                  setEmail('');
+                  setPassword('');
+                  setIsSignUp(false);
+                }}
+                className="w-full bg-gradient-to-r from-amber-600 to-orange-600 text-white py-3 rounded-xl font-semibold hover:from-amber-700 hover:to-orange-700 transition shadow-lg"
+              >
+                Entendi
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-amber-50 via-orange-50 to-red-50 p-4">
       <div className="w-full max-w-md">
         <div className="bg-white/90 backdrop-blur-sm rounded-3xl shadow-2xl p-8">
@@ -176,5 +211,6 @@ export function Auth({ onBack }: AuthProps = {}) {
         </div>
       </div>
     </div>
+    </>
   );
 }

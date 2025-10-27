@@ -1,4 +1,5 @@
 import { ArrowLeft } from 'lucide-react';
+import { Header } from '../components/Header';
 
 interface PrivacyPolicyProps {
   onBack: () => void;
@@ -6,7 +7,9 @@ interface PrivacyPolicyProps {
 
 export function PrivacyPolicy({ onBack }: PrivacyPolicyProps) {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-red-50 p-4 py-8">
+    <>
+      <Header onLogoClick={onBack} />
+      <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-red-50 p-4 py-8">
       <div className="max-w-4xl mx-auto">
         <div className="bg-white/90 backdrop-blur-sm rounded-3xl shadow-2xl p-6 md:p-8">
           <div className="flex items-center gap-4 mb-8">
@@ -31,7 +34,7 @@ export function PrivacyPolicy({ onBack }: PrivacyPolicyProps) {
               <h2 className="text-2xl font-bold text-gray-800 mb-4">1. Introdução</h2>
               <p>
                 A ID Católico ("nós", "nosso" ou "ID Católico") está comprometida em proteger a privacidade e os dados pessoais
-                dos usuários do site <strong>https://idcatolico.com/</strong> ("Site"). Esta Política de Privacidade descreve
+                dos usuários do site <strong>https://catolid.com/</strong> ("Site"). Esta Política de Privacidade descreve
                 como coletamos, usamos, armazenamos e protegemos suas informações pessoais, em conformidade com a
                 Lei Geral de Proteção de Dados (LGPD - Lei nº 13.709/2018).
               </p>
@@ -110,7 +113,7 @@ export function PrivacyPolicy({ onBack }: PrivacyPolicyProps) {
                 <li><strong>Oposição:</strong> opor-se ao tratamento de dados em determinadas situações</li>
               </ul>
               <p className="mt-4">
-                Para exercer seus direitos, entre em contato através do e-mail: <strong>privacidade@idcatolico.com</strong>
+                Para exercer seus direitos, entre em contato através do e-mail: <strong>privacidade@catolid.com</strong>
               </p>
             </section>
 
@@ -147,8 +150,8 @@ export function PrivacyPolicy({ onBack }: PrivacyPolicyProps) {
                 Encarregado de Proteção de Dados:
               </p>
               <p className="mt-2">
-                <strong>E-mail:</strong> dpo@idcatolico.com<br />
-                <strong>Site:</strong> https://idcatolico.com/
+                <strong>E-mail:</strong> dpo@catolid.com<br />
+                <strong>Site:</strong> https://catolid.com/
               </p>
             </section>
 
@@ -168,13 +171,14 @@ export function PrivacyPolicy({ onBack }: PrivacyPolicyProps) {
                 entre em contato conosco:
               </p>
               <p className="mt-2">
-                <strong>E-mail:</strong> contato@idcatolico.com<br />
-                <strong>Site:</strong> https://idcatolico.com/
+                <strong>E-mail:</strong> contato@catolid.com<br />
+                <strong>Site:</strong> https://catolid.com/
               </p>
             </section>
           </div>
         </div>
       </div>
     </div>
+    </>
   );
 }

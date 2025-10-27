@@ -6,6 +6,7 @@ import { ImageUpload } from './ImageUpload';
 import { GradientCustomizer } from './GradientCustomizer';
 import { Profile, MusicEmbed, CivilStatus, Sacrament } from '../types/profile';
 import { MusicEmbed as MusicEmbedComponent } from './MusicEmbed';
+import { Header } from './Header';
 
 interface ProfileEditorProps {
   onSave: () => void;
@@ -155,7 +156,9 @@ export function ProfileEditor({ onSave, onCancel }: ProfileEditorProps) {
   const profileUrl = profile.slug ? `${window.location.origin}/p/${profile.slug}` : '';
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-red-50 p-4 py-8">
+    <>
+      <Header />
+      <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-red-50 p-4 py-8">
       <div className="max-w-4xl mx-auto">
         <div className="bg-white/90 backdrop-blur-sm rounded-3xl shadow-2xl p-6 md:p-8">
           <div className="flex items-center gap-4 mb-8">
@@ -680,5 +683,6 @@ export function ProfileEditor({ onSave, onCancel }: ProfileEditorProps) {
         </div>
       </div>
     </div>
+    </>
   );
 }

@@ -3,6 +3,7 @@ import { Search, Loader2, Church, AlertCircle, User } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import { Profile } from '../types/profile';
 import { getDisplayName } from '../lib/profileUtils';
+import { Header } from '../components/Header';
 
 export default function SearchCard() {
   const [cardId, setCardId] = useState('');
@@ -60,11 +61,13 @@ export default function SearchCard() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4"
-      style={{
-        background: 'linear-gradient(135deg, hsl(var(--sacred-gold) / 0.08) 0%, hsl(var(--sacred-amber) / 0.12) 50%, hsl(var(--sacred-gold) / 0.08) 100%)',
-      }}
-    >
+    <>
+      <Header />
+      <div className="min-h-screen flex items-center justify-center p-4"
+        style={{
+          background: 'linear-gradient(135deg, hsl(var(--sacred-gold) / 0.08) 0%, hsl(var(--sacred-amber) / 0.12) 50%, hsl(var(--sacred-gold) / 0.08) 100%)',
+        }}
+      >
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-amber-500 to-orange-600 shadow-xl mb-4">
@@ -220,5 +223,6 @@ export default function SearchCard() {
         </div>
       </div>
     </div>
+    </>
   );
 }

@@ -1,4 +1,5 @@
 import { ArrowLeft } from 'lucide-react';
+import { Header } from '../components/Header';
 
 interface TermsOfServiceProps {
   onBack: () => void;
@@ -6,7 +7,9 @@ interface TermsOfServiceProps {
 
 export function TermsOfService({ onBack }: TermsOfServiceProps) {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-red-50 p-4 py-8">
+    <>
+      <Header onLogoClick={onBack} />
+      <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-red-50 p-4 py-8">
       <div className="max-w-4xl mx-auto">
         <div className="bg-white/90 backdrop-blur-sm rounded-3xl shadow-2xl p-6 md:p-8">
           <div className="flex items-center gap-4 mb-8">
@@ -30,7 +33,7 @@ export function TermsOfService({ onBack }: TermsOfServiceProps) {
             <section>
               <h2 className="text-2xl font-bold text-gray-800 mb-4">1. Aceitação dos Termos</h2>
               <p>
-                Ao acessar e usar o site ID Católico (<strong>https://idcatolico.com/</strong>), você concorda em cumprir
+                Ao acessar e usar o site ID Católico (<strong>https://catolid.com/</strong>), você concorda em cumprir
                 e estar vinculado aos seguintes Termos de Uso. Se você não concorda com estes termos, não utilize nossos serviços.
               </p>
               <p>
@@ -236,8 +239,8 @@ export function TermsOfService({ onBack }: TermsOfServiceProps) {
                 Para questões relacionadas a estes Termos de Uso, entre em contato conosco:
               </p>
               <p className="mt-2">
-                <strong>E-mail:</strong> contato@idcatolico.com<br />
-                <strong>Site:</strong> https://idcatolico.com/
+                <strong>E-mail:</strong> contato@catolid.com<br />
+                <strong>Site:</strong> https://catolid.com/
               </p>
             </section>
 
@@ -251,5 +254,6 @@ export function TermsOfService({ onBack }: TermsOfServiceProps) {
         </div>
       </div>
     </div>
+    </>
   );
 }

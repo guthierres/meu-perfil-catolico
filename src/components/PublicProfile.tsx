@@ -5,6 +5,7 @@ import { Profile } from '../types/profile';
 import { MusicEmbed } from './MusicEmbed';
 import { ProfileTabs } from './ProfileTabs';
 import { getDisplayName, getCivilStatusLabel, getSacramentLabel } from '../lib/profileUtils';
+import { Header } from './Header';
 
 interface PublicProfileProps {
   slug: string;
@@ -87,11 +88,13 @@ export function PublicProfile({ slug }: PublicProfileProps) {
     : 0.2;
 
   return (
-    <div className="min-h-screen" style={backgroundStyle}>
-      <div
-        className="min-h-screen backdrop-blur-sm"
-        style={{ backgroundColor: `rgba(0, 0, 0, ${overlayOpacity})` }}
-      >
+    <>
+      <Header />
+      <div className="min-h-screen" style={backgroundStyle}>
+        <div
+          className="min-h-screen backdrop-blur-sm"
+          style={{ backgroundColor: `rgba(0, 0, 0, ${overlayOpacity})` }}
+        >
         <div className="max-w-2xl mx-auto px-4 py-8">
           <div className="flex justify-end gap-3 mb-6">
             <a
@@ -406,5 +409,6 @@ export function PublicProfile({ slug }: PublicProfileProps) {
         </div>
       </div>
     </div>
+    </>
   );
 }

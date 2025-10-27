@@ -7,6 +7,7 @@ import { MusicEmbed } from './MusicEmbed';
 import { WalletCard } from './WalletCard';
 import { ProfileTabs } from './ProfileTabs';
 import { getDisplayName, getCivilStatusLabel, getSacramentLabel } from '../lib/profileUtils';
+import { Header } from './Header';
 
 interface ProfileDisplayProps {
   onEdit: () => void;
@@ -86,11 +87,13 @@ export function ProfileDisplay({ onEdit }: ProfileDisplayProps) {
     : 0.2;
 
   return (
-    <div className="min-h-screen" style={backgroundStyle}>
-      <div
-        className="min-h-screen backdrop-blur-sm"
-        style={{ backgroundColor: `rgba(0, 0, 0, ${overlayOpacity})` }}
-      >
+    <>
+      <Header />
+      <div className="min-h-screen" style={backgroundStyle}>
+        <div
+          className="min-h-screen backdrop-blur-sm"
+          style={{ backgroundColor: `rgba(0, 0, 0, ${overlayOpacity})` }}
+        >
         <div className="max-w-2xl mx-auto px-4 py-8">
           <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg p-4 mb-6">
             <div className="flex items-center justify-between">
@@ -407,5 +410,6 @@ export function ProfileDisplay({ onEdit }: ProfileDisplayProps) {
         </div>
       </div>
     </div>
+    </>
   );
 }
