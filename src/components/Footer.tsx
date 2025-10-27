@@ -12,7 +12,7 @@ export function Footer({ onPrivacyClick, onTermsClick }: FooterProps) {
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
             <Church className="w-6 h-6" />
-            <span className="font-semibold text-lg">ID Católico</span>
+            <span className="font-semibold text-lg">CATOLID</span>
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-6 text-sm">
@@ -35,13 +35,13 @@ export function Footer({ onPrivacyClick, onTermsClick }: FooterProps) {
           </div>
 
           <div className="text-sm text-amber-200">
-            © 2025 ID Católico
+            © 2025 CATOLID
           </div>
         </div>
 
         <div className="mt-6 pt-6 border-t border-amber-700/50 text-center text-xs text-amber-200">
           <p>
-            Desenvolvido com fé para a comunidade católica
+            catolid.com - Conectando católicos do mundo todo
           </p>
         </div>
       </div>

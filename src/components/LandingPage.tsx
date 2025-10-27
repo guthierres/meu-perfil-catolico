@@ -19,12 +19,15 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
             <div className="absolute inset-0 bg-gradient-to-tr from-white/20 to-transparent rounded-3xl"></div>
             <Cross className="w-14 h-14 text-white relative z-10" strokeWidth={2.5} />
           </div>
-          <h1 className="text-5xl md:text-7xl font-extrabold mb-8 bg-gradient-to-r from-blue-900 via-sky-700 to-blue-900 bg-clip-text text-transparent leading-tight">
-            Carteirinha Católica<br className="md:hidden" /> Digital
+          <h1 className="text-5xl md:text-7xl font-extrabold mb-6 bg-gradient-to-r from-blue-900 via-sky-700 to-blue-900 bg-clip-text text-transparent leading-tight">
+            CATOLID
           </h1>
-          <p className="text-xl md:text-2xl text-gray-700 max-w-4xl mx-auto leading-relaxed font-medium">
+          <p className="text-2xl md:text-3xl text-blue-800 max-w-4xl mx-auto mb-6 font-bold">
+            Sua Identidade Católica Digital
+          </p>
+          <p className="text-lg md:text-xl text-gray-700 max-w-4xl mx-auto leading-relaxed">
             Compartilhe sua fé de forma <span className="font-bold text-blue-700">moderna</span> e <span className="font-bold text-sky-700">personalizada</span>.<br className="hidden md:block" />
-            Crie sua identidade católica digital em minutos.
+            Crie sua carteirinha católica digital em minutos e conecte-se com toda a comunidade.
           </p>
         </div>
 
@@ -83,9 +86,12 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
         </div>
 
         <div className="bg-white/95 backdrop-blur-md rounded-3xl p-10 md:p-14 shadow-2xl mb-20 border-2 border-blue-100/50">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-10 text-center bg-gradient-to-r from-blue-800 to-sky-700 bg-clip-text text-transparent">
-            Por que ter uma carteirinha católica?
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4 text-center bg-gradient-to-r from-blue-800 to-sky-700 bg-clip-text text-transparent">
+            Por que usar o CATOLID?
           </h2>
+          <p className="text-center text-gray-600 mb-10 max-w-2xl mx-auto">
+            A plataforma que conecta católicos do mundo todo através de suas identidades digitais
+          </p>
 
           <div className="space-y-6">
             <div className="flex items-start gap-5 p-5 rounded-2xl hover:bg-blue-50/50 transition-colors duration-300">
@@ -95,9 +101,9 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
                 </div>
               </div>
               <div>
-                <h4 className="font-bold text-gray-800 mb-2 text-lg">Testemunhe sua fé</h4>
+                <h4 className="font-bold text-gray-800 mb-2 text-lg">Testemunhe sua fé digitalmente</h4>
                 <p className="text-gray-600 leading-relaxed">
-                  Uma forma moderna e acessível de compartilhar sua identidade católica com amigos, família e comunidade.
+                  Com o CATOLID, você tem uma plataforma moderna para compartilhar sua identidade católica com o mundo inteiro.
                 </p>
               </div>
             </div>
@@ -151,9 +157,9 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
                 </div>
               </div>
               <div>
-                <h4 className="font-bold text-gray-800 mb-2 text-lg">Link único para redes sociais</h4>
+                <h4 className="font-bold text-gray-800 mb-2 text-lg">Seu link único catolid.com</h4>
                 <p className="text-gray-600 leading-relaxed">
-                  Adicione seu link personalizado na bio do Instagram, perfil do WhatsApp e outras redes para que todos possam conhecer sua fé.
+                  Tenha seu próprio link personalizado catolid.com/seu-nome para compartilhar em todas as redes sociais e deixar sua fé sempre visível.
                 </p>
               </div>
             </div>
@@ -182,11 +188,11 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
             <span className="absolute inset-0 bg-white/20 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></span>
             <span className="relative flex items-center gap-4">
               <Sparkles className="w-7 h-7 animate-pulse" strokeWidth={2.5} />
-              Criar Minha Carteirinha Agora
+              Criar Meu CATOLID Agora
               <ArrowRight className="w-7 h-7 group-hover:translate-x-2 transition-transform" strokeWidth={2.5} />
             </span>
           </button>
-          <p className="text-gray-700 font-semibold text-lg">✨ É grátis e leva menos de 5 minutos</p>
+          <p className="text-gray-700 font-semibold text-lg">✨ É grátis e leva menos de 5 minutos • catolid.com</p>
 
           <div className="pt-8 border-t border-gray-200/50 max-w-md mx-auto">
             <a

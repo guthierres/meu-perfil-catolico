@@ -12,13 +12,13 @@ interface SEOProps {
 }
 
 export function SEO({
-  title = 'ID Católico - Carteirinha Católica Digital',
-  description = 'Crie sua carteirinha católica digital personalizada. Compartilhe sua fé, informações sobre sua paróquia, sacramentos e santo de devoção com a comunidade católica.',
-  keywords = 'católico, carteirinha católica, identidade católica, perfil católico, paróquia, sacramentos, fé católica, comunidade católica, santo de devoção, batismo, eucaristia, crisma',
+  title = 'CATOLID - Sua Identidade Católica Digital | catolid.com',
+  description = 'Crie sua carteirinha católica digital personalizada no CATOLID. Compartilhe sua fé, informações sobre sua paróquia, sacramentos e santo de devoção com a comunidade católica mundial.',
+  keywords = 'catolid, católico, carteirinha católica, identidade católica digital, perfil católico, paróquia, sacramentos, fé católica, comunidade católica, santo de devoção, batismo, eucaristia, crisma, catolid.com',
   ogTitle,
   ogDescription,
-  ogImage = 'https://idcatolico.com/icon-512.png',
-  ogUrl = 'https://idcatolico.com/',
+  ogImage = 'https://catolid.com/og-image.png',
+  ogUrl = 'https://catolid.com/',
   canonicalUrl,
 }: SEOProps) {
   useEffect(() => {
@@ -27,11 +27,11 @@ export function SEO({
     const metaTags = [
       { name: 'description', content: description },
       { name: 'keywords', content: keywords },
-      { name: 'author', content: 'ID Católico' },
+      { name: 'author', content: 'CATOLID' },
       { name: 'robots', content: 'index, follow' },
       { name: 'language', content: 'pt-BR' },
       { name: 'revisit-after', content: '7 days' },
-      { name: 'theme-color', content: '#8B4513' },
+      { name: 'theme-color', content: '#2563eb' },
 
       { property: 'og:title', content: ogTitle || title },
       { property: 'og:description', content: ogDescription || description },
@@ -39,7 +39,7 @@ export function SEO({
       { property: 'og:url', content: ogUrl },
       { property: 'og:type', content: 'website' },
       { property: 'og:locale', content: 'pt_BR' },
-      { property: 'og:site_name', content: 'ID Católico' },
+      { property: 'og:site_name', content: 'CATOLID' },
 
       { name: 'twitter:card', content: 'summary_large_image' },
       { name: 'twitter:title', content: ogTitle || title },
@@ -48,7 +48,7 @@ export function SEO({
 
       { name: 'apple-mobile-web-app-capable', content: 'yes' },
       { name: 'apple-mobile-web-app-status-bar-style', content: 'default' },
-      { name: 'apple-mobile-web-app-title', content: 'ID Católico' },
+      { name: 'apple-mobile-web-app-title', content: 'CATOLID' },
       { name: 'mobile-web-app-capable', content: 'yes' },
     ];
 
@@ -77,9 +77,9 @@ export function SEO({
     const structuredData = {
       '@context': 'https://schema.org',
       '@type': 'WebApplication',
-      name: 'ID Católico',
+      name: 'CATOLID',
       description: description,
-      url: 'https://idcatolico.com/',
+      url: 'https://catolid.com/',
       applicationCategory: 'LifestyleApplication',
       operatingSystem: 'Web',
       offers: {
@@ -89,8 +89,8 @@ export function SEO({
       },
       author: {
         '@type': 'Organization',
-        name: 'ID Católico',
-        url: 'https://idcatolico.com/',
+        name: 'CATOLID',
+        url: 'https://catolid.com/',
       },
       aggregateRating: {
         '@type': 'AggregateRating',
