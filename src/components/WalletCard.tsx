@@ -274,14 +274,10 @@ export function WalletCard({ profile }: WalletCardProps) {
                     level="H"
                     includeMargin={false}
                   />
-                </div>
-              </div>
-              <div className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm rounded-lg p-2.5 border border-white/20">
-                <p className="text-[8px] opacity-75 mb-0.5 font-semibold uppercase tracking-wider">Perfil Digital</p>
-                <p className="text-[11px] font-mono opacity-95 font-bold break-all">{profile.slug || 'perfil'}</p>
               </div>
             </div>
           </div>
+        </div>
         </div>
       </div>
 
