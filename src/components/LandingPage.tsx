@@ -59,16 +59,14 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
 
       <div className="max-w-7xl mx-auto px-4 py-12 md:py-20 relative z-10">
         <div className="text-center mb-20">
-          <div className="inline-flex items-center justify-center w-28 h-28 bg-gradient-to-br from-amber-700 via-orange-700 to-amber-800 rounded-3xl mb-8 shadow-2xl transform hover:scale-110 hover:rotate-3 transition-all duration-500 relative">
-            <div className="absolute inset-0 bg-gradient-to-tr from-white/20 to-transparent rounded-3xl"></div>
-            <Cross className="w-14 h-14 text-white relative z-10" strokeWidth={2.5} />
+          <div className="relative inline-block mb-8">
+            <div className="absolute inset-0 bg-gradient-to-br from-amber-200/30 to-orange-200/30 blur-3xl rounded-full"></div>
+            <img
+              src="/logo.webp"
+              alt="CATOLID Logo"
+              className="relative z-10 w-48 h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 object-contain mx-auto animate-[float_3s_ease-in-out_infinite] drop-shadow-2xl transition-transform hover:scale-110"
+            />
           </div>
-          <h1 className="text-5xl md:text-7xl font-extrabold mb-6 bg-gradient-to-r from-amber-900 via-orange-800 to-amber-900 bg-clip-text text-transparent leading-tight">
-            CATOLID
-          </h1>
-          <p className="text-2xl md:text-3xl text-amber-900 max-w-4xl mx-auto mb-6 font-bold">
-            Sua Identidade Católica Digital
-          </p>
           <p className="text-lg md:text-xl text-gray-700 max-w-4xl mx-auto leading-relaxed mb-8">
             Compartilhe sua fé de forma <span className="font-bold text-amber-800">moderna</span> e <span className="font-bold text-orange-700">personalizada</span>.<br className="hidden md:block" />
             Crie sua carteirinha católica digital em minutos e conecte-se com toda a comunidade.
