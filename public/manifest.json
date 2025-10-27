@@ -1,12 +1,16 @@
 {
-  "name": "Perfil Católico - Carteirinha Digital",
-  "short_name": "Perfil Católico",
-  "description": "Sua carteirinha católica digital personalizada",
+  "name": "CATOLID - Sua Identidade Católica Digital",
+  "short_name": "CATOLID",
+  "description": "Sua identidade católica digital personalizada | catolid.com",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#8B4513",
+  "theme_color": "#2563eb",
   "orientation": "portrait-primary",
+  "categories": ["lifestyle", "social", "utilities"],
+  "lang": "pt-BR",
+  "dir": "ltr",
   "icons": [
     {
       "src": "/icon-192.png",
@@ -19,6 +23,25 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
+    },
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
     }
-  ]
+  ],
+  "screenshots": [],
+  "share_target": {
+    "action": "/",
+    "method": "GET",
+    "enctype": "application/x-www-form-urlencoded",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  },
+  "related_applications": [],
+  "prefer_related_applications": false
 }
