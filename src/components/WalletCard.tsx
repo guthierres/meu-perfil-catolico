@@ -27,7 +27,7 @@ export function WalletCard({ profile }: WalletCardProps) {
   const handleSaveToWallet = async () => {
     if (!cardRef.current) return;
     try {
-      await saveToWallet(cardRef.current, profile, profileUrl);
+      await saveToWallet(cardRef.current, profile);
     } catch (error) {
       console.error('Error saving to wallet:', error);
       alert('Erro ao salvar na carteira. Tente novamente.');

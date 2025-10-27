@@ -1,6 +1,5 @@
 import html2canvas from 'html2canvas';
 import { Profile } from '../types/profile';
-import { getCivilStatusLabel } from '../lib/profileUtils';
 
 export async function downloadWalletAsImage(element: HTMLElement, fileName: string = 'carteira-catolica.png') {
   try {
@@ -77,7 +76,7 @@ function detectPlatform(): 'ios' | 'android' | 'other' {
   return 'other';
 }
 
-async function saveAsAppleWallet(canvas: HTMLCanvasElement, profile: Profile, profileUrl: string): Promise<void> {
+async function saveAsAppleWallet(canvas: HTMLCanvasElement, profile: Profile): Promise<void> {
   return new Promise((resolve, reject) => {
     canvas.toBlob((blob) => {
       if (!blob) {
@@ -110,7 +109,7 @@ async function saveAsAppleWallet(canvas: HTMLCanvasElement, profile: Profile, pr
   });
 }
 
-async function saveAsGoogleWallet(canvas: HTMLCanvasElement, profile: Profile, profileUrl: string): Promise<void> {
+async function saveAsGoogleWallet(canvas: HTMLCanvasElement, profile: Profile): Promise<void> {
   return new Promise((resolve, reject) => {
     canvas.toBlob((blob) => {
       if (!blob) {
@@ -142,7 +141,7 @@ async function saveAsGoogleWallet(canvas: HTMLCanvasElement, profile: Profile, p
   });
 }
 
-export async function saveToWallet(element: HTMLElement, profile: Profile, profileUrl: string) {
+export async function saveToWallet(element: HTMLElement, profile: Profile) {
   try {
     const canvas = await html2canvas(element, {
       scale: 3,
@@ -157,9 +156,9 @@ export async function saveToWallet(element: HTMLElement, profile: Profile, profi
     const platform = detectPlatform();
 
     if (platform === 'ios') {
-      await saveAsAppleWallet(canvas, profile, profileUrl);
+      await saveAsAppleWallet(canvas, profile);
     } else if (platform === 'android') {
-      await saveAsGoogleWallet(canvas, profile, profileUrl);
+      await saveAsGoogleWallet(canvas, profile);
     } else {
       canvas.toBlob((blob) => {
         if (!blob) return;

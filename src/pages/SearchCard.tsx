@@ -1,12 +1,14 @@
 import { useState } from 'react';
-import { Search, Loader2, Church, AlertCircle } from 'lucide-react';
+import { Search, Loader2, Church, AlertCircle, User } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import { Profile } from '../types/profile';
+import { getDisplayName } from '../lib/profileUtils';
 
 export default function SearchCard() {
   const [cardId, setCardId] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [foundProfile, setFoundProfile] = useState<Profile | null>(null);
 
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,6 +25,7 @@ export default function SearchCard() {
 
     setLoading(true);
     setError('');
+    setFoundProfile(null);
 
     try {
       const { data, error: searchError } = await supabase
@@ -36,22 +39,23 @@ export default function SearchCard() {
       }
 
       if (!data) {
-        setError('Carteirinha não encontrada');
+        setError('Carteirinha não encontrada. Verifique o ID e tente novamente.');
         return;
       }
 
       const profile = data as Profile;
-
-      if (profile.slug) {
-        window.location.href = `/p/${profile.slug}`;
-      } else {
-        setError('Perfil não possui URL');
-      }
+      setFoundProfile(profile);
     } catch (err) {
       console.error('Erro ao buscar carteirinha:', err);
       setError('Erro ao buscar carteirinha. Tente novamente.');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleViewProfile = () => {
+    if (foundProfile?.slug) {
+      window.location.href = `/p/${foundProfile.slug}`;
     }
   };
 
@@ -138,6 +142,51 @@ export default function SearchCard() {
               )}
             </button>
           </form>
+
+          {foundProfile && (
+            <div className="mt-6 pt-6 border-t"
+              style={{ borderColor: 'hsl(var(--sacred-gold) / 0.2)' }}
+            >
+              <div className="text-center space-y-4">
+                <div className="flex flex-col items-center gap-3">
+                  {foundProfile.profile_image_url ? (
+                    <img
+                      src={foundProfile.profile_image_url}
+                      alt={foundProfile.full_name}
+                      className="w-20 h-20 rounded-full object-cover border-4 shadow-lg"
+                      style={{ borderColor: 'hsl(var(--sacred-gold))' }}
+                    />
+                  ) : (
+                    <div className="w-20 h-20 rounded-full flex items-center justify-center border-4 shadow-lg"
+                      style={{
+                        borderColor: 'hsl(var(--sacred-gold))',
+                        background: 'linear-gradient(135deg, hsl(var(--sacred-gold) / 0.2) 0%, hsl(var(--sacred-amber) / 0.2) 100%)'
+                      }}
+                    >
+                      <User className="w-10 h-10" style={{ color: 'hsl(var(--sacred-brown))' }} />
+                    </div>
+                  )}
+                  <div>
+                    <h3 className="text-xl font-bold" style={{ color: 'hsl(var(--sacred-brown))' }}>
+                      {getDisplayName(foundProfile.full_name || 'Sem nome', foundProfile.civil_status)}
+                    </h3>
+                    <p className="text-sm" style={{ color: 'hsl(var(--foreground) / 0.7)' }}>
+                      ID: {foundProfile.card_id}
+                    </p>
+                  </div>
+                </div>
+                <button
+                  onClick={handleViewProfile}
+                  className="w-full flex items-center justify-center gap-2 px-6 py-3 rounded-xl shadow-md hover:shadow-lg transition-all text-sm font-bold text-white hover:scale-105 transform duration-200 active:scale-95"
+                  style={{
+                    background: 'linear-gradient(135deg, hsl(var(--sacred-gold)) 0%, hsl(var(--sacred-amber)) 100%)'
+                  }}
+                >
+                  Ver Perfil Completo
+                </button>
+              </div>
+            </div>
+          )}
 
           <div className="mt-6 pt-6 border-t"
             style={{ borderColor: 'hsl(var(--sacred-gold) / 0.2)' }}
