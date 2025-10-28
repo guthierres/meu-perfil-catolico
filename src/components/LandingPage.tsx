@@ -239,7 +239,7 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
               <div>
                 <h4 className="font-bold text-gray-800 mb-2 text-lg">Seu link único catolid.com</h4>
                 <p className="text-gray-600 leading-relaxed">
-                  Tenha seu próprio link personalizado catolid.com/seu-nome para compartilhar em todas as redes sociais e deixar sua fé sempre visível.
+                  Tenha seu próprio link personalizado catolid.com/seu-nome para adicionar na bio do Instagram, compartilhar no WhatsApp e em todas as redes sociais, deixando sua fé sempre visível.
                 </p>
               </div>
             </div>

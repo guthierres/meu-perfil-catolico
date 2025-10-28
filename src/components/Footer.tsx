@@ -1,11 +1,6 @@
 import { Church } from 'lucide-react';
 
-interface FooterProps {
-  onPrivacyClick?: () => void;
-  onTermsClick?: () => void;
-}
-
-export function Footer({ onPrivacyClick, onTermsClick }: FooterProps) {
+export function Footer() {
   return (
     <footer className="bg-gradient-to-r from-amber-900 to-orange-900 text-white py-8">
       <div className="max-w-6xl mx-auto px-4">
@@ -16,22 +11,18 @@ export function Footer({ onPrivacyClick, onTermsClick }: FooterProps) {
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-6 text-sm">
-            {onPrivacyClick && (
-              <button
-                onClick={onPrivacyClick}
-                className="hover:text-amber-200 transition-colors underline-offset-4 hover:underline"
-              >
-                Política de Privacidade
-              </button>
-            )}
-            {onTermsClick && (
-              <button
-                onClick={onTermsClick}
-                className="hover:text-amber-200 transition-colors underline-offset-4 hover:underline"
-              >
-                Termos de Uso
-              </button>
-            )}
+            <a
+              href="/privacidade"
+              className="hover:text-amber-200 transition-colors underline-offset-4 hover:underline"
+            >
+              Política de Privacidade
+            </a>
+            <a
+              href="/termos"
+              className="hover:text-amber-200 transition-colors underline-offset-4 hover:underline"
+            >
+              Termos de Uso
+            </a>
           </div>
 
           <div className="text-sm text-amber-200">

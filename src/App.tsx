@@ -22,6 +22,8 @@ function AppContent() {
   const path = window.location.pathname;
   const isPublicProfile = path.startsWith('/p/');
   const isSearchPage = path === '/search' || path === '/buscar';
+  const isPrivacyPage = path === '/privacidade' || path === '/privacy';
+  const isTermsPage = path === '/termos' || path === '/terms';
   const slug = isPublicProfile ? path.replace('/p/', '') : null;
 
   useEffect(() => {
@@ -31,6 +33,34 @@ function AppContent() {
       });
     }
   }, []);
+
+  if (isPrivacyPage) {
+    return (
+      <>
+        <SEO
+          title="Política de Privacidade - CATOLID"
+          description="Conheça nossa Política de Privacidade em conformidade com a LGPD. Saiba como tratamos e protegemos seus dados pessoais."
+          ogUrl="https://catolid.com/privacidade"
+          canonicalUrl="https://catolid.com/privacidade"
+        />
+        <PrivacyPolicy onBack={() => window.location.href = '/'} />
+      </>
+    );
+  }
+
+  if (isTermsPage) {
+    return (
+      <>
+        <SEO
+          title="Termos de Uso - CATOLID"
+          description="Leia os Termos de Uso do CATOLID. Conheça seus direitos e responsabilidades ao usar nossa plataforma."
+          ogUrl="https://catolid.com/termos"
+          canonicalUrl="https://catolid.com/termos"
+        />
+        <TermsOfService onBack={() => window.location.href = '/'} />
+      </>
+    );
+  }
 
   if (isSearchPage) {
     return (
@@ -55,7 +85,7 @@ function AppContent() {
           canonicalUrl={`https://idcatolico.com/p/${slug}`}
         />
         <PublicProfile slug={slug} />
-        <Footer onPrivacyClick={() => setCurrentPage('privacy')} onTermsClick={() => setCurrentPage('terms')} />
+        <Footer />
       </>
     );
   }
@@ -103,7 +133,7 @@ function AppContent() {
         <>
           <SEO />
           <LandingPage onGetStarted={() => setShowLanding(false)} />
-          <Footer onPrivacyClick={() => setCurrentPage('privacy')} onTermsClick={() => setCurrentPage('terms')} />
+          <Footer />
         </>
       );
     }
@@ -111,7 +141,7 @@ function AppContent() {
       <>
         <SEO title="Entrar - ID Católico" description="Faça login no ID Católico e acesse sua carteirinha católica digital." />
         <Auth onBack={() => setShowLanding(true)} />
-        <Footer onPrivacyClick={() => setCurrentPage('privacy')} onTermsClick={() => setCurrentPage('terms')} />
+        <Footer />
       </>
     );
   }
@@ -121,7 +151,7 @@ function AppContent() {
       <>
         <SEO title="Editar Perfil - ID Católico" description="Personalize seu perfil católico e carteirinha digital." />
         <ProfileEditor onSave={() => setIsEditing(false)} onCancel={() => setIsEditing(false)} />
-        <Footer onPrivacyClick={() => setCurrentPage('privacy')} onTermsClick={() => setCurrentPage('terms')} />
+        <Footer />
       </>
     );
   }
@@ -130,7 +160,7 @@ function AppContent() {
     <>
       <SEO title="Meu Perfil - ID Católico" description="Visualize e gerencie seu perfil católico e carteirinha digital." />
       <ProfileDisplay onEdit={() => setIsEditing(true)} />
-      <Footer onPrivacyClick={() => setCurrentPage('privacy')} onTermsClick={() => setCurrentPage('terms')} />
+      <Footer />
     </>
   );
 }
