@@ -12,6 +12,7 @@ import { PublicProfile } from './components/PublicProfile';
 import { PrivacyPolicy } from './pages/PrivacyPolicy';
 import { TermsOfService } from './pages/TermsOfService';
 import SearchCard from './pages/SearchCard';
+import NotFound from './pages/NotFound';
 import { Footer } from './components/Footer';
 import { SEO } from './components/SEO';
 
@@ -48,6 +49,9 @@ function App() {
         <Route path="/privacy" element={<Navigate to="/privacidade" replace />} />
         <Route path="/termos" element={<><SEO title="Termos de Uso - CATOLID" description="Leia os Termos de Uso do CATOLID." /><TermsOfService onBack={() => window.location.href = '/'} /><Footer /></>} />
         <Route path="/terms" element={<Navigate to="/termos" replace />} />
+        
+        {/* 404 - Catch all */}
+        <Route path="*" element={<><SEO title="Página Não Encontrada - CATOLID" description="A página que você procura não existe." /><NotFound /><Footer /></>} />
       </Routes>
     </AuthProvider>
   );
