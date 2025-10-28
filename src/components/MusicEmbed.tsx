@@ -49,8 +49,6 @@ const getSpotifyType = (url: string): string => {
 };
 
 export const MusicEmbed: React.FC<MusicEmbedProps> = ({ embed, onRemove, editable = false }) => {
-  const [embedError, setEmbedError] = useState(false);
-
   if (embed.type === 'spotify') {
     const spotifyId = extractSpotifyId(embed.url);
     const spotifyType = getSpotifyType(embed.url);
@@ -59,43 +57,6 @@ export const MusicEmbed: React.FC<MusicEmbedProps> = ({ embed, onRemove, editabl
       return (
         <div className="bg-red-50 border border-red-200 rounded-lg p-4 text-red-600">
           URL do Spotify inválida
-        </div>
-      );
-    }
-
-    if (embedError) {
-      return (
-        <div className="relative group">
-          {editable && onRemove && (
-            <button
-              onClick={onRemove}
-              className="absolute -top-2 -right-2 z-10 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-red-600"
-              title="Remover música"
-            >
-              ×
-            </button>
-          )}
-          <a
-            href={embed.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block bg-gradient-to-br from-green-50 to-green-100 border-2 border-green-300 rounded-lg p-6 hover:shadow-lg transition-all duration-200 group"
-          >
-            <div className="flex items-center gap-4">
-              <div className="bg-green-500 p-3 rounded-xl flex-shrink-0">
-                <Music className="w-8 h-8 text-white" />
-              </div>
-              <div className="flex-1 min-w-0">
-                {embed.title && (
-                  <p className="text-lg font-bold text-gray-800 mb-1 truncate">{embed.title}</p>
-                )}
-                <p className="text-sm text-gray-600 flex items-center gap-2">
-                  <span>Ouvir no Spotify</span>
-                  <ExternalLink className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </p>
-              </div>
-            </div>
-          </a>
         </div>
       );
     }
@@ -111,25 +72,27 @@ export const MusicEmbed: React.FC<MusicEmbedProps> = ({ embed, onRemove, editabl
             ×
           </button>
         )}
-        <div className="bg-white rounded-lg shadow-md overflow-hidden">
-          {embed.title && (
-            <div className="px-4 py-2 bg-gray-50 border-b border-gray-200">
-              <p className="text-sm font-medium text-gray-700">{embed.title}</p>
+        <a
+          href={embed.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block bg-gradient-to-br from-green-50 to-green-100 border-2 border-green-400 rounded-lg p-6 hover:shadow-xl hover:scale-[1.02] transition-all duration-200 group"
+        >
+          <div className="flex items-center gap-4">
+            <div className="bg-green-500 p-3 rounded-xl flex-shrink-0 group-hover:bg-green-600 transition-colors">
+              <Music className="w-8 h-8 text-white" />
             </div>
-          )}
-          <iframe
-            src={`https://open.spotify.com/embed/${spotifyType}/${spotifyId}`}
-            width="100%"
-            height="152"
-            frameBorder="0"
-            allowTransparency={true}
-            allow="encrypted-media"
-            loading="lazy"
-            className="w-full"
-            style={{ border: 'none', borderRadius: '0' }}
-            onError={() => setEmbedError(true)}
-          />
-        </div>
+            <div className="flex-1 min-w-0">
+              {embed.title && (
+                <p className="text-lg font-bold text-gray-800 mb-1 truncate">{embed.title}</p>
+              )}
+              <p className="text-sm text-green-700 font-semibold flex items-center gap-2">
+                <span>Ouvir no Spotify</span>
+                <ExternalLink className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </p>
+            </div>
+          </div>
+        </a>
       </div>
     );
   }
