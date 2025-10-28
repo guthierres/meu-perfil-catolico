@@ -150,17 +150,23 @@ export default function SearchCard() {
             <div className="mt-6 pt-6 border-t"
               style={{ borderColor: 'hsl(var(--sacred-gold) / 0.2)' }}
             >
-              <div className="text-center space-y-4">
-                <div className="flex flex-col items-center gap-3">
+              <button
+                onClick={handleViewProfile}
+                className="w-full p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-white to-amber-50/50 border-2 hover:scale-[1.02] transform active:scale-[0.98] group"
+                style={{
+                  borderColor: 'hsl(var(--sacred-gold) / 0.3)'
+                }}
+              >
+                <div className="flex items-center gap-4">
                   {foundProfile.profile_image_url ? (
                     <img
                       src={foundProfile.profile_image_url}
                       alt={foundProfile.full_name}
-                      className="w-20 h-20 rounded-full object-cover border-4 shadow-lg"
+                      className="w-20 h-20 rounded-full object-cover border-4 shadow-lg flex-shrink-0 group-hover:scale-110 transition-transform duration-300"
                       style={{ borderColor: 'hsl(var(--sacred-gold))' }}
                     />
                   ) : (
-                    <div className="w-20 h-20 rounded-full flex items-center justify-center border-4 shadow-lg"
+                    <div className="w-20 h-20 rounded-full flex items-center justify-center border-4 shadow-lg flex-shrink-0 group-hover:scale-110 transition-transform duration-300"
                       style={{
                         borderColor: 'hsl(var(--sacred-gold))',
                         background: 'linear-gradient(135deg, hsl(var(--sacred-gold) / 0.2) 0%, hsl(var(--sacred-amber) / 0.2) 100%)'
@@ -169,25 +175,26 @@ export default function SearchCard() {
                       <User className="w-10 h-10" style={{ color: 'hsl(var(--sacred-brown))' }} />
                     </div>
                   )}
-                  <div>
-                    <h3 className="text-xl font-bold" style={{ color: 'hsl(var(--sacred-brown))' }}>
+                  <div className="flex-1 text-left">
+                    <h3 className="text-xl font-bold mb-1 group-hover:text-amber-700 transition-colors" style={{ color: 'hsl(var(--sacred-brown))' }}>
                       {getDisplayName(foundProfile.full_name || 'Sem nome', foundProfile.civil_status)}
                     </h3>
-                    <p className="text-sm" style={{ color: 'hsl(var(--foreground) / 0.7)' }}>
+                    <p className="text-sm mb-2" style={{ color: 'hsl(var(--foreground) / 0.6)' }}>
                       ID: {foundProfile.card_id}
                     </p>
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold text-white"
+                      style={{
+                        background: 'linear-gradient(135deg, hsl(var(--sacred-gold)) 0%, hsl(var(--sacred-amber)) 100%)'
+                      }}
+                    >
+                      Ver Perfil Completo
+                      <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </div>
                   </div>
                 </div>
-                <button
-                  onClick={handleViewProfile}
-                  className="w-full flex items-center justify-center gap-2 px-6 py-3 rounded-xl shadow-md hover:shadow-lg transition-all text-sm font-bold text-white hover:scale-105 transform duration-200 active:scale-95"
-                  style={{
-                    background: 'linear-gradient(135deg, hsl(var(--sacred-gold)) 0%, hsl(var(--sacred-amber)) 100%)'
-                  }}
-                >
-                  Ver Perfil Completo
-                </button>
-              </div>
+              </button>
             </div>
           )}
 
