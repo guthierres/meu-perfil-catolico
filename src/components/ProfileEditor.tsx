@@ -64,6 +64,14 @@ export function ProfileEditor({ onSave, onCancel }: ProfileEditorProps) {
     if (data) {
       setProfile(data);
       setSlugAvailable(true);
+    } else {
+      const googlePhotoUrl = user.user_metadata?.avatar_url || user.user_metadata?.picture;
+      if (googlePhotoUrl) {
+        setProfile(prev => ({
+          ...prev,
+          profile_image_url: googlePhotoUrl
+        }));
+      }
     }
   };
 

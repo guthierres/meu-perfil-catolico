@@ -380,7 +380,7 @@ export function PublicProfile({ slug }: PublicProfileProps) {
                     <div className="p-2 rounded-xl" style={{ backgroundColor: `${profile.secondary_color}20` }}>
                       <Music className="w-6 h-6" style={{ color: profile.secondary_color }} />
                     </div>
-                    <h3 className="text-xl font-bold text-gray-800">Músicas</h3>
+                    <h3 className="text-xl font-bold text-gray-800">Músicas Favoritas</h3>
                   </div>
                   <div className="space-y-6">
                     {profile.music_embeds.map((embed, index) => (

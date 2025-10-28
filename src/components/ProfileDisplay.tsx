@@ -387,7 +387,7 @@ export function ProfileDisplay({ onEdit }: ProfileDisplayProps) {
                     <div className="p-2 rounded-xl bg-gradient-to-br from-secondary/20 to-secondary/10">
                       <Music className="w-6 h-6" style={{ color: profile.secondary_color }} />
                     </div>
-                    <h3 className="text-xl font-bold text-foreground">Músicas</h3>
+                    <h3 className="text-xl font-bold text-foreground">Músicas Favoritas</h3>
                   </div>
                   <div className="space-y-6">
                     {profile.music_embeds.map((embed, index) => (

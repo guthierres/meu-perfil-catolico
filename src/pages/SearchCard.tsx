@@ -68,25 +68,25 @@ export default function SearchCard() {
           background: 'linear-gradient(135deg, hsl(var(--sacred-gold) / 0.08) 0%, hsl(var(--sacred-amber) / 0.12) 50%, hsl(var(--sacred-gold) / 0.08) 100%)',
         }}
       >
-      <div className="w-full max-w-md">
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-amber-500 to-orange-600 shadow-xl mb-4">
-            <Church className="w-10 h-10 text-white" strokeWidth={2} />
+      <div className="w-full max-w-md px-2 sm:px-0">
+        <div className="text-center mb-6 sm:mb-8">
+          <div className="inline-flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gradient-to-br from-amber-500 to-orange-600 shadow-xl mb-4">
+            <Church className="w-8 h-8 sm:w-10 sm:h-10 text-white" strokeWidth={2} />
           </div>
-          <h1 className="text-3xl font-bold mb-2" style={{ color: 'hsl(var(--sacred-brown))' }}>
+          <h1 className="text-2xl sm:text-3xl font-bold mb-2 px-4" style={{ color: 'hsl(var(--sacred-brown))' }}>
             Buscar Carteirinha
           </h1>
-          <p className="text-sm" style={{ color: 'hsl(var(--foreground) / 0.7)' }}>
+          <p className="text-sm px-4" style={{ color: 'hsl(var(--foreground) / 0.7)' }}>
             Digite o ID de 6 dígitos da carteirinha católica
           </p>
         </div>
 
-        <div className="rounded-3xl p-8 border-2 shadow-xl bg-white"
+        <div className="rounded-3xl p-4 sm:p-6 md:p-8 border-2 shadow-xl bg-white"
           style={{
             borderColor: 'hsl(var(--sacred-gold) / 0.3)'
           }}
         >
-          <form onSubmit={handleSearch} className="space-y-6">
+          <form onSubmit={handleSearch} className="space-y-4 sm:space-y-6">
             <div>
               <label htmlFor="cardId" className="block text-sm font-semibold mb-2"
                 style={{ color: 'hsl(var(--sacred-brown))' }}
@@ -105,14 +105,14 @@ export default function SearchCard() {
                   }}
                   placeholder="000000"
                   maxLength={6}
-                  className="w-full px-4 py-3 pr-12 text-2xl font-mono font-bold text-center rounded-xl border-2 focus:outline-none focus:ring-2 focus:ring-amber-500 tracking-widest"
+                  className="w-full px-3 sm:px-4 py-3 pr-10 sm:pr-12 text-xl sm:text-2xl font-mono font-bold text-center rounded-xl border-2 focus:outline-none focus:ring-2 focus:ring-amber-500 tracking-widest"
                   style={{
                     borderColor: error ? '#ef4444' : 'hsl(var(--sacred-gold) / 0.3)',
                     color: 'hsl(var(--sacred-brown))'
                   }}
                   disabled={loading}
                 />
-                <Search className="absolute right-4 top-1/2 -translate-y-1/2 w-6 h-6 opacity-40"
+                <Search className="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 w-5 h-5 sm:w-6 sm:h-6 opacity-40"
                   style={{ color: 'hsl(var(--sacred-brown))' }}
                 />
               </div>
@@ -127,10 +127,7 @@ export default function SearchCard() {
             <button
               type="submit"
               disabled={loading || cardId.length !== 6}
-              className="w-full flex items-center justify-center gap-2 px-6 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all text-base font-bold text-white disabled:opacity-50 disabled:cursor-not-allowed hover:scale-105 transform duration-200 active:scale-95"
-              style={{
-                background: 'linear-gradient(135deg, hsl(var(--sacred-gold)) 0%, hsl(var(--sacred-amber)) 100%)'
-              }}
+              className="w-full flex items-center justify-center gap-2 px-6 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all text-base font-bold text-white disabled:opacity-50 disabled:cursor-not-allowed hover:scale-105 transform duration-200 active:scale-95 bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700"
             >
               {loading ? (
                 <>
