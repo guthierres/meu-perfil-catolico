@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { Mail, Lock, Loader2, ArrowLeft, CheckCircle } from 'lucide-react';
 import { Header } from '../components/Header';
+import logCad from '@/assets/log-cad.webp';
 
 export function SignUpPage() {
   const navigate = useNavigate();
@@ -77,6 +78,14 @@ export function SignUpPage() {
               <ArrowLeft className="w-4 h-4" />
               Voltar
             </button>
+
+            <div className="flex justify-center mb-6">
+              <img 
+                src={logCad} 
+                alt="CATOLID" 
+                className="h-16 sm:h-20 w-auto object-contain"
+              />
+            </div>
 
             <h1 className="text-3xl font-bold text-center mb-2 bg-gradient-to-r from-amber-700 to-orange-700 bg-clip-text text-transparent">
               Cadastro

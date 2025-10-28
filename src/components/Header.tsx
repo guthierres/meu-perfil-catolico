@@ -1,4 +1,4 @@
-import logoHeader from '@/assets/logo-header.webp';
+import logoHeader from '@/assets/logo-cabe-2.webp';
 
 interface HeaderProps {
   onLogoClick?: () => void;
