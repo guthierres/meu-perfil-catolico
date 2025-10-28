@@ -36,6 +36,7 @@ function App() {
         
         {/* Protected routes */}
         <Route path="/perfil" element={<><SEO title="Meu Perfil - CATOLID" description="Visualize e gerencie seu perfil católico e carteirinha digital." /><ProfilePage /><Footer /></>} />
+        <Route path="/profile" element={<Navigate to="/perfil" replace />} />
         <Route path="/editar-perfil" element={<><SEO title="Editar Perfil - CATOLID" description="Personalize seu perfil católico e carteirinha digital." /><EditProfilePage /><Footer /></>} />
         <Route path="/completar-perfil" element={<><SEO title="Completar Perfil - CATOLID" description="Complete seu perfil católico com suas informações." /><CompleteProfilePage /><Footer /></>} />
         
