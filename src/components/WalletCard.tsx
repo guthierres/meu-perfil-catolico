@@ -66,32 +66,21 @@ export function WalletCard({ profile }: WalletCardProps) {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-4">
           <button
             onClick={handleDownload}
-            className="flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-2.5 sm:py-3.5 bg-white rounded-xl shadow-lg hover:shadow-xl transition-all text-xs sm:text-sm font-semibold border-2 hover:scale-105 transform duration-200 active:scale-95"
-            style={{
-              color: 'hsl(var(--sacred-brown))',
-              borderColor: 'hsl(var(--sacred-gold) / 0.4)'
-            }}
+            className="flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-2.5 sm:py-3.5 bg-gradient-to-r from-amber-600 to-orange-600 text-white rounded-xl shadow-lg hover:shadow-xl transition-all text-xs sm:text-sm font-semibold border-2 border-amber-700/50 hover:scale-105 transform duration-200 active:scale-95 hover:from-amber-700 hover:to-orange-700"
           >
             <Download className="w-4 h-4 sm:w-5 sm:h-5" />
             <span>Baixar</span>
           </button>
           <button
             onClick={handleShare}
-            className="flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-2.5 sm:py-3.5 bg-white rounded-xl shadow-lg hover:shadow-xl transition-all text-xs sm:text-sm font-semibold border-2 hover:scale-105 transform duration-200 active:scale-95"
-            style={{
-              color: 'hsl(var(--sacred-brown))',
-              borderColor: 'hsl(var(--sacred-gold) / 0.4)'
-            }}
+            className="flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-2.5 sm:py-3.5 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl shadow-lg hover:shadow-xl transition-all text-xs sm:text-sm font-semibold border-2 border-green-700/50 hover:scale-105 transform duration-200 active:scale-95 hover:from-green-700 hover:to-emerald-700"
           >
             <Share2 className="w-4 h-4 sm:w-5 sm:h-5" />
             <span>Compartilhar</span>
           </button>
           <button
             onClick={handleSaveToWallet}
-            className="flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-2.5 sm:py-3.5 rounded-xl shadow-lg hover:shadow-xl transition-all text-xs sm:text-sm font-semibold text-white hover:scale-105 transform duration-200 active:scale-95"
-            style={{
-              background: 'linear-gradient(135deg, hsl(var(--sacred-gold)) 0%, hsl(var(--sacred-amber)) 100%)'
-            }}
+            className="flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-2.5 sm:py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl shadow-lg hover:shadow-xl transition-all text-xs sm:text-sm font-semibold border-2 border-blue-700/50 hover:scale-105 transform duration-200 active:scale-95 hover:from-blue-700 hover:to-indigo-700"
           >
             <Wallet className="w-4 h-4 sm:w-5 sm:h-5" />
             <span className="whitespace-nowrap">Salvar na Carteira</span>
