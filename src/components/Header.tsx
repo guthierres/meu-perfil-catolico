@@ -32,7 +32,7 @@ export function Header({ onLogoClick }: HeaderProps) {
             href="/search"
             className="text-white/90 hover:text-white text-sm font-semibold px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 transition-all hover:scale-105"
           >
-            Buscar Carteirinha
+            Buscar
           </a>
         </div>
       </div>
