@@ -19,13 +19,13 @@ export function Header({ onLogoClick }: HeaderProps) {
     if (user) {
       const fetchProfile = async () => {
         const { data } = await supabase
-          .from('catholic_profiles')
-          .select('profile_photo')
+          .from('profiles')
+          .select('profile_image_url')
           .eq('user_id', user.id)
           .maybeSingle();
 
-        if (data?.profile_photo) {
-          setProfilePhoto(data.profile_photo);
+        if (data?.profile_image_url) {
+          setProfilePhoto(data.profile_image_url);
         }
       };
       fetchProfile();
