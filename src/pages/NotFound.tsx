@@ -1,88 +1,233 @@
-import { useLocation, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import { Home, Search } from "lucide-react";
-import { Button } from "../components/ui/button";
-import logoCad from "../assets/log-cad.webp";
+import { useState } from 'react';
+import { Search, Loader2, Church, AlertCircle, User } from 'lucide-react';
+import { supabase } from '../lib/supabase';
+import { Profile } from '../types/profile';
+import { getDisplayName } from '../lib/profileUtils';
+import { Header } from '../components/Header';
 
-const NotFound = () => {
-  const location = useLocation();
-  const navigate = useNavigate();
+export default function SearchCard() {
+  const [cardId, setCardId] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [foundProfile, setFoundProfile] = useState<Profile | null>(null);
 
-  useEffect(() => {
-    console.error("404 Error: User attempted to access non-existent route:", location.pathname);
-  }, [location.pathname]);
+  const handleSearch = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!cardId.trim()) {
+      setError('Digite um ID válido');
+      return;
+    }
+
+    if (!/^\d{6}$/.test(cardId.trim())) {
+      setError('O ID deve ter 6 dígitos');
+      return;
+    }
+
+    setLoading(true);
+    setError('');
+    setFoundProfile(null);
+
+    try {
+      const { data, error: searchError } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('card_id', cardId.trim())
+        .maybeSingle();
+
+      if (searchError) {
+        throw searchError;
+      }
+
+      if (!data) {
+        setError('Carteirinha não encontrada. Verifique o ID e tente novamente.');
+        return;
+      }
+
+      const profile = data as Profile;
+      setFoundProfile(profile);
+    } catch (err) {
+      console.error('Erro ao buscar carteirinha:', err);
+      setError('Erro ao buscar carteirinha. Tente novamente.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleViewProfile = () => {
+    if (foundProfile?.slug) {
+      window.location.href = `/p/${foundProfile.slug}`;
+    }
+  };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4" 
-      style={{ 
-        background: 'linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--muted)) 100%)' 
-      }}>
-      <div className="max-w-md w-full text-center space-y-8">
-        <div className="space-y-6">
-          <img 
-            src={logoCad} 
-            alt="CATOLID" 
-            className="w-32 h-32 mx-auto object-contain opacity-50"
-          />
-          
-          <div className="space-y-4">
-            <h1 
-              className="text-8xl font-bold animate-pulse"
-              style={{ color: 'hsl(var(--primary))' }}
+    <>
+      <Header />
+      <div className="min-h-screen flex items-center justify-center p-4"
+        style={{
+          background: 'linear-gradient(135deg, hsl(var(--sacred-gold) / 0.08) 0%, hsl(var(--sacred-amber) / 0.12) 50%, hsl(var(--sacred-gold) / 0.08) 100%)',
+        }}
+      >
+      <div className="w-full max-w-md">
+        <div className="text-center mb-8">
+          <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-amber-500 to-orange-600 shadow-xl mb-4">
+            <Church className="w-10 h-10 text-white" strokeWidth={2} />
+          </div>
+          <h1 className="text-3xl font-bold mb-2" style={{ color: 'hsl(var(--sacred-brown))' }}>
+            Buscar Carteirinha
+          </h1>
+          <p className="text-sm" style={{ color: 'hsl(var(--foreground) / 0.7)' }}>
+            Digite o ID de 6 dígitos da carteirinha católica
+          </p>
+        </div>
+
+        <div className="rounded-3xl p-8 border-2 shadow-xl bg-white"
+          style={{
+            borderColor: 'hsl(var(--sacred-gold) / 0.3)'
+          }}
+        >
+          <form onSubmit={handleSearch} className="space-y-6">
+            <div>
+              <label htmlFor="cardId" className="block text-sm font-semibold mb-2"
+                style={{ color: 'hsl(var(--sacred-brown))' }}
+              >
+                ID da Carteirinha
+              </label>
+              <div className="relative">
+                <input
+                  id="cardId"
+                  type="text"
+                  value={cardId}
+                  onChange={(e) => {
+                    const value = e.target.value.replace(/\D/g, '').slice(0, 6);
+                    setCardId(value);
+                    setError('');
+                  }}
+                  placeholder="000000"
+                  maxLength={6}
+                  className="w-full px-4 py-3 pr-12 text-2xl font-mono font-bold text-center rounded-xl border-2 focus:outline-none focus:ring-2 focus:ring-amber-500 tracking-widest"
+                  style={{
+                    borderColor: error ? '#ef4444' : 'hsl(var(--sacred-gold) / 0.3)',
+                    color: 'hsl(var(--sacred-brown))'
+                  }}
+                  disabled={loading}
+                />
+                <Search className="absolute right-4 top-1/2 -translate-y-1/2 w-6 h-6 opacity-40"
+                  style={{ color: 'hsl(var(--sacred-brown))' }}
+                />
+              </div>
+              {error && (
+                <div className="mt-2 flex items-center gap-2 text-sm text-red-600">
+                  <AlertCircle className="w-4 h-4 flex-shrink-0" />
+                  <span>{error}</span>
+                </div>
+              )}
+            </div>
+
+            <button
+              type="submit"
+              disabled={loading || cardId.length !== 6}
+              className="w-full flex items-center justify-center gap-2 px-6 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all text-base font-bold disabled:opacity-50 disabled:cursor-not-allowed hover:scale-105 transform duration-200 active:scale-95 bg-gradient-to-br from-orange-600 to-red-700" 
+              style={{ color: 'hsl(var(--sacred-brown))' }} // Alterado a cor do texto para o marrom escuro
             >
-              404
-            </h1>
-            <h2 
-              className="text-2xl font-semibold"
-              style={{ color: 'hsl(var(--foreground))' }}
+              {loading ? (
+                <>
+                  <Loader2 className="w-5 h-5 animate-spin" style={{ color: 'hsl(var(--sacred-brown))' }} />
+                  <span>Buscando...</span>
+                </>
+              ) : (
+                <>
+                  <Search className="w-5 h-5" style={{ color: 'hsl(var(--sacred-brown))' }} />
+                  <span>Buscar Carteirinha</span>
+                </>
+              )}
+            </button>
+          </form>
+
+          {foundProfile && (
+            <div className="mt-6 pt-6 border-t"
+              style={{ borderColor: 'hsl(var(--sacred-gold) / 0.2)' }}
             >
-              Página não encontrada
-            </h2>
-            <p 
-              className="text-base"
-              style={{ color: 'hsl(var(--muted-foreground))' }}
+              <button
+                onClick={handleViewProfile}
+                className="w-full p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-white to-amber-50/50 border-2 hover:scale-[1.02] transform active:scale-[0.98] group"
+                style={{
+                  borderColor: 'hsl(var(--sacred-gold) / 0.3)'
+                }}
+              >
+                <div className="flex items-center gap-4">
+                  {foundProfile.profile_image_url ? (
+                    <img
+                      src={foundProfile.profile_image_url}
+                      alt={foundProfile.full_name}
+                      className="w-20 h-20 rounded-full object-cover border-4 shadow-lg flex-shrink-0 group-hover:scale-110 transition-transform duration-300"
+                      style={{ borderColor: 'hsl(var(--sacred-gold))' }}
+                    />
+                  ) : (
+                    <div className="w-20 h-20 rounded-full flex items-center justify-center border-4 shadow-lg flex-shrink-0 group-hover:scale-110 transition-transform duration-300"
+                      style={{
+                        borderColor: 'hsl(var(--sacred-gold))',
+                        background: 'linear-gradient(135deg, hsl(var(--sacred-gold) / 0.2) 0%, hsl(var(--sacred-amber) / 0.2) 100%)'
+                      }}
+                    >
+                      <User className="w-10 h-10" style={{ color: 'hsl(var(--sacred-brown))' }} />
+                    </div>
+                  )}
+                  <div className="flex-1 text-left">
+                    <h3 className="text-xl font-bold mb-1 group-hover:text-amber-700 transition-colors" style={{ color: 'hsl(var(--sacred-brown))' }}>
+                      {getDisplayName(foundProfile.full_name || 'Sem nome', foundProfile.civil_status)}
+                    </h3>
+                    <p className="text-sm mb-2" style={{ color: 'hsl(var(--foreground) / 0.6)' }}>
+                      ID: {foundProfile.card_id}
+                    </p>
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold text-white"
+                      style={{
+                        background: 'linear-gradient(135deg, hsl(var(--sacred-gold)) 0%, hsl(var(--sacred-amber)) 100%)'
+                      }}
+                    >
+                      Ver Perfil Completo
+                      <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </button>
+            </div>
+          )}
+
+          <div className="mt-6 pt-6 border-t"
+            style={{ borderColor: 'hsl(var(--sacred-gold) / 0.2)' }}
+          >
+            <a
+              href="/"
+              className="w-full text-sm font-semibold hover:underline transition-colors block text-center"
+              style={{ color: 'hsl(var(--sacred-brown))' }}
             >
-              A página que você está procurando não existe ou foi movida.
-            </p>
+              Voltar para início
+            </a>
           </div>
         </div>
 
-        <div className="flex flex-col sm:flex-row gap-3 justify-center">
-          <Button
-            onClick={() => navigate('/')}
-            className="flex items-center gap-2 font-semibold"
-            style={{
-              background: 'linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--secondary)) 100%)',
-              color: 'hsl(var(--primary-foreground))'
-            }}
-          >
-            <Home className="w-4 h-4" />
-            Voltar ao Início
-          </Button>
-          
-          <Button
-            onClick={() => navigate('/search')}
-            variant="outline"
-            className="flex items-center gap-2 font-semibold"
-            style={{
-              borderColor: 'hsl(var(--primary))',
-              color: 'hsl(var(--primary))'
-            }}
-          >
-            <Search className="w-4 h-4" />
-            Buscar Carteirinha
-          </Button>
-        </div>
-
-        <p 
-          className="text-sm"
-          style={{ color: 'hsl(var(--muted-foreground))' }}
+        <div className="mt-6 rounded-2xl p-6 border-2 bg-white/80 backdrop-blur-sm"
+          style={{
+            borderColor: 'hsl(var(--sacred-gold) / 0.2)'
+          }}
         >
-          Caminho tentado: <span className="font-mono">{location.pathname}</span>
-        </p>
+          <h3 className="font-bold text-sm mb-3 flex items-center gap-2"
+            style={{ color: 'hsl(var(--sacred-brown))' }}
+          >
+            <span className="text-lg">💡</span>
+            <span>Como encontrar o ID?</span>
+          </h3>
+          <p className="text-xs leading-relaxed"
+            style={{ color: 'hsl(var(--foreground) / 0.7)' }}
+          >
+            O ID de 6 dígitos está localizado na parte inferior da carteirinha digital, logo acima do perfil digital. Use este número para encontrar e validar qualquer carteirinha católica.
+          </p>
+        </div>
       </div>
     </div>
+    </>
   );
-};
-
-export default NotFound;
+}

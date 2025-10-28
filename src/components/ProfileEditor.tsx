@@ -158,30 +158,30 @@ export function ProfileEditor({ onSave, onCancel }: ProfileEditorProps) {
   return (
     <>
       <Header />
-      <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-red-50 p-4 py-8">
+      <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-red-50 p-4 sm:p-6 py-6 sm:py-8">
       <div className="max-w-4xl mx-auto">
-        <div className="bg-white/90 backdrop-blur-sm rounded-3xl shadow-2xl p-6 md:p-8">
-          <div className="flex items-center gap-4 mb-8">
+        <div className="bg-white/90 backdrop-blur-sm rounded-2xl sm:rounded-3xl shadow-2xl p-4 sm:p-6 md:p-8">
+          <div className="flex items-center gap-3 sm:gap-4 mb-6 sm:mb-8">
             {onCancel && (
               <button
                 type="button"
                 onClick={onCancel}
-                className="p-2 hover:bg-gray-100 rounded-xl transition-colors"
+                className="p-2 hover:bg-gray-100 rounded-xl transition-colors flex-shrink-0"
                 aria-label="Voltar"
               >
-                <ArrowLeft className="w-6 h-6 text-gray-700" />
+                <ArrowLeft className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700" />
               </button>
             )}
-            <h2 className="text-3xl font-bold bg-gradient-to-r from-amber-700 to-orange-700 bg-clip-text text-transparent">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-amber-700 to-orange-700 bg-clip-text text-transparent">
               Editar Perfil Católico
             </h2>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="bg-blue-50 border-2 border-blue-200 rounded-xl p-4">
+          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+            <div className="bg-blue-50 border-2 border-blue-200 rounded-xl p-3 sm:p-4">
               <div className="flex items-center gap-2 mb-3">
-                <LinkIcon className="w-5 h-5 text-blue-700" />
-                <h3 className="text-lg font-semibold text-blue-900">Link Personalizado</h3>
+                <LinkIcon className="w-4 h-4 sm:w-5 sm:h-5 text-blue-700" />
+                <h3 className="text-base sm:text-lg font-semibold text-blue-900">Link Personalizado</h3>
               </div>
 
               <div className="space-y-2">
@@ -189,7 +189,7 @@ export function ProfileEditor({ onSave, onCancel }: ProfileEditorProps) {
                   type="text"
                   value={profile.slug || ''}
                   onChange={(e) => handleSlugChange(e.target.value)}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                  className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-base"
                   placeholder="seu-nome-unico"
                   required
                 />
@@ -222,7 +222,7 @@ export function ProfileEditor({ onSave, onCancel }: ProfileEditorProps) {
               </div>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-6">
+            <div className="grid sm:grid-cols-2 gap-4 sm:gap-6">
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">
                   Nome Completo
@@ -231,7 +231,7 @@ export function ProfileEditor({ onSave, onCancel }: ProfileEditorProps) {
                   type="text"
                   value={profile.full_name}
                   onChange={(e) => setProfile({ ...profile, full_name: e.target.value })}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent outline-none"
+                  className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent outline-none text-base"
                   placeholder="Seu nome completo"
                 />
               </div>
@@ -243,7 +243,7 @@ export function ProfileEditor({ onSave, onCancel }: ProfileEditorProps) {
                 <select
                   value={profile.civil_status || ''}
                   onChange={(e) => setProfile({ ...profile, civil_status: e.target.value as CivilStatus || null })}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent outline-none"
+                  className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent outline-none text-base"
                 >
                   <option value="">Selecione</option>
                   <option value="solteiro">Solteiro(a)</option>
@@ -264,7 +264,7 @@ export function ProfileEditor({ onSave, onCancel }: ProfileEditorProps) {
                   type="date"
                   value={profile.baptism_date || ''}
                   onChange={(e) => setProfile({ ...profile, baptism_date: e.target.value })}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent outline-none"
+                  className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent outline-none text-base"
                 />
               </div>
 
@@ -276,17 +276,17 @@ export function ProfileEditor({ onSave, onCancel }: ProfileEditorProps) {
                   type="text"
                   value={profile.parish}
                   onChange={(e) => setProfile({ ...profile, parish: e.target.value })}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent outline-none"
+                  className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent outline-none text-base"
                   placeholder="Nome da sua paróquia"
                 />
               </div>
 
-              <div className="md:col-span-2">
+              <div className="sm:col-span-2">
                 <label className="block text-sm font-semibold text-gray-700 mb-2">
                   Pastorais
                 </label>
                 <div className="space-y-3">
-                  <div className="flex gap-2">
+                  <div className="flex flex-col sm:flex-row gap-2">
                     <input
                       type="text"
                       value={newPastoral}
@@ -300,7 +300,7 @@ export function ProfileEditor({ onSave, onCancel }: ProfileEditorProps) {
                           }
                         }
                       }}
-                      className="flex-1 px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent outline-none"
+                      className="flex-1 px-3 sm:px-4 py-2.5 sm:py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent outline-none text-base"
                       placeholder="Nome da pastoral"
                     />
                     <button
@@ -311,7 +311,7 @@ export function ProfileEditor({ onSave, onCancel }: ProfileEditorProps) {
                           setNewPastoral('');
                         }
                       }}
-                      className="px-4 py-2 bg-amber-600 text-white rounded-xl hover:bg-amber-700 transition flex items-center gap-2"
+                      className="px-4 py-2.5 sm:py-2 bg-amber-600 text-white rounded-xl hover:bg-amber-700 transition flex items-center justify-center gap-2 whitespace-nowrap text-sm sm:text-base"
                     >
                       <Plus className="w-5 h-5" />
                       Adicionar
@@ -350,7 +350,7 @@ export function ProfileEditor({ onSave, onCancel }: ProfileEditorProps) {
                   type="text"
                   value={profile.priest_name}
                   onChange={(e) => setProfile({ ...profile, priest_name: e.target.value })}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent outline-none"
+                  className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent outline-none text-base"
                   placeholder="Padre..."
                 />
               </div>
@@ -363,7 +363,7 @@ export function ProfileEditor({ onSave, onCancel }: ProfileEditorProps) {
                   type="text"
                   value={profile.patron_saint}
                   onChange={(e) => setProfile({ ...profile, patron_saint: e.target.value })}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent outline-none"
+                  className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent outline-none text-base"
                   placeholder="Nome do santo"
                 />
               </div>
@@ -411,7 +411,7 @@ export function ProfileEditor({ onSave, onCancel }: ProfileEditorProps) {
                 type="text"
                 value={profile.inspiration_quote}
                 onChange={(e) => setProfile({ ...profile, inspiration_quote: e.target.value })}
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent outline-none"
+                className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent outline-none text-base"
                 placeholder="Sua frase inspiradora"
               />
             </div>
@@ -424,7 +424,7 @@ export function ProfileEditor({ onSave, onCancel }: ProfileEditorProps) {
                 type="text"
                 value={profile.quote_author}
                 onChange={(e) => setProfile({ ...profile, quote_author: e.target.value })}
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent outline-none"
+                className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent outline-none text-base"
                 placeholder="Nome do autor"
               />
             </div>
@@ -433,7 +433,7 @@ export function ProfileEditor({ onSave, onCancel }: ProfileEditorProps) {
               <label className="block text-sm font-semibold text-gray-700 mb-2">
                 Sacramentos Recebidos
               </label>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-3">
                 {[
                   { value: 'batismo', label: 'Batismo' },
                   { value: 'eucaristia', label: 'Eucaristia' },
@@ -443,7 +443,7 @@ export function ProfileEditor({ onSave, onCancel }: ProfileEditorProps) {
                 ].map((sacrament) => (
                   <label
                     key={sacrament.value}
-                    className="flex items-center gap-2 p-3 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100 transition"
+                    className="flex items-center gap-2 p-2.5 sm:p-3 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100 transition"
                   >
                     <input
                       type="checkbox"
@@ -472,25 +472,25 @@ export function ProfileEditor({ onSave, onCancel }: ProfileEditorProps) {
                 value={profile.bible_passage}
                 onChange={(e) => setProfile({ ...profile, bible_passage: e.target.value })}
                 rows={3}
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent outline-none resize-none"
+                className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent outline-none resize-none text-base"
                 placeholder="Sua passagem bíblica favorita"
               />
             </div>
 
-            <div className="border-t pt-6">
+            <div className="border-t pt-4 sm:pt-6">
               <div className="flex items-center gap-2 mb-4">
-                <Music className="w-5 h-5 text-amber-700" />
-                <h3 className="text-lg font-semibold text-gray-800">Músicas</h3>
+                <Music className="w-4 h-4 sm:w-5 sm:h-5 text-amber-700" />
+                <h3 className="text-base sm:text-lg font-semibold text-gray-800">Músicas</h3>
               </div>
 
               <div className="space-y-4">
-                <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
+                <div className="bg-blue-50 border border-blue-200 rounded-xl p-3 sm:p-4">
                   <div className="space-y-3">
                     <div className="flex gap-2">
                       <button
                         type="button"
                         onClick={() => setMusicType('spotify')}
-                        className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                        className={`flex-1 sm:flex-none px-3 sm:px-4 py-2 rounded-lg font-medium transition-colors text-sm sm:text-base ${
                           musicType === 'spotify'
                             ? 'bg-green-600 text-white'
                             : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
@@ -501,7 +501,7 @@ export function ProfileEditor({ onSave, onCancel }: ProfileEditorProps) {
                       <button
                         type="button"
                         onClick={() => setMusicType('youtube')}
-                        className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                        className={`flex-1 sm:flex-none px-3 sm:px-4 py-2 rounded-lg font-medium transition-colors text-sm sm:text-base ${
                           musicType === 'youtube'
                             ? 'bg-red-600 text-white'
                             : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
@@ -515,16 +515,16 @@ export function ProfileEditor({ onSave, onCancel }: ProfileEditorProps) {
                       type="text"
                       value={newMusicTitle}
                       onChange={(e) => setNewMusicTitle(e.target.value)}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                      className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-base"
                       placeholder="Título da música (opcional)"
                     />
 
-                    <div className="flex gap-2">
+                    <div className="flex flex-col sm:flex-row gap-2">
                       <input
                         type="url"
                         value={newMusicUrl}
                         onChange={(e) => setNewMusicUrl(e.target.value)}
-                        className="flex-1 px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                        className="flex-1 px-3 sm:px-4 py-2.5 sm:py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-base"
                         placeholder={musicType === 'spotify' ? 'URL do Spotify' : 'URL do YouTube'}
                       />
                       <button
@@ -541,7 +541,7 @@ export function ProfileEditor({ onSave, onCancel }: ProfileEditorProps) {
                             setNewMusicTitle('');
                           }
                         }}
-                        className="px-4 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition flex items-center gap-2"
+                        className="px-4 py-2.5 sm:py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition flex items-center justify-center gap-2 text-sm sm:text-base whitespace-nowrap"
                       >
                         <Plus className="w-5 h-5" />
                         Adicionar
@@ -568,13 +568,13 @@ export function ProfileEditor({ onSave, onCancel }: ProfileEditorProps) {
               </div>
             </div>
 
-            <div className="border-t pt-6">
+            <div className="border-t pt-4 sm:pt-6">
               <div className="flex items-center gap-2 mb-4">
-                <Palette className="w-5 h-5 text-amber-700" />
-                <h3 className="text-lg font-semibold text-gray-800">Personalização Visual</h3>
+                <Palette className="w-4 h-4 sm:w-5 sm:h-5 text-amber-700" />
+                <h3 className="text-base sm:text-lg font-semibold text-gray-800">Personalização Visual</h3>
               </div>
 
-              <div className="grid md:grid-cols-2 gap-6 mb-6">
+              <div className="grid sm:grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6">
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-2">
                     Cor Primária
@@ -605,7 +605,7 @@ export function ProfileEditor({ onSave, onCancel }: ProfileEditorProps) {
                   <button
                     type="button"
                     onClick={() => setProfile({ ...profile, background_type: 'gradient' })}
-                    className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                    className={`flex-1 sm:flex-none px-3 sm:px-4 py-2 rounded-lg font-medium transition-colors text-sm sm:text-base ${
                       profile.background_type === 'gradient' || profile.background_type === 'custom-gradient'
                         ? 'bg-blue-600 text-white'
                         : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
@@ -616,7 +616,7 @@ export function ProfileEditor({ onSave, onCancel }: ProfileEditorProps) {
                   <button
                     type="button"
                     onClick={() => setProfile({ ...profile, background_type: 'image' })}
-                    className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                    className={`flex-1 sm:flex-none px-3 sm:px-4 py-2 rounded-lg font-medium transition-colors text-sm sm:text-base ${
                       profile.background_type === 'image'
                         ? 'bg-blue-600 text-white'
                         : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
@@ -674,7 +674,7 @@ export function ProfileEditor({ onSave, onCancel }: ProfileEditorProps) {
             <button
               type="submit"
               disabled={loading || slugAvailable === false}
-              className="w-full bg-gradient-to-r from-amber-600 to-orange-600 text-white py-4 rounded-xl font-semibold hover:from-amber-700 hover:to-orange-700 transition shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className="w-full bg-gradient-to-r from-amber-600 to-orange-600 text-white py-3 sm:py-4 rounded-xl font-semibold hover:from-amber-700 hover:to-orange-700 transition shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 text-base"
             >
               <Save className="w-5 h-5" />
               {loading ? 'Salvando...' : 'Salvar Perfil'}

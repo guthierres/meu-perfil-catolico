@@ -14,9 +14,9 @@ interface MusicEmbedProps {
 
 const extractSpotifyId = (url: string): string | null => {
   const patterns = [
-    /spotify\.com\/track\/([a-zA-Z0-9]+)/,
-    /spotify\.com\/playlist\/([a-zA-Z0-9]+)/,
-    /spotify\.com\/album\/([a-zA-Z0-9]+)/,
+    /spotify\.com\/(?:intl-[a-z]{2}\/)?track\/([a-zA-Z0-9]+)/,
+    /spotify\.com\/(?:intl-[a-z]{2}\/)?playlist\/([a-zA-Z0-9]+)/,
+    /spotify\.com\/(?:intl-[a-z]{2}\/)?album\/([a-zA-Z0-9]+)/,
   ];
 
   for (const pattern of patterns) {
@@ -41,9 +41,9 @@ const extractYoutubeId = (url: string): string | null => {
 };
 
 const getSpotifyType = (url: string): string => {
-  if (url.includes('/track/')) return 'track';
-  if (url.includes('/playlist/')) return 'playlist';
-  if (url.includes('/album/')) return 'album';
+  if (/\/track\//.test(url)) return 'track';
+  if (/\/playlist\//.test(url)) return 'playlist';
+  if (/\/album\//.test(url)) return 'album';
   return 'track';
 };
 

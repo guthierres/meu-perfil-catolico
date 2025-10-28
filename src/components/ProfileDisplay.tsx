@@ -94,31 +94,31 @@ export function ProfileDisplay({ onEdit }: ProfileDisplayProps) {
           className="min-h-screen backdrop-blur-sm"
           style={{ backgroundColor: `rgba(0, 0, 0, ${overlayOpacity})` }}
         >
-        <div className="max-w-2xl mx-auto px-4 py-8">
-          <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg p-4 mb-6">
+        <div className="max-w-2xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
+          <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg p-3 sm:p-4 mb-4 sm:mb-6">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="bg-gradient-to-br from-amber-600 to-orange-700 p-2 rounded-xl">
-                  <Cross className="w-6 h-6 text-white" />
+              <div className="flex items-center gap-2 sm:gap-3">
+                <div className="bg-gradient-to-br from-amber-600 to-orange-700 p-2 rounded-xl flex-shrink-0">
+                  <Cross className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                 </div>
                 <div>
-                  <h1 className="text-xl font-bold bg-gradient-to-r from-amber-700 to-orange-700 bg-clip-text text-transparent">
+                  <h1 className="text-lg sm:text-xl font-bold bg-gradient-to-r from-amber-700 to-orange-700 bg-clip-text text-transparent">
                     ID Católico
                   </h1>
                   <p className="text-xs text-gray-600">Meu Perfil</p>
                 </div>
               </div>
-              <div className="flex gap-2">
+              <div className="flex gap-1.5 sm:gap-2">
                 <button
                   onClick={onEdit}
-                  className="bg-white px-4 py-2 rounded-xl font-semibold hover:bg-gray-50 transition shadow-sm flex items-center gap-2 text-gray-800"
+                  className="bg-white px-3 sm:px-4 py-2 rounded-xl font-semibold hover:bg-gray-50 transition shadow-sm flex items-center gap-2 text-gray-800 text-sm sm:text-base"
                 >
                   <Edit className="w-4 h-4" />
                   <span className="hidden sm:inline">Editar</span>
                 </button>
                 <button
                   onClick={signOut}
-                  className="bg-white px-4 py-2 rounded-xl font-semibold hover:bg-gray-50 transition shadow-sm flex items-center gap-2 text-gray-800"
+                  className="bg-white px-3 sm:px-4 py-2 rounded-xl font-semibold hover:bg-gray-50 transition shadow-sm flex items-center gap-2 text-gray-800 text-sm sm:text-base"
                 >
                   <LogOut className="w-4 h-4" />
                   <span className="hidden sm:inline">Sair</span>
@@ -136,9 +136,9 @@ export function ProfileDisplay({ onEdit }: ProfileDisplayProps) {
           {activeTab === 'wallet' ? (
             <WalletCard profile={profile} />
           ) : (
-            <div className="bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl overflow-hidden">
+            <div className="bg-white/95 backdrop-blur-sm rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden">
             {profile.cover_image_url && (
-              <div className="h-48 md:h-64 overflow-hidden relative">
+              <div className="h-40 sm:h-48 md:h-64 overflow-hidden relative">
                 <img
                   src={profile.cover_image_url}
                   alt="Capa"
@@ -148,11 +148,11 @@ export function ProfileDisplay({ onEdit }: ProfileDisplayProps) {
               </div>
             )}
 
-            <div className="relative px-6 pb-8">
+            <div className="relative px-4 sm:px-6 pb-6 sm:pb-8">
               {profile.profile_image_url ? (
-                <div className={`${profile.cover_image_url ? '-mt-20' : 'mt-8'} mb-6 flex justify-center`}>
+                <div className={`${profile.cover_image_url ? '-mt-16 sm:-mt-20' : 'mt-6 sm:mt-8'} mb-4 sm:mb-6 flex justify-center`}>
                   <div
-                    className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 shadow-xl"
+                    className="w-28 h-28 sm:w-32 sm:h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 shadow-xl"
                     style={{ borderColor: profile.primary_color }}
                   >
                     <img
@@ -163,12 +163,12 @@ export function ProfileDisplay({ onEdit }: ProfileDisplayProps) {
                   </div>
                 </div>
               ) : (
-                <div className="pt-8"></div>
+                <div className="pt-6 sm:pt-8"></div>
               )}
 
-              <div className="text-center mb-8">
+              <div className="text-center mb-6 sm:mb-8">
                 <h1
-                  className="text-3xl md:text-4xl font-bold mb-2"
+                  className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2"
                   style={{ color: profile.primary_color }}
                 >
                   {getDisplayName(profile.full_name, profile.civil_status)}
@@ -186,9 +186,9 @@ export function ProfileDisplay({ onEdit }: ProfileDisplayProps) {
                 </div>
               </div>
 
-              <div className="grid gap-4 mb-8">
+              <div className="grid gap-3 sm:gap-4 mb-6 sm:mb-8">
                 {profile.baptism_date && (
-                  <div className="group relative overflow-hidden rounded-2xl p-6 bg-gradient-to-br from-card via-card to-muted/20 border border-border shadow-sm hover:shadow-md transition-all duration-300">
+                  <div className="group relative overflow-hidden rounded-xl sm:rounded-2xl p-4 sm:p-6 bg-gradient-to-br from-card via-card to-muted/20 border border-border shadow-sm hover:shadow-md transition-all duration-300">
                     <div className="flex items-start gap-4">
                       <div className="p-3 rounded-xl bg-gradient-to-br from-primary/10 to-primary/5 group-hover:from-primary/20 group-hover:to-primary/10 transition-colors">
                         <Calendar
@@ -212,7 +212,7 @@ export function ProfileDisplay({ onEdit }: ProfileDisplayProps) {
                 )}
 
                 {profile.parish && (
-                  <div className="group relative overflow-hidden rounded-2xl p-6 bg-gradient-to-br from-card via-card to-muted/20 border border-border shadow-sm hover:shadow-md transition-all duration-300">
+                  <div className="group relative overflow-hidden rounded-xl sm:rounded-2xl p-4 sm:p-6 bg-gradient-to-br from-card via-card to-muted/20 border border-border shadow-sm hover:shadow-md transition-all duration-300">
                     <div className="flex items-start gap-4">
                       <div className="p-3 rounded-xl bg-gradient-to-br from-primary/10 to-primary/5 group-hover:from-primary/20 group-hover:to-primary/10 transition-colors">
                         <Church
@@ -230,7 +230,7 @@ export function ProfileDisplay({ onEdit }: ProfileDisplayProps) {
                 )}
 
                 {profile.pastorals && profile.pastorals.length > 0 && (
-                  <div className="group relative overflow-hidden rounded-2xl p-6 bg-gradient-to-br from-card via-card to-muted/20 border border-border shadow-sm hover:shadow-md transition-all duration-300">
+                  <div className="group relative overflow-hidden rounded-xl sm:rounded-2xl p-4 sm:p-6 bg-gradient-to-br from-card via-card to-muted/20 border border-border shadow-sm hover:shadow-md transition-all duration-300">
                     <div className="flex items-start gap-4">
                       <div className="p-3 rounded-xl bg-gradient-to-br from-secondary/10 to-secondary/5 group-hover:from-secondary/20 group-hover:to-secondary/10 transition-colors">
                         <Sparkles
@@ -260,7 +260,7 @@ export function ProfileDisplay({ onEdit }: ProfileDisplayProps) {
                 )}
 
                 {profile.priest_name && (
-                  <div className="group relative overflow-hidden rounded-2xl p-6 bg-gradient-to-br from-card via-card to-muted/20 border border-border shadow-sm hover:shadow-md transition-all duration-300">
+                  <div className="group relative overflow-hidden rounded-xl sm:rounded-2xl p-4 sm:p-6 bg-gradient-to-br from-card via-card to-muted/20 border border-border shadow-sm hover:shadow-md transition-all duration-300">
                     <div className="flex items-start gap-4">
                       <div className="p-3 rounded-xl bg-gradient-to-br from-secondary/10 to-secondary/5 group-hover:from-secondary/20 group-hover:to-secondary/10 transition-colors">
                         <Cross
@@ -278,7 +278,7 @@ export function ProfileDisplay({ onEdit }: ProfileDisplayProps) {
                 )}
 
                 {profile.sacraments && profile.sacraments.length > 0 && (
-                  <div className="group relative overflow-hidden rounded-2xl p-6 bg-gradient-to-br from-card via-card to-muted/20 border border-border shadow-sm hover:shadow-md transition-all duration-300">
+                  <div className="group relative overflow-hidden rounded-xl sm:rounded-2xl p-4 sm:p-6 bg-gradient-to-br from-card via-card to-muted/20 border border-border shadow-sm hover:shadow-md transition-all duration-300">
                     <div className="flex items-start gap-4">
                       <div className="p-3 rounded-xl bg-gradient-to-br from-secondary/10 to-secondary/5 group-hover:from-secondary/20 group-hover:to-secondary/10 transition-colors">
                         <Award
@@ -309,7 +309,7 @@ export function ProfileDisplay({ onEdit }: ProfileDisplayProps) {
               </div>
 
               {(profile.patron_saint || profile.saint_image_url) && (
-                <div className="group relative overflow-hidden rounded-3xl p-8 mb-8 bg-gradient-to-br from-card via-primary/5 to-secondary/5 border-2 border-border shadow-lg hover:shadow-xl transition-all duration-300">
+                <div className="group relative overflow-hidden rounded-2xl sm:rounded-3xl p-6 sm:p-8 mb-6 sm:mb-8 bg-gradient-to-br from-card via-primary/5 to-secondary/5 border-2 border-border shadow-lg hover:shadow-xl transition-all duration-300">
                   <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                   <div className="relative">
                     <div className="flex items-center gap-3 mb-6">
@@ -345,7 +345,7 @@ export function ProfileDisplay({ onEdit }: ProfileDisplayProps) {
               )}
 
               {profile.inspiration_quote && (
-                <div className="group relative overflow-hidden rounded-3xl p-8 mb-6 bg-gradient-to-br from-card via-secondary/5 to-primary/5 border-l-4 shadow-lg hover:shadow-xl transition-all duration-300"
+                <div className="group relative overflow-hidden rounded-2xl sm:rounded-3xl p-6 sm:p-8 mb-6 bg-gradient-to-br from-card via-secondary/5 to-primary/5 border-l-4 shadow-lg hover:shadow-xl transition-all duration-300"
                   style={{ borderColor: profile.secondary_color }}
                 >
                   <div className="absolute top-0 left-0 text-[120px] font-serif text-secondary/5 leading-none">"</div>
@@ -364,7 +364,7 @@ export function ProfileDisplay({ onEdit }: ProfileDisplayProps) {
               )}
 
               {profile.bible_passage && (
-                <div className="group relative overflow-hidden rounded-3xl p-8 mb-6 bg-gradient-to-br from-card via-primary/5 to-secondary/5 border-l-4 shadow-lg hover:shadow-xl transition-all duration-300"
+                <div className="group relative overflow-hidden rounded-2xl sm:rounded-3xl p-6 sm:p-8 mb-6 bg-gradient-to-br from-card via-primary/5 to-secondary/5 border-l-4 shadow-lg hover:shadow-xl transition-all duration-300"
                   style={{ borderColor: profile.primary_color }}
                 >
                   <div className="flex items-center gap-3 mb-6">
@@ -380,7 +380,7 @@ export function ProfileDisplay({ onEdit }: ProfileDisplayProps) {
               )}
 
               {profile.music_embeds && profile.music_embeds.length > 0 && (
-                <div className="group relative overflow-hidden rounded-3xl p-8 bg-gradient-to-br from-card via-secondary/5 to-primary/5 border-l-4 shadow-lg hover:shadow-xl transition-all duration-300"
+                <div className="group relative overflow-hidden rounded-2xl sm:rounded-3xl p-6 sm:p-8 bg-gradient-to-br from-card via-secondary/5 to-primary/5 border-l-4 shadow-lg hover:shadow-xl transition-all duration-300"
                   style={{ borderColor: profile.secondary_color }}
                 >
                   <div className="flex items-center gap-3 mb-6">
