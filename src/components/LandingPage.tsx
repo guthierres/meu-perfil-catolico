@@ -1,7 +1,6 @@
 import { useState } from 'react';
-import { Cross, Users, Share2, CheckCircle, ArrowRight, Music, Palette, Sparkles, Search, Loader2 } from 'lucide-react';
+import { Users, Share2, CheckCircle, ArrowRight, Music, Palette, Sparkles, Search, Loader2 } from 'lucide-react';
 import { supabase } from '../lib/supabase';
-import { Profile } from '../types/profile';
 import { Header } from './Header';
 
 interface LandingPageProps {
