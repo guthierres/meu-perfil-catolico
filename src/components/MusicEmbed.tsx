@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { ExternalLink, Music } from 'lucide-react';
 
 export interface MusicEmbedData {
@@ -41,17 +41,9 @@ const extractYoutubeId = (url: string): string | null => {
   return null;
 };
 
-const getSpotifyType = (url: string): string => {
-  if (/\/track\//.test(url)) return 'track';
-  if (/\/playlist\//.test(url)) return 'playlist';
-  if (/\/album\//.test(url)) return 'album';
-  return 'track';
-};
-
 export const MusicEmbed: React.FC<MusicEmbedProps> = ({ embed, onRemove, editable = false }) => {
   if (embed.type === 'spotify') {
     const spotifyId = extractSpotifyId(embed.url);
-    const spotifyType = getSpotifyType(embed.url);
 
     if (!spotifyId) {
       return (

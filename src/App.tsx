@@ -5,6 +5,7 @@ import { LandingPage } from './components/LandingPage';
 import { LoginPage } from './pages/LoginPage';
 import { SignUpPage } from './pages/SignUpPage';
 import { ForgotPasswordPage } from './pages/ForgotPasswordPage';
+import { ResetPasswordPage } from './pages/ResetPasswordPage';
 import { ProfilePage } from './pages/ProfilePage';
 import { EditProfilePage } from './pages/EditProfilePage';
 import { CompleteProfilePage } from './pages/CompleteProfilePage';
@@ -33,6 +34,7 @@ function App() {
         <Route path="/login" element={<><SEO title="Entrar - CATOLID" description="Faça login no CATOLID e acesse sua carteirinha católica digital." /><LoginPage /><Footer /></>} />
         <Route path="/cadastro" element={<><SEO title="Cadastro - CATOLID" description="Crie sua carteirinha católica digital gratuitamente." /><SignUpPage /><Footer /></>} />
         <Route path="/recuperar-senha" element={<><SEO title="Recuperar Senha - CATOLID" description="Recupere o acesso à sua conta CATOLID." /><ForgotPasswordPage /><Footer /></>} />
+        <Route path="/redefinir-senha" element={<><SEO title="Redefinir Senha - CATOLID" description="Defina sua nova senha de acesso." /><ResetPasswordPage /><Footer /></>} />
         
         {/* Protected routes */}
         <Route path="/perfil" element={<><SEO title="Meu Perfil - CATOLID" description="Visualize e gerencie seu perfil católico e carteirinha digital." /><ProfilePage /><Footer /></>} />

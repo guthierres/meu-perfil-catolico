@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { Menu, X, Search, LogIn, User, LogOut } from 'lucide-react';
-import logoHeader from '@/assets/logo-cabe-2.webp';
-import { useAuth } from '@/contexts/AuthContext';
-import { supabase } from '@/lib/supabase';
+import logoHeader from '../assets/logo-cabe-2.webp';
+import { useAuth } from '../contexts/AuthContext';
+import { supabase } from '../lib/supabase';
 
 interface HeaderProps {
   onLogoClick?: () => void;
