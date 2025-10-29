@@ -1,5 +1,5 @@
 import React from 'react';
-import { ExternalLink, Music } from 'lucide-react';
+import { Music } from 'lucide-react';
 
 export interface MusicEmbedData {
   type: 'spotify' | 'youtube';
@@ -13,16 +13,16 @@ interface MusicEmbedProps {
   editable?: boolean;
 }
 
-const extractSpotifyId = (url: string): string | null => {
+const extractSpotifyData = (url: string): { id: string; type: 'track' | 'playlist' | 'album' } | null => {
   const patterns = [
-    /spotify\.com\/(?:intl-[a-z]{2}\/)?track\/([a-zA-Z0-9]+)/,
-    /spotify\.com\/(?:intl-[a-z]{2}\/)?playlist\/([a-zA-Z0-9]+)/,
-    /spotify\.com\/(?:intl-[a-z]{2}\/)?album\/([a-zA-Z0-9]+)/,
+    { regex: /spotify\.com\/(?:intl-[a-z]{2}\/)?track\/([a-zA-Z0-9]+)/, type: 'track' as const },
+    { regex: /spotify\.com\/(?:intl-[a-z]{2}\/)?playlist\/([a-zA-Z0-9]+)/, type: 'playlist' as const },
+    { regex: /spotify\.com\/(?:intl-[a-z]{2}\/)?album\/([a-zA-Z0-9]+)/, type: 'album' as const },
   ];
 
   for (const pattern of patterns) {
-    const match = url.match(pattern);
-    if (match) return match[1];
+    const match = url.match(pattern.regex);
+    if (match) return { id: match[1], type: pattern.type };
   }
   return null;
 };
@@ -43,48 +43,50 @@ const extractYoutubeId = (url: string): string | null => {
 
 export const MusicEmbed: React.FC<MusicEmbedProps> = ({ embed, onRemove, editable = false }) => {
   if (embed.type === 'spotify') {
-    const spotifyId = extractSpotifyId(embed.url);
+    const spotifyData = extractSpotifyData(embed.url);
 
-    if (!spotifyId) {
+    if (!spotifyData) {
       return (
-        <div className="bg-red-50 border border-red-200 rounded-lg p-4 text-red-600">
+        <div className="bg-destructive/10 border border-destructive/20 rounded-lg p-4 text-destructive">
           URL do Spotify inválida
         </div>
       );
     }
+
+    const embedUrl = `https://open.spotify.com/embed/${spotifyData.type}/${spotifyData.id}`;
 
     return (
       <div className="relative group">
         {editable && onRemove && (
           <button
             onClick={onRemove}
-            className="absolute -top-2 -right-2 z-10 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-red-600"
+            className="absolute -top-2 -right-2 z-10 bg-destructive text-destructive-foreground rounded-full w-6 h-6 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-destructive/90 shadow-lg"
             title="Remover música"
           >
             ×
           </button>
         )}
-        <a
-          href={embed.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="block bg-gradient-to-br from-green-50 to-green-100 border-2 border-green-400 rounded-lg p-6 hover:shadow-xl hover:scale-[1.02] transition-all duration-200 group"
-        >
-          <div className="flex items-center gap-4">
-            <div className="bg-green-500 p-3 rounded-xl flex-shrink-0 group-hover:bg-green-600 transition-colors">
-              <Music className="w-8 h-8 text-white" />
+        <div className="bg-card border border-border rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300">
+          {embed.title && (
+            <div className="px-4 py-3 bg-muted/50 border-b border-border">
+              <div className="flex items-center gap-2">
+                <Music className="w-4 h-4 text-primary" />
+                <p className="text-sm font-semibold text-foreground truncate">{embed.title}</p>
+              </div>
             </div>
-            <div className="flex-1 min-w-0">
-              {embed.title && (
-                <p className="text-lg font-bold text-gray-800 mb-1 truncate">{embed.title}</p>
-              )}
-              <p className="text-sm text-green-700 font-semibold flex items-center gap-2">
-                <span>Ouvir no Spotify</span>
-                <ExternalLink className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </p>
-            </div>
+          )}
+          <div className="p-2">
+            <iframe
+              src={embedUrl}
+              className="w-full rounded-lg"
+              height="152"
+              frameBorder="0"
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+              loading="lazy"
+              title={embed.title || 'Spotify Player'}
+            />
           </div>
-        </a>
+        </div>
       </div>
     );
   }
@@ -94,7 +96,7 @@ export const MusicEmbed: React.FC<MusicEmbedProps> = ({ embed, onRemove, editabl
 
     if (!youtubeId) {
       return (
-        <div className="bg-red-50 border border-red-200 rounded-lg p-4 text-red-600">
+        <div className="bg-destructive/10 border border-destructive/20 rounded-lg p-4 text-destructive">
           URL do YouTube inválida
         </div>
       );
@@ -105,16 +107,16 @@ export const MusicEmbed: React.FC<MusicEmbedProps> = ({ embed, onRemove, editabl
         {editable && onRemove && (
           <button
             onClick={onRemove}
-            className="absolute -top-2 -right-2 z-10 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-red-600"
+            className="absolute -top-2 -right-2 z-10 bg-destructive text-destructive-foreground rounded-full w-6 h-6 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-destructive/90 shadow-lg"
             title="Remover vídeo"
           >
             ×
           </button>
         )}
-        <div className="bg-white rounded-lg shadow-md overflow-hidden">
+        <div className="bg-card border border-border rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300">
           {embed.title && (
-            <div className="px-4 py-2 bg-gray-50 border-b border-gray-200">
-              <p className="text-sm font-medium text-gray-700">{embed.title}</p>
+            <div className="px-4 py-3 bg-muted/50 border-b border-border">
+              <p className="text-sm font-semibold text-foreground">{embed.title}</p>
             </div>
           )}
           <div className="relative" style={{ paddingBottom: '56.25%' }}>
@@ -125,6 +127,7 @@ export const MusicEmbed: React.FC<MusicEmbedProps> = ({ embed, onRemove, editabl
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
               loading="lazy"
+              title={embed.title || 'YouTube Video'}
             />
           </div>
         </div>
