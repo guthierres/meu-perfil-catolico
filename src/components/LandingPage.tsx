@@ -1,16 +1,45 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Users, Share2, CheckCircle, ArrowRight, Music, Palette, Sparkles, Search, Loader2 } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import { Header } from './Header';
+import { Avatar, AvatarImage, AvatarFallback } from './ui/avatar';
 
 interface LandingPageProps {
   onGetStarted: () => void;
+}
+
+interface RecentProfile {
+  slug: string;
+  full_name: string;
+  profile_image_url: string;
 }
 
 export function LandingPage({ onGetStarted }: LandingPageProps) {
   const [searchId, setSearchId] = useState('');
   const [searching, setSearching] = useState(false);
   const [searchError, setSearchError] = useState('');
+  const [recentProfiles, setRecentProfiles] = useState<RecentProfile[]>([]);
+
+  useEffect(() => {
+    const fetchRecentProfiles = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('profiles')
+          .select('slug, full_name, profile_image_url')
+          .not('slug', 'is', null)
+          .not('full_name', 'is', null)
+          .order('created_at', { ascending: false })
+          .limit(8);
+
+        if (error) throw error;
+        if (data) setRecentProfiles(data);
+      } catch (err) {
+        console.error('Erro ao buscar perfis recentes:', err);
+      }
+    };
+
+    fetchRecentProfiles();
+  }, []);
 
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -259,7 +288,7 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
           </div>
         </div>
 
-        <div className="text-center space-y-6">
+        <div className="text-center space-y-6 mb-20">
           <button
             onClick={onGetStarted}
             className="group inline-flex items-center gap-4 bg-gradient-to-r from-amber-700 via-orange-700 to-amber-800 text-white px-14 py-6 rounded-2xl font-bold text-xl hover:from-amber-800 hover:via-orange-800 hover:to-amber-900 transition-all duration-300 shadow-2xl hover:shadow-3xl transform hover:scale-105 relative overflow-hidden"
@@ -273,6 +302,54 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
           </button>
           <p className="text-gray-700 font-semibold text-lg">✨ É grátis e leva menos de 5 minutos • catolid.com</p>
         </div>
+
+        {recentProfiles.length > 0 && (
+          <div className="mb-20">
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 bg-gradient-to-r from-amber-800 to-orange-700 bg-clip-text text-transparent">
+              Últimos Cadastros
+            </h2>
+            <p className="text-center text-gray-600 mb-10 max-w-2xl mx-auto">
+              Conheça os católicos que acabaram de se juntar à nossa comunidade
+            </p>
+
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-6">
+              {recentProfiles.map((profile, index) => (
+                <a
+                  key={profile.slug}
+                  href={`/p/${profile.slug}`}
+                  className="group flex flex-col items-center space-y-3 p-6 bg-white/95 backdrop-blur-md rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border-2 border-amber-100/50 hover:border-amber-300 relative overflow-hidden"
+                  style={{ animationDelay: `${index * 100}ms` }}
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-amber-50/50 to-orange-50/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  
+                  <div className="relative">
+                    <div className="absolute inset-0 bg-gradient-to-br from-amber-400/30 to-orange-400/30 rounded-full blur-xl group-hover:blur-2xl transition-all duration-500 opacity-0 group-hover:opacity-100"></div>
+                    <Avatar className="relative w-20 h-20 md:w-24 md:h-24 ring-4 ring-amber-200/50 group-hover:ring-amber-400/80 transition-all duration-500 group-hover:scale-110 shadow-xl">
+                      <AvatarImage 
+                        src={profile.profile_image_url || undefined} 
+                        alt={profile.full_name}
+                        className="object-cover"
+                      />
+                      <AvatarFallback className="bg-gradient-to-br from-amber-500 to-orange-500 text-white font-bold text-2xl">
+                        {profile.full_name.charAt(0).toUpperCase()}
+                      </AvatarFallback>
+                    </Avatar>
+                  </div>
+
+                  <div className="relative text-center space-y-1">
+                    <h3 className="font-bold text-gray-800 text-sm md:text-base line-clamp-2 group-hover:text-amber-700 transition-colors">
+                      {profile.full_name}
+                    </h3>
+                    <div className="flex items-center justify-center gap-1 text-xs text-amber-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <span>Ver perfil</span>
+                      <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+                    </div>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
     </>
