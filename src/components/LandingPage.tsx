@@ -29,7 +29,7 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
           .not('slug', 'is', null)
           .not('full_name', 'is', null)
           .order('created_at', { ascending: false })
-          .limit(8);
+          .limit(5);
 
         if (error) throw error;
         if (data) setRecentProfiles(data);
@@ -312,36 +312,36 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
               Conheça os católicos que acabaram de se juntar à nossa comunidade
             </p>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-6">
+            <div className="flex flex-wrap justify-center gap-4 md:gap-6">
               {recentProfiles.map((profile, index) => (
                 <a
                   key={profile.slug}
                   href={`/p/${profile.slug}`}
-                  className="group flex flex-col items-center space-y-3 p-6 bg-white/95 backdrop-blur-md rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border-2 border-amber-100/50 hover:border-amber-300 relative overflow-hidden"
+                  className="group flex flex-col items-center space-y-2 p-4 bg-white/95 backdrop-blur-md rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border-2 border-amber-100/50 hover:border-amber-300 relative overflow-hidden w-28 md:w-32"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
                   <div className="absolute inset-0 bg-gradient-to-br from-amber-50/50 to-orange-50/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   
                   <div className="relative">
                     <div className="absolute inset-0 bg-gradient-to-br from-amber-400/30 to-orange-400/30 rounded-full blur-xl group-hover:blur-2xl transition-all duration-500 opacity-0 group-hover:opacity-100"></div>
-                    <Avatar className="relative w-20 h-20 md:w-24 md:h-24 ring-4 ring-amber-200/50 group-hover:ring-amber-400/80 transition-all duration-500 group-hover:scale-110 shadow-xl">
+                    <Avatar className="relative w-16 h-16 md:w-20 md:h-20 ring-4 ring-amber-200/50 group-hover:ring-amber-400/80 transition-all duration-500 group-hover:scale-110 shadow-xl">
                       <AvatarImage 
                         src={profile.profile_image_url || undefined} 
                         alt={profile.full_name}
                         className="object-cover"
                       />
-                      <AvatarFallback className="bg-gradient-to-br from-amber-500 to-orange-500 text-white font-bold text-2xl">
+                      <AvatarFallback className="bg-gradient-to-br from-amber-500 to-orange-500 text-white font-bold text-lg">
                         {profile.full_name.charAt(0).toUpperCase()}
                       </AvatarFallback>
                     </Avatar>
                   </div>
 
                   <div className="relative text-center space-y-1">
-                    <h3 className="font-bold text-gray-800 text-sm md:text-base line-clamp-2 group-hover:text-amber-700 transition-colors">
+                    <h3 className="font-bold text-gray-800 text-xs md:text-sm line-clamp-2 group-hover:text-amber-700 transition-colors">
                       {profile.full_name}
                     </h3>
                     <div className="flex items-center justify-center gap-1 text-xs text-amber-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <span>Ver perfil</span>
+                      <span>Ver</span>
                       <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
                     </div>
                   </div>
